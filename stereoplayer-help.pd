@@ -1,0 +1,21 @@
+#N canvas 529 113 379 405 10;
+#X obj 142 112 dac~;
+#X obj 33 15 r player;
+#X msg 114 142 \; player vol 0.5 \;;
+#X msg 113 175 \; player vol 0.3 \;;
+#X msg 112 213 \; player play 1 \;;
+#X msg 110 286 \; player loop 1 \;;
+#X msg 111 246 \; player play 0 \;;
+#X msg 110 319 \; player loop 0 \;;
+#X obj 33 51 stereoplayer;
+#X obj 33 131 meter;
+#X obj 276 135 meter;
+#X msg 254 352 \; pd dsp \$1 \;;
+#X obj 254 328 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X connect 1 0 8 0;
+#X connect 8 0 0 0;
+#X connect 8 0 9 0;
+#X connect 8 1 0 1;
+#X connect 8 1 10 0;
+#X connect 12 0 11 0;

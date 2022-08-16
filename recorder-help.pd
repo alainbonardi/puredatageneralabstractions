@@ -1,0 +1,19 @@
+#N canvas 780 169 461 515 10;
+#X obj 401 407 dac~;
+#X obj 35 444 recorder;
+#X obj 59 38 osc~ 880;
+#X obj 125 37 osc~ 2;
+#X obj 101 86 *~;
+#X obj 101 109 *~ 0.4;
+#X obj 193 360 meter;
+#X msg 221 101 \; pd dsp \$1 \;;
+#X obj 221 77 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X connect 2 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 5 0 0 1;
+#X connect 5 0 1 0;
+#X connect 5 0 0 0;
+#X connect 5 0 6 0;
+#X connect 8 0 7 0;

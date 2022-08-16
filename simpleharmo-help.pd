@@ -1,0 +1,21 @@
+#N canvas 375 357 562 438 10;
+#X obj 201 211 dac~;
+#X obj 130 49 player;
+#X obj 129 131 simpleharmo;
+#X obj 452 107 r harmo;
+#X msg 270 260 \; harmo transpo 386 \; harmo window 50 \; harmo vol
+0.6 \;;
+#X msg 269 334 \; harmo transpo -386 \; harmo window 2000 \; harmo
+vol 0.6 \;;
+#X obj 65 208 meter;
+#X obj 129 208 meter;
+#X msg 440 312 \; pd dsp \$1 \;;
+#X obj 440 288 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X connect 1 0 0 1;
+#X connect 1 0 2 0;
+#X connect 1 0 6 0;
+#X connect 2 0 0 0;
+#X connect 2 0 7 0;
+#X connect 3 0 2 1;
+#X connect 9 0 8 0;

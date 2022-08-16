@@ -1,0 +1,9 @@
+#N canvas 854 262 400 419 10;
+#X obj 51 46 multisource;
+#X obj 38 275 dac~;
+#X msg 302 255 \; pd dsp 0 \;;
+#X msg 302 294 \; pd dsp 1 \;;
+#X obj 113 230 meter;
+#X connect 0 0 1 0;
+#X connect 0 0 1 1;
+#X connect 0 0 4 0;

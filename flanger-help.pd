@@ -1,0 +1,34 @@
+#N canvas 573 251 664 735 10;
+#X obj 238 406 flanger;
+#X obj 621 384 r flg;
+#X text 287 465 glissando voix;
+#X obj 190 477 dac~;
+#X msg 285 485 \; flg rate 0.15 \; flg depth 500 \; flg shift 5 \;
+flg fdbk 0.6 \; flg vol 0.7 \;;
+#X text 183 549 dry;
+#X text 390 590 vibrato;
+#X text 463 590 vibrato+ épaississement;
+#X text 265 593 2nd voix filtrée;
+#X msg 392 484 \; flg rate 0.05 \; flg depth 1500 \; flg shift 5 \;
+flg fdbk 0.6 \; flg vol 0.7 \;;
+#X msg 176 570 \; flg rate 1 \; flg depth 0 \; flg shift 0 \; flg fdbk
+0 \; flg vol 0.7 \;;
+#X msg 390 614 \; flg rate 2 \; flg depth 5 \; flg shift 0 \; flg fdbk
+1 \; flg vol 0.7 \;;
+#X msg 276 613 \; flg rate 200 \; flg depth 10 \; flg shift 5 \; flg
+fdbk 0.6 \; flg vol 0.7 \;;
+#X msg 483 614 \; flg rate 2 \; flg depth 5 \; flg shift 5 \; flg dbk
+1 \; flg vol 0.7 \;;
+#X obj 215 42 looper;
+#X msg 504 299 \; pd dsp \$1 \;;
+#X obj 504 275 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 29 471 meter;
+#X obj 91 471 meter;
+#X connect 0 0 3 1;
+#X connect 0 0 18 0;
+#X connect 1 0 0 1;
+#X connect 14 0 3 0;
+#X connect 14 0 0 0;
+#X connect 14 0 17 0;
+#X connect 16 0 15 0;
