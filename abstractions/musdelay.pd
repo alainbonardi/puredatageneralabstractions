@@ -1,30 +1,28 @@
-#N canvas 671 83 545 760 12;
+#N canvas 671 83 545 760 10;
 #X text 318 292 Feedback (0-1);
 #X obj 325 407 line~ 0;
 #X obj 325 346 clip 0 1;
 #X obj 305 501 *~;
 #X obj 54 17 inlet~;
-#X floatatom 105 125 5 0 32 1 duration_(musical_u.) - -;
-#X floatatom 105 177 5 1 1000 1 - - -;
-#X floatatom 308 125 5 0 0.99999 1 fdbk - -;
+#X floatatom 105 118 5 0 32 1 duration_(musical_u.) - - 0;
+#X floatatom 105 170 5 1 1000 1 - - - 0;
+#X floatatom 288 118 5 0 0.99999 1 fdbk - - 0;
 #X obj 111 684 outlet~;
 #X obj 105 17 inlet;
 #X obj 111 651 *~;
 #X obj 254 591 line~;
 #X msg 254 538 \$1 20;
-#X obj 309 158 hsl 64 15 0 1 0 0 empty empty vol -2 -8 0 10 -262144
--1 -1 0 1;
+#X obj 289 151 hsl 64 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1;
 #X msg 325 376 \$1 20;
 #X obj 105 58 route duration tempo fdbk vol;
-#X obj 108 158 hsl 128 15 1 1000 0 0 empty empty tempo -2 -8 0 10 -262144
--1 -1 375 1;
-#X floatatom 306 178 5 0 0 0 - - -;
+#X obj 108 151 hsl 128 15 1 1000 0 0 empty empty tempo -2 -8 0 10 #fcfcfc #000000 #000000 0 1;
+#X floatatom 286 171 5 0 0 0 - - - 0;
 #X msg 409 45 1;
 #X msg 449 46 60;
 #X obj 430 10 loadbang;
 #X obj 111 262 expr $f1 * 60000 / $f2;
-#X floatatom 111 286 5 0 0 0 - - -;
-#X obj 192 209 t b f;
+#X floatatom 111 286 5 0 0 0 - - - 0;
+#X obj 192 202 t b f;
 #X obj 54 566 delwrite~ \$0-musdel 30000;
 #X obj 112 383 delread~ \$0-musdel;
 #X connect 1 0 3 1;
@@ -56,4 +54,4 @@
 #X connect 23 1 21 1;
 #X connect 25 0 3 0;
 #X connect 25 0 10 0;
-#X coords 0 -1 1 1 280 100 1 100 100;
+#X coords 0 -1 1 1 260 90 1 100 100;

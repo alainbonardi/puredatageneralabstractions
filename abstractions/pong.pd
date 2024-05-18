@@ -1,4 +1,4 @@
-#N canvas 475 137 701 674 12;
+#N canvas 475 137 701 674 10;
 #X obj 163 463 *~;
 #X floatatom 103 157 5 50 10000 1 freq_(Hz) - -;
 #X floatatom 218 157 5 1 5000 1 release_(ms) - -;

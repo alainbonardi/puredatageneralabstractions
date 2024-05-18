@@ -3,28 +3,20 @@
 #X obj 137 78 pong;
 #X obj 720 29 loadbang;
 #X msg 139 483 \; pd dsp \$1 \;;
-#X obj 139 459 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
+#X obj 139 459 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 138 273 meter;
 #X obj 448 372 meter;
-#X obj 450 53 r pong;
+#X obj 147 46 r pong;
 #X obj 449 205 musdelay;
 #X obj 722 164 r musdel;
 #X text 19 105 click to trigger==>;
-#X msg 720 60 \; pong freq 880 \; pong attack 5 \; pong release 200
-\; pong vol 0.2 \; musdel vol 0.8 \;;
-#X msg 568 345 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration
-1 \; musdel fdbk 0 \;;
-#X msg 568 411 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration
-1 \; musdel fdbk 0.5 \;;
-#X msg 568 478 \; musdel fdbk 0 \; musdel tempo 120 \; musdel duration
-1 \; musdel fdbk 0.5 \;;
-#X msg 703 344 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration
-1 \; musdel fdbk 0.95 \;;
-#X msg 704 410 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration
-0.5 \; musdel fdbk 0.95 \;;
-#X msg 705 478 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration
-0.25 \; musdel fdbk 0.95 \;;
+#X msg 720 60 \; pong freq 880 \; pong attack 5 \; pong release 200 \; pong vol 0.2 \; musdel vol 0.8 \;;
+#X msg 568 345 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration 1 \; musdel fdbk 0 \;;
+#X msg 568 411 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration 1 \; musdel fdbk 0.5 \;;
+#X msg 568 478 \; musdel fdbk 0 \; musdel tempo 120 \; musdel duration 1 \; musdel fdbk 0.5 \;;
+#X msg 703 344 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration 1 \; musdel fdbk 0.95 \;;
+#X msg 704 410 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration 0.5 \; musdel fdbk 0.95 \;;
+#X msg 705 478 \; musdel fdbk 0 \; musdel tempo 1000 \; musdel duration 0.25 \; musdel fdbk 0.95 \;;
 #X connect 1 0 5 0;
 #X connect 1 0 0 0;
 #X connect 1 0 8 0;

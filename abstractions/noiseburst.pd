@@ -1,4 +1,4 @@
-#N canvas 933 260 409 406 12;
+#N canvas 933 260 409 406 10;
 #X obj 41 49 noise~;
 #X obj 149 20 inlet;
 #X floatatom 149 91 5 0 0 0 freq - - 0;

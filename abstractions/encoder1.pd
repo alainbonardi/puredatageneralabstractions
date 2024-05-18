@@ -1,4 +1,4 @@
-#N canvas 1197 432 591 619 12;
+#N canvas 1197 432 591 619 10;
 #X obj 69 30 inlet~;
 #X text 15 29 signal;
 #X obj 74 495 outlet~;
