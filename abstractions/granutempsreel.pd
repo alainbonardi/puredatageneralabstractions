@@ -28,12 +28,11 @@
 #X floatatom 110 154 5 0 5000 1 delay_max_(ms) - - 0;
 #X floatatom 292 154 5 0 0.99999 1 fdbk - - 0;
 #X obj 597 792 outlet~;
-#X obj 108 17 inlet;
+#X obj 109 17 inlet;
 #X obj 597 759 *~;
 #X obj 666 727 line~;
 #X msg 666 674 \$1 20;
-#X obj 425 130 hsl 64 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc
-#000000 #000000 0 1;
+#X obj 425 130 hsl 64 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 109 58 route grainduration rarefaction delay fdbk vol;
 #X msg 482 504 \$1 20;
 #X obj 599 19 loadbang;
