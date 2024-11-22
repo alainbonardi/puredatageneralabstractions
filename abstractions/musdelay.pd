@@ -6,7 +6,7 @@
 #X obj 54 17 inlet~;
 #X floatatom 105 118 5 0 32 1 duration_(musical_u.) - - 0;
 #X floatatom 105 170 5 1 1000 1 - - - 0;
-#X floatatom 288 118 5 0 0.99999 1 fdbk - - 0;
+#X floatatom 244 150 5 0 0.99999 1 fdbk - - 0;
 #X obj 107 684 outlet~;
 #X obj 105 17 inlet;
 #X msg 315 376 \$1 20;
@@ -43,4 +43,4 @@
 #X connect 18 1 16 1;
 #X connect 20 0 3 0;
 #X connect 20 0 8 0;
-#X coords 0 -1 1 1 260 90 1 100 100;
+#X coords 0 -1 1 1 210 90 1 100 100;

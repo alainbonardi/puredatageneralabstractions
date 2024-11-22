@@ -1,4 +1,4 @@
-#N canvas 699 271 892 566 10;
+#N canvas 308 244 892 566 10;
 #X obj 378 352 dac~;
 #X obj 137 78 pong;
 #X obj 720 29 loadbang;
@@ -6,9 +6,9 @@
 #X obj 139 459 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 138 273 meter;
 #X obj 448 372 meter;
-#X obj 147 46 r pong;
+#X obj 450 46 r pong;
 #X obj 449 205 musdelay;
-#X obj 722 164 r musdel;
+#X obj 652 171 r musdel;
 #X text 19 105 click to trigger==>;
 #X msg 568 345 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration 1 \; musdel fdbk 0 \;;
 #X msg 568 411 \; musdel fdbk 0 \; musdel tempo 60 \; musdel duration 1 \; musdel fdbk 0.5 \;;

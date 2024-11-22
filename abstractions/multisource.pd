@@ -1,6 +1,6 @@
-#N canvas 315 57 588 241 10;
+#N canvas 315 57 746 471 10;
 #X obj 25 175 outlet~;
-#N canvas 0 22 181 233 gain~ 0;
+#N canvas 63 100 181 233 gain~ 0;
 #X obj 62 92 dbtorms;
 #X msg 62 115 \$1 20;
 #X obj 62 140 line~;
@@ -18,20 +18,16 @@
 #X connect 6 0 3 0;
 #X restore 25 143 pd gain~;
 #N canvas 616 32 493 257 noise.gui 0;
-#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-noiselowpass \$0-noiselowpassi
-empty 0 -8 0 10 -262144 -1 -1 22050 256;
-#X obj 122 31 nbx 5 14 0 20 0 0 \$0-noisepulserate \$0-noisepulseratei
-empty 0 -8 0 10 -262144 -1 -1 3 256;
+#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-noiselowpass \$0-noiselowpassi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
+#X obj 122 31 nbx 5 14 0 20 0 0 \$0-noisepulserate \$0-noisepulseratei empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
 #X obj 12 83 loadbang;
 #X msg 12 105 3;
 #X obj 12 127 s \$0-noisepulseratei;
 #X obj 139 127 s \$0-noiselowpassi;
 #X msg 139 105 22050;
-#X obj 192 31 nbx 5 14 0 10 0 0 \$0-noisepulseratio \$0-noisepulseratioi
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+#X obj 192 31 nbx 5 14 0 10 0 0 \$0-noisepulseratio \$0-noisepulseratioi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
 #X obj 255 127 s \$0-noisepulseratioi;
-#X obj 15 31 tgl 14 0 \$0-noisestate \$0-noisestatei empty 17 7 0 10
--262144 -1 -1 0 1;
+#X obj 15 31 tgl 14 0 \$0-noisestate \$0-noisestatei empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X text 13 12 Noise;
 #X msg 388 104 1;
 #X obj 388 127 s \$0-noisestatei;
@@ -103,16 +99,12 @@ empty 0 -8 0 10 -262144 -1 -1 0 256;
 #X connect 15 0 14 1;
 #X restore 25 12 pd noise.process~;
 #N canvas 616 32 493 257 sinus.gui 0;
-#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-sinusfreq \$0-sinusfreqi empty
-0 -8 0 10 -262144 -1 -1 220 256;
-#X obj 122 31 nbx 5 14 0 20 0 0 \$0-sinuspulserate \$0-sinuspulseratei
-empty 0 -8 0 10 -262144 -1 -1 3 256;
+#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-sinusfreq \$0-sinusfreqi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
+#X obj 122 31 nbx 5 14 0 20 0 0 \$0-sinuspulserate \$0-sinuspulseratei empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
 #X obj 12 83 loadbang;
 #X msg 12 105 3;
-#X obj 192 31 nbx 5 14 0 10 0 0 \$0-sinuspulseratio \$0-sinuspulseratioi
-empty 0 -8 0 10 -262144 -1 -1 0 256;
-#X obj 15 31 tgl 14 0 \$0-sinusstate \$0-sinusstatei empty 17 7 0 10
--262144 -1 -1 0 1;
+#X obj 192 31 nbx 5 14 0 10 0 0 \$0-sinuspulseratio \$0-sinuspulseratioi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
+#X obj 15 31 tgl 14 0 \$0-sinusstate \$0-sinusstatei empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 35 229 s \$0-globalstate;
 #X obj 165 163 r \$0-globalstate;
 #X msg 192 206 set 0;
@@ -186,16 +178,12 @@ empty 0 -8 0 10 -262144 -1 -1 0 256;
 #X connect 14 0 0 0;
 #X restore 35 35 pd sinus.process~;
 #N canvas 616 32 493 257 saw.gui 0;
-#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-sawfreq \$0-sawfreqi empty 0
--8 0 10 -262144 -1 -1 220 256;
-#X obj 122 31 nbx 5 14 0 20 0 0 \$0-sawpulserate \$0-sawpulseratei
-empty 0 -8 0 10 -262144 -1 -1 3 256;
+#X obj 52 31 nbx 5 14 0 22050 0 0 \$0-sawfreq \$0-sawfreqi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
+#X obj 122 31 nbx 5 14 0 20 0 0 \$0-sawpulserate \$0-sawpulseratei empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
 #X obj 12 83 loadbang;
 #X msg 12 105 3;
-#X obj 192 31 nbx 5 14 0 10 0 0 \$0-sawpulseratio \$0-sawpulseratioi
-empty 0 -8 0 10 -262144 -1 -1 0 256;
-#X obj 15 31 tgl 14 0 \$0-sawstate \$0-sawstatei empty 17 7 0 10 -262144
--1 -1 0 1;
+#X obj 192 31 nbx 5 14 0 10 0 0 \$0-sawpulseratio \$0-sawpulseratioi empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
+#X obj 15 31 tgl 14 0 \$0-sawstate \$0-sawstatei empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 35 229 s \$0-globalstate;
 #X obj 165 163 r \$0-globalstate;
 #X msg 192 206 set 0;
@@ -280,8 +268,7 @@ empty 0 -8 0 10 -262144 -1 -1 0 256;
 #X obj 80 130 list prepend set open;
 #X obj 6 209 readsf~ 1, f 21;
 #X obj 129 230 bang;
-#X msg 33 178 open /Users/Pierre/GitHub/Cours/2016-2017/CES/Sounds/Sound3.wav
-;
+#X msg 33 178 open /Users/Pierre/GitHub/Cours/2016-2017/CES/Sounds/Sound3.wav;
 #X obj 80 80 r \$0-sfopen;
 #X obj 6 130 r \$0-sfplay;
 #X obj 144 250 r \$0-sfloop;
@@ -303,19 +290,15 @@ empty 0 -8 0 10 -262144 -1 -1 0 256;
 #X connect 14 0 5 1;
 #X restore 59 84 pd sf.process~;
 #N canvas 822 38 493 257 sf.gui 0;
-#X obj 15 31 tgl 14 0 \$0-sfstate \$0-sfstatei empty 17 7 0 10 -262144
--1 -1 0 1;
+#X obj 15 31 tgl 14 0 \$0-sfstate \$0-sfstatei empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 35 229 s \$0-globalstate;
 #X obj 165 163 r \$0-globalstate;
 #X msg 192 206 set 0;
 #X obj 35 207 f -1;
 #X obj 35 185 sel 0 1;
-#X obj 74 31 bng 14 250 50 0 \$0-sfopen \$0-dummmy empty 17 7 0 10
--262144 -1 -1;
-#X obj 104 31 tgl 14 0 \$0-sfplay \$0-sfplayi empty 17 7 0 10 -262144
--1 -1 0 1;
-#X obj 165 31 tgl 14 0 \$0-sfloop \$0-dummmy empty 17 7 0 10 -262144
--1 -1 0 1;
+#X obj 74 31 bng 14 250 50 0 \$0-sfopen \$0-dummmy empty 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 104 31 tgl 14 0 \$0-sfplay \$0-sfplayi empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 165 31 tgl 14 0 \$0-sfloop \$0-dummmy empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X text 71 12 Open;
 #X text 101 12 Play/Stop;
 #X text 161 12 Loop;
@@ -336,13 +319,11 @@ empty 0 -8 0 10 -262144 -1 -1 0 256;
 #X restore 250 170 pd sf.gui;
 #N canvas 0 22 283 336 volume.gui 0;
 #X obj 19 8 receive~ \$0-output;
-#X obj 17 168 nbx 4 15 0 120 0 0 \$0-gain \$0-gaini empty 0 -8 0 10
--262144 -1 -1 0 256;
+#X obj 17 168 nbx 4 15 0 120 0 0 \$0-gain \$0-gaini empty 0 -8 0 10 #fcfcfc #000000 #000000 0 256;
 #X text 16 34 Gain dB;
 #X obj 226 7 loadbang;
 #X msg 226 33 0;
-#X obj 48 75 vsl 14 79 0 120 0 0 \$0-gaini \$0-gaini2 empty 0 -9 0
-10 -262144 -1 -1 0 1;
+#X obj 48 75 vsl 14 79 0 120 0 0 \$0-gaini \$0-gaini2 empty 0 -9 0 10 #fcfcfc #000000 #000000 0 1;
 #X msg 16 206 set \$1;
 #X obj -3 232 s \$0-gaini2;
 #X connect 1 0 6 0;
