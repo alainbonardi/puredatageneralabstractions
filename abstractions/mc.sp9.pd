@@ -21,7 +21,7 @@
 #X obj 435 208 *~;
 #X obj 290 523 +~;
 #X obj 327 561 +~;
-#X obj 14 6 cnv 15 500 25 empty empty mc.scalaraproduct9 20 12 0 18 #606060 #fcfcfc 0;
+#X obj 14 6 cnv 15 500 25 empty empty mc.sp9 20 12 0 18 #606060 #fcfcfc 0;
 #X obj 14 32 cnv 15 500 25 empty empty multichannel\ scalar\ product\ of\ two\ buses\ of\ 9\ signals 20 12 0 12 #606060 #fcfcfc 0;
 #X obj 12 662 pdga_helpcredit;
 #X connect 0 0 16 0;

@@ -9,7 +9,7 @@
 #X obj 96 151 snake~ out 3;
 #X obj 192 89 inlet~;
 #X obj 192 151 snake~ out 3;
-#X obj 14 6 cnv 15 500 25 empty empty mc.scalaraproduct3 20 12 0 18 #606060 #fcfcfc 0;
+#X obj 14 6 cnv 15 500 25 empty empty mc.sp3 20 12 0 18 #606060 #fcfcfc 0;
 #X obj 14 32 cnv 15 500 25 empty empty multichannel\ scalar\ product\ of\ two\ buses\ of\ 3\ signals 20 12 0 12 #606060 #fcfcfc 0;
 #X obj 12 486 pdga_helpcredit;
 #X connect 0 0 7 0;
