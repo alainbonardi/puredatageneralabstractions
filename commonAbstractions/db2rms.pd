@@ -1,12 +1,12 @@
 #N canvas 595 41 574 329 10;
 #X obj 14 6 cnv 15 500 25 empty empty db2rms 20 12 0 18 #606060 #fcfcfc 0;
 #X obj 14 32 cnv 15 500 25 empty empty dB\ to\ rms\ conversion\ with\ 20\ msec\ interpolation 20 12 0 12 #606060 #fcfcfc 0;
-#X obj 24 87 inlet;
-#X obj 24 108 route amp;
-#X msg 24 132 \$1 20;
+#X obj 24 78 inlet;
+#X obj 24 99 route amp;
+#X msg 24 120 \$1 20;
 #X obj 24 209 dbtorms;
 #X floatatom 24 230 13 0 0 0 - - - 0;
-#X obj 24 161 line -100;
+#X obj 24 142 line -100;
 #X obj 24 184 + 100;
 #X obj 24 260 outlet;
 #X obj 12 292 pdga_helpcredit;
