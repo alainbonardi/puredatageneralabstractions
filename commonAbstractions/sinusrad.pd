@@ -1,0 +1,13 @@
+#N canvas 885 42 261 246 10;
+#X obj 46 27 inlet;
+#X text 88 26 angle in degrees;
+#X obj 47 195 outlet;
+#X obj 47 87 / 360;
+#X obj 47 108 * 6.28319;
+#X obj 47 129 sin;
+#X text 111 107 angle in radians;
+#X text 79 128 sinus;
+#X connect 0 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 2 0;
