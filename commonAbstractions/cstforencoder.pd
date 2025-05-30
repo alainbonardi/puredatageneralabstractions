@@ -1,4 +1,4 @@
-#N canvas 695 73 558 436 10;
+#N canvas 50 50 600 500 10;
 #X obj 46 27 inlet;
 #X text 88 26 ambisonic order N;
 #X floatatom 46 48 5 0 0 0 - - - 0;
@@ -14,8 +14,9 @@
 #X obj 316 27 inlet;
 #X text 355 27 LS index between 0 and 2*N+1;
 #X floatatom 316 48 5 0 0 0 - - - 0;
-#X obj 49 390 outlet~;
+#X obj 48 390 outlet~;
 #X obj 180 390 outlet~;
+#X obj 10 450 pdga_helpcredit;
 #X connect 0 0 2 0;
 #X connect 2 0 5 0;
 #X connect 2 0 7 0;

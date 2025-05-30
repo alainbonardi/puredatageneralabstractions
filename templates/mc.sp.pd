@@ -1,0 +1,5 @@
+#N canvas 50 50 600 600 10;
+#X obj 25 25 inlet~;
+#X obj 125 25 inlet~;
+#X obj 75 450 outlet~;
+#X obj 10 550 pdga_helpcredit;

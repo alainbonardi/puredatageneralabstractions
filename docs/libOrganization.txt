@@ -1,0 +1,10 @@
+List of abstractions with dependancies
+Level 0 (no dependancy)
+cstforencoder.pd
+db2rms.pd
+db2amp
+gt~.pd
+mc.sp3
+
+sectormix.pd
+Level 1
