@@ -15,20 +15,34 @@ _______________________________________________________
 """
 leftMargin = 25
 topMargin = 25
-d1 = 50
-d2 = 100
-d3 = 150
+dx = 100
+dy = 100
 maxAmbiOrder = 7
 patchMiddleCanvas = '#N canvas 50 50 600 600 10;'
 patchMiddleCredits = '#X obj 10 550 pdga_helpcredit;'
-xObj = '#X obj'
+commonComment = ' Common abstractions generated - '
+xObj = '#X obj '
+xText = '#X text '
+xConnect = '#X connect '
+xMsg = '#X msg '
+xFloat = '#X floatatom '
+xFloat2 = '5 0 0 0 - - - 0;\n'
+
+def getPx(ix):
+    px = leftMargin + ix * dx
+    return px
+
+def getPy(iy):
+    py = topMargin + iy * dy
+    return py
 
 print("________________________________________________")
 print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTIONS FOLDER")
-rootPath = filedialog.askdirectory()
-#print(rootPath)
-destLibDir = rootPath+'/generated_pdga_abstractions'
-#print(destLibDir)
+#choose a folder
+#rootPath = filedialog.askdirectory()
+#destLibDir = rootPath+'/generated_pdga_abstractions'
+destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_pdga_abstractions'
+#
 if os.path.exists(destLibDir):
     print("Existing directory containing the original generated abstractions, the previous one is deleted")
     shutil.rmtree(destLibDir)
@@ -37,23 +51,74 @@ os.mkdir(destLibDir)
 
 #
 print("________________________________________________")
-print("STEP#1-1 GENERATING SCALAR PRODUCT PATCHES")
+print("STEP#01 GENERATING SCALAR PRODUCT ABSTRACTIONS")
 for i in range (2*maxAmbiOrder+1):
     ind = i + 1
     #opens a Pure Data file for the mc.sp#ind.pd abstraction
     fileName = destLibDir+'/mc.sp'+str(ind)+".pd"
-    #print(fileName)
     f = open(fileName, 'w')
     #writes the lines of the mc.sp#ind.pd Pure Data abstraction
+    #writes the objects
     f.write(patchMiddleCanvas+'\n')
     f.write(patchMiddleCredits+'\n')
-    f.write(xObj+' '+str(leftMargin)+' '+str(topMargin)+' inlet~;\n')
-    f.write(xObj+' '+str(leftMargin+d2)+' '+str(topMargin)+' inlet~;\n')
-    f.write(xObj+' '+str(leftMargin)+' '+str(topMargin+4*d2)+' outlet~;\n')
-    f.write(xObj+' '+str(leftMargin)+' '+str(topMargin+d2)+' snake~ out '+str(ind)+';\n')
-    f.write(xObj+' '+str(leftMargin+d2)+' '+str(topMargin+d2)+' snake~ out '+str(ind)+';\n')
-    #writes the *~
+    #line 0 - comment
+    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.sp#ind.pd;\n')
+    #line 1
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
+    in1_id = 2
+    f.write(xObj+str(getPx(1))+' '+str(getPy(1))+' inlet~;\n')
+    in2_id = 3
+    #line 5
+    f.write(xObj+str(getPx(0))+' '+str(getPy(5))+' outlet~;\n')
+    out_id = 4
+    #line 2
+    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' snake~ out '+str(ind)+';\n')
+    snake1_id = 5
+    f.write(xObj+str(getPx(1))+' '+str(getPy(2))+' snake~ out '+str(ind)+';\n')
+    snake2_id = 6
+    #writes the *~ on the line 4
     for j in range(ind):
-        ind2 = j + 1
-        
+        #the ids of the *~ are between 7 and 7+ind-1
+        f.write(xObj+str(getPx(j))+' '+str(getPy(4))+' *~;\n')
+    mult_id = 7
+    #writes the connections
+    #connects the inlets to the snake~ out
+    f.write(xConnect+str(in1_id)+' 0 '+str(snake1_id)+' 0;\n')
+    f.write(xConnect+str(in2_id)+' 0 '+str(snake2_id)+' 0;\n')
+    #connects the snake~ out to the *~~
+    #connects the *~ to the outlet~
+    for j in range(ind):
+        f.write(xConnect+str(snake1_id)+' '+str(j)+' '+str(mult_id+j)+' 0;\n')
+        f.write(xConnect+str(snake2_id)+' '+str(j)+' '+str(mult_id+j)+' 1;\n')
+        f.write(xConnect+str(mult_id+j)+' 0 '+str(out_id)+' 0;\n')
+    f.close()
+#
+print("________________________________________________")
+print("STEP#01 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
+for i in range (maxAmbiOrder):
+    ind = i + 1
+    #opens a Pure Data file for the mc.cstencoder#ind.pd abstraction
+    fileName = destLibDir+'/mc.cstencoder'+str(ind)+".pd"
+    f = open(fileName, 'w')
+    #writes the lines of the mc.cstencoder#ind.pd Pure Data abstraction
+    #writes the objects
+    f.write(patchMiddleCanvas+'\n')
+    f.write(patchMiddleCredits+'\n')
+    #line 0 - comment
+    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.cstencoder#ind.pd;\n')
+    #line 1
+    #loadbang
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' loadbang;\n')
+    loadbang_id = 2
+    #line 1.5
+    #msg
+    f.write(xMsg+str(getPx(0))+' '+str(getPy(1.5))+' '+str(ind)+';\n')
+    msg_id = 3
+    #float
+    f.write(xObj+str(getPx(1))+' '+str(getPy(1.5))+' float \$1;\n')
+    float_id = 4
+    #line 1.75
+    #float box
+    f.write(xFloat+str(getPx(1))+' '+str(getPy(1.75))+' 0 '+xFloat2)
+    #line 2
     f.close()
