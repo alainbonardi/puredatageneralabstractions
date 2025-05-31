@@ -30,11 +30,11 @@ xFloat2 = '5 0 0 0 - - - 0;\n'
 
 def getPx(ix):
     px = leftMargin + ix * dx
-    return px
+    return int(px)
 
 def getPy(iy):
     py = topMargin + iy * dy
-    return py
+    return int(py)
 
 print("________________________________________________")
 print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTIONS FOLDER")
@@ -120,5 +120,36 @@ for i in range (maxAmbiOrder):
     #line 1.75
     #float box
     f.write(xFloat+str(getPx(1))+' '+str(getPy(1.75))+' 0 '+xFloat2)
+    floatbox_id = 5
     #line 2
+    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' cstforencoder;\n')
+    cstforencoder_id = 6
+    #line 4.5
+    #snake~ in
+    f.write(xObj+str(getPx(0))+' '+str(getPy(4.5))+' snake~ in '+str(2*ind+1)+';\n')
+    snake_id = 7
+    #line 5
+    #outlet~~
+    f.write(xObj+str(getPx(0))+' '+str(getPy(5))+' outlet~;\n')
+    out_id = 8
+    #line 3
+    #sinandcos abstractions
+    for j in range(ind):
+        ind2 = j + 1
+        f.write(xObj+str(getPx(ind2))+' '+str(getPy(3))+' sinandcos '+str(ind2)+';\n')
+        #ids from 9 to 9+ind-1
+    #line 3.5
+    #*~
+    for j in range(2*ind):
+        ind2 = j + 1
+        ind3 = 0.5 * ind2
+        f.write(xObj+str(getPx(ind3))+' '+str(getPy(3.5))+' *~;\n')
+        #ids from 9+ind to 9+3*ind-1
+    #connections
+    #loadbang to message
+    f.write(xConnect+str(loadbang_id)+' 0 '+str(msg_id)+' 0;\n')
+    #loadbang to float object
+    f.write(xConnect+str(loadbang_id)+' 0 '+str(float_id)+' 0;\n')
+    #float object to float box
+    f.write(xConnect+str(float_id)+' 0 '+str(floatbox_id)+' 0;\n')
     f.close()
