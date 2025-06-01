@@ -180,3 +180,80 @@ for i in range (maxAmbiOrder):
     f.write(xConnect+str(snake_id)+' 0 '+str(out_id)+' 0;\n')
     f.close()
 print('=>'+str(maxAmbiOrder)+' mc.cstencoder#ind.pd common abstractions generated')
+#
+print("________________________________________________")
+print("STEP#03 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
+print("________________________________________________")
+for i in range (maxAmbiOrder):
+    ind = i + 1
+    #opens a Pure Data file for the mc.decoderblock#ind.pd abstraction
+    fileName = destLibDir+'/mc.decoderblock'+str(ind)+".pd"
+    f = open(fileName, 'w')
+    #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
+    #writes the objects
+    f.write(patchMiddleCanvas+'\n')
+    f.write(patchMiddleCredits+'\n')
+    #line 0 - comment
+    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.decoderblock#ind.pd;\n')
+    #line 1
+    #inlet~
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
+    in_id = 2
+    #line 1.5
+    #snake~ out
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1.5))+' snake~ out '+str(2*ind+1)+';\n')
+    snakeout_id = 3
+    #line 2
+    #*~0.5
+    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' *~ 0.5;\n')
+    mult_id = 4
+    #line 2.5
+    #snake~ in
+    f.write(xObj+str(getPx(0))+' '+str(getPy(2.5))+' snake~ in '+str(2*ind+1)+';\n')
+    snakein1_id = 5
+    #line 4
+    #snake~ in
+    f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4))+' snake~ in '+str(2*ind+2)+';\n')
+    snakein2_id = 6
+    #line 4.5
+    #outlet~~
+    f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4.5))+' outlet~;\n')
+    out_id = 7
+    #line 2
+    #mc.cstencoder#ind
+    for j in range(2*ind+2):
+        ind2 = j + 1
+        f.write(xObj+str(getPx(ind2))+' '+str(getPy(2))+' mc.cstencoder'+str(ind)+' '+str(j)+';\n')
+    cstencoder_id = 8
+    #cstencoder_id between 8 and 8+2*ind+1
+    #line 3
+    #mc.sp#2*ind+1
+    for j in range(2*ind+2):
+        ind2 = j + 1
+        f.write(xObj+str(getPx(j))+' '+str(getPy(3))+' mc.sp'+str(2*ind+1)+';\n')
+    sp_id = 8+2*ind+2
+    #connexions
+    #inlet~ to snake~ out
+    f.write(xConnect+str(in_id)+' 0 ' +str(snakeout_id)+' 0;\n')
+    #snake~ out 0 to *~0.5
+    f.write(xConnect+str(snakeout_id)+' 0 '+str(mult_id)+' 0;\n')
+    #*~0.5 to snake~ in 0
+    f.write(xConnect+str(mult_id)+' 0 '+str(snakein1_id)+' 0;\n')
+    #snake~ out 1 to 2*ind to snake~ in 1 to 2*ind
+    for j in range(2*ind):
+        ind2 = j + 1
+        f.write(xConnect+str(snakeout_id)+' '+str(ind2)+' '+str(snakein1_id)+' '+str(ind2)+' 0;\n')
+    #mc.cstencoder#j to mc.sp#j inlet 1
+    for j in range(2*ind+2):
+        f.write(xConnect+str(cstencoder_id+j)+' 0 '+str(sp_id+j)+' 1;\n')
+    #snake~ in to mc.sp#j inlet 0
+    for j in range(2*ind+2):
+        f.write(xConnect+str(snakein1_id)+' 0 '+str(sp_id+j)+' 0;\n')
+    #mc.sp#j outlet 0 to snake~ in inlet j
+    for j in range(2*ind+2):
+        f.write(xConnect+str(sp_id+j)+' 0 '+str(snakein2_id)+' '+str(j)+';\n')
+    #snake~ in to outlet~~
+    f.write(xConnect+str(snakein2_id)+' 0 '+str(out_id)+' 0;\n')
+    f.close()
+    
+print('=>'+str(maxAmbiOrder)+' mc.decoderblock#ind.pd common abstractions generated')
