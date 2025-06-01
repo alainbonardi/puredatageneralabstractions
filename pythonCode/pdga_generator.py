@@ -52,6 +52,7 @@ os.mkdir(destLibDir)
 #
 print("________________________________________________")
 print("STEP#01 GENERATING SCALAR PRODUCT ABSTRACTIONS")
+print("________________________________________________")
 for i in range (2*maxAmbiOrder+1):
     ind = i + 1
     #opens a Pure Data file for the mc.sp#ind.pd abstraction
@@ -92,9 +93,11 @@ for i in range (2*maxAmbiOrder+1):
         f.write(xConnect+str(snake2_id)+' '+str(j)+' '+str(mult_id+j)+' 1;\n')
         f.write(xConnect+str(mult_id+j)+' 0 '+str(out_id)+' 0;\n')
     f.close()
+print('=>'+str(2*maxAmbiOrder+1)+' mc.sp#ind.pd common abstractions generated')
 #
 print("________________________________________________")
-print("STEP#01 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
+print("STEP#02 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
+print("________________________________________________")
 for i in range (maxAmbiOrder):
     ind = i + 1
     #opens a Pure Data file for the mc.cstencoder#ind.pd abstraction
@@ -126,7 +129,7 @@ for i in range (maxAmbiOrder):
     cstforencoder_id = 6
     #line 4.5
     #snake~ in
-    f.write(xObj+str(getPx(0))+' '+str(getPy(4.5))+' snake~ in '+str(2*ind+1)+';\n')
+    f.write(xObj+str(getPx(0))+' '+str(getPy(4.5))+' snake~ in '+str(2*ind+1)+' ----------;\n')
     snake_id = 7
     #line 5
     #outlet~~
@@ -138,13 +141,15 @@ for i in range (maxAmbiOrder):
         ind2 = j + 1
         f.write(xObj+str(getPx(ind2))+' '+str(getPy(3))+' sinandcos '+str(ind2)+';\n')
         #ids from 9 to 9+ind-1
-    #line 3.5
+    sinandcos_id = 9
+    #line 4
     #*~
     for j in range(2*ind):
         ind2 = j + 1
         ind3 = 0.5 * ind2
-        f.write(xObj+str(getPx(ind3))+' '+str(getPy(3.5))+' *~;\n')
+        f.write(xObj+str(getPx(ind3))+' '+str(getPy(4))+' *~;\n')
         #ids from 9+ind to 9+3*ind-1
+    mult_id = 9 + ind
     #connections
     #loadbang to message
     f.write(xConnect+str(loadbang_id)+' 0 '+str(msg_id)+' 0;\n')
@@ -152,4 +157,26 @@ for i in range (maxAmbiOrder):
     f.write(xConnect+str(loadbang_id)+' 0 '+str(float_id)+' 0;\n')
     #float object to float box
     f.write(xConnect+str(float_id)+' 0 '+str(floatbox_id)+' 0;\n')
+    #message to cstforencoder
+    f.write(xConnect+str(msg_id)+' 0 '+str(cstforencoder_id)+' 0;\n')
+    #float box to cstforencoder
+    f.write(xConnect+str(floatbox_id)+' 0 '+str(cstforencoder_id)+' 1;\n')
+    #cstforencoder to sinandcos abstractions
+    for j in range(ind):
+        f.write(xConnect+str(cstforencoder_id)+' 1 '+str(sinandcos_id+j)+' 0;\n')
+    #cstforencoder to *~
+    for j in range(2*ind):
+        f.write(xConnect+str(cstforencoder_id)+' 0 '+str(mult_id+j)+' 0;\n')
+    #cstforencoder to input 0 of snake~ in
+    f.write(xConnect+str(cstforencoder_id)+' 0 '+str(snake_id)+' 0;\n')
+    #sinandcos to *~~
+    for j in range(ind):
+        f.write(xConnect+str(sinandcos_id+j)+' 0 '+str(mult_id+2*j)+' 1;\n')
+        f.write(xConnect+str(sinandcos_id+j)+' 1 '+str(mult_id+2*j+1)+' 1;\n')
+    #*~ to snake~ in
+    for j in range(2*ind):
+        f.write(xConnect+str(mult_id+j)+' 0 '+str(snake_id)+' '+str(j+1)+';\n')
+    #snake~ in to outlet~~
+    f.write(xConnect+str(snake_id)+' 0 '+str(out_id)+' 0;\n')
     f.close()
+print('=>'+str(maxAmbiOrder)+' mc.cstencoder#ind.pd common abstractions generated')
