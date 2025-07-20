@@ -20,6 +20,10 @@ dy = 100
 maxAmbiOrder = 7
 patchMiddleCanvas = '#N canvas 50 50 600 600 10;'
 patchMiddleCredits = '#X obj 10 550 pdga_helpcredit;'
+patchAbstractionCnv1_1 = '#X obj 15 6 cnv 15 550 25 empty empty'
+patchAbstractionCnv1_2 = '#X obj 15 32 cnv 15 550 25 empty empty'
+patchAbstractionCnv2_1 = '20 12 0 18 #606060 #fcfcfc 0;'
+patchAbstractionCnv2_2 = '20 12 0 12 #606060 #fcfcfc 0;'
 commonComment = ' Common abstractions generated - '
 xObj = '#X obj '
 xText = '#X text '
@@ -255,5 +259,51 @@ for i in range (maxAmbiOrder):
     #snake~ in to outlet~~
     f.write(xConnect+str(snakein2_id)+' 0 '+str(out_id)+' 0;\n')
     f.close()
-    
 print('=>'+str(maxAmbiOrder)+' mc.decoderblock#ind.pd common abstractions generated')
+#
+print("________________________________________________")
+print("STEP#04 GENERATING REGULAR DECODER ABSTRACTIONS")
+print("________________________________________________")
+for i in range (maxAmbiOrder):
+    ind = i + 1
+    #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
+    fileName = destLibDir+'/mc.regdecoder'+str(ind)+".pd"
+    f = open(fileName, 'w')
+    #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
+    #writes the objects
+    f.write(patchMiddleCanvas+'\n')
+    f.write(patchAbstractionCnv1_1+' mc.regdecoder'+str(ind)+' '+patchAbstractionCnv2_1+'\n')
+    f.write(patchAbstractionCnv1_2+ ' multichannel\ ambisonic\ regular\ decoder\ at\ order\ '+str(ind)+'\ to\ '+str(2*ind+2)+'\ loudspeakers '+patchAbstractionCnv2_2+'\n')
+    f.write(patchMiddleCredits+'\n')
+    f.write(xText+str(getPx(2.5))+' '+str(getPy(1))+' amp+value message;\n')
+    #line 1
+    #inlet~
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
+    in1_id = 4
+    #inlet for the message amp+value
+    f.write(xObj+str(getPx(2))+' '+str(getPy(1))+' inlet;\n')
+    in2_id = 5
+    #line 1.5
+    #mc.decoderblock1#ind
+    f.write(xObj+str(getPx(0))+' '+str(getPy(1.5))+' mc.decoderblock'+str(ind)+';\n')
+    mcdb_id = 6
+    #line 3
+    #mc.gain#(2*ind+2)
+    f.write(xObj+str(getPx(0))+' '+str(getPy(3))+' mc.gain'+str(2*ind+2)+';\n')
+    mcga_id = 7
+    #line 3.5
+    #outlet~
+    f.write(xObj+str(getPx(0))+' '+str(getPy(3.5))+' outlet~;\n')
+    out_id = 8
+    #writes the connections
+    #connects the inlet~ to the mc.decoderblock#ind
+    f.write(xConnect+str(in1_id)+' 0 '+str(mcdb_id)+' 0;\n')
+    #connects the mc.decoderblock#ind to the mc.gain#(2*ind+2)
+    f.write(xConnect+str(mcdb_id)+' 0 '+str(mcga_id)+' 0;\n')
+    #connects the mc.gain#(2*ind+2) to the outlet~~
+    f.write(xConnect+str(mcga_id)+' 0 '+str(out_id)+' 0;\n')
+    #connects the inlet to the right input of the mc.gain#(2*ind+2)
+    f.write(xConnect+str(in2_id)+' 0 '+str(mcga_id)+' 1;\n')
+    #
+    f.close()
+print('=>'+str(maxAmbiOrder)+' mc.regdecoder#ind.pd common abstractions generated')
