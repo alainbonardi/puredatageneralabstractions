@@ -23,6 +23,9 @@ xFloat2 = '5 0 0 0 - - - 0;\n'
 maxAmbiOrder = 7
 commonComment = 'Common abstractions generated - '
 
+#index of current object processed
+objInd = 0
+
 """
 _______________________________________________________
 Computes the x coordinate of the object
@@ -40,6 +43,25 @@ _______________________________________________________
 def getPy(iy):
     py = topMargin + iy * dy
     return int(py)
+
+
+"""
+_______________________________________________________
+Resets the object index
+_______________________________________________________
+"""
+def resetObjInd():
+    global objInd
+    objInd = 0
+    
+"""
+_______________________________________________________
+Increases the object index
+_______________________________________________________
+"""
+def incObjInd():
+    global objInd
+    objInd = objInd + 1
 
 """
 _______________________________________________________

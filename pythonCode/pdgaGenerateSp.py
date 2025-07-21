@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import pdga_basicFunctions.py as bf
+import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
