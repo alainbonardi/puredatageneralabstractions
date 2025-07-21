@@ -24,44 +24,24 @@ def generate_mcregdecoder(dDir):
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         bf.appendXText(f, 2.5, 1, 'amp+value message')
-        #f.write(xText+str(getPx(2.5))+' '+str(getPy(1))+' amp+value message;\n')
-        #line 1
-        #inlet~
+        #line 1 - inlet~
         in1_id = bf.appendXObj(f, 0, 1, 'inlet~')
-        print(in1_id)
-        #f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
-        #in1_id = 4
         #inlet for the message amp+value
         in2_id = bf.appendXObj(f, 2, 1, 'inlet')
-        #f.write(xObj+str(getPx(2))+' '+str(getPy(1))+' inlet;\n')
-        #in2_id = 5
-        #line 1.5
-        #mc.decoderblock1#ind
+        #line 1.5 - mc.decoderblock1#ind
         mcdb_id = bf.appendXObj(f, 0, 1.5, 'mc.decoderblock'+str(ind))
-        #f.write(xObj+str(getPx(0))+' '+str(getPy(1.5))+' mc.decoderblock'+str(ind)+';\n')
-        #mcdb_id = 6
-        #line 3
-        #mc.gain#(2*ind+2)
+        #line 3 - mc.gain#(2*ind+2)
         mcga_id = bf.appendXObj(f, 0, 3, 'mc.gain'+str(2*ind+2))
-        #f.write(xObj+str(getPx(0))+' '+str(getPy(3))+' mc.gain'+str(2*ind+2)+';\n')
-        #mcga_id = 7
-        #line 3.5
-        #outlet~
+        #line 3.5 - outlet~
         out_id = bf.appendXObj(f, 0, 3.5, 'outlet~')
-        #f.write(xObj+str(getPx(0))+' '+str(getPy(3.5))+' outlet~;\n')
-        #out_id = 8
         #writes the connections
         #connects the inlet~ to the mc.decoderblock#ind
         bf.appendXConnect(f, in1_id, 0, mcdb_id, 0)
-        #f.write(xConnect+str(in1_id)+' 0 '+str(mcdb_id)+' 0;\n')
         #connects the mc.decoderblock#ind to the mc.gain#(2*ind+2)
         bf.appendXConnect(f, mcdb_id, 0, mcga_id, 0)
-        #f.write(xConnect+str(mcdb_id)+' 0 '+str(mcga_id)+' 0;\n')
         #connects the mc.gain#(2*ind+2) to the outlet~~
         bf.appendXConnect(f, mcga_id, 0, out_id, 0)
-        #f.write(xConnect+str(mcga_id)+' 0 '+str(out_id)+' 0;\n')
         #connects the inlet to the right input of the mc.gain#(2*ind+2)
         bf.appendXConnect(f, in2_id, 0, mcga_id, 1)
-        #f.write(xConnect+str(in2_id)+' 0 '+str(mcga_id)+' 1;\n')
         #
         f.close()

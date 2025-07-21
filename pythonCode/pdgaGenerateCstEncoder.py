@@ -19,24 +19,24 @@ def generate_mccstencoder(dDir):
         bf.createMiddleCommonAbstraction(f)
         #line 0 - comment
         bf.appendXText(f, 0, 0, bf.commonComment+'mc.cstencoder#ind.pd')
-        #line 1
+        #line 0.25
         #loadbang
-        loadbang_id = bf.appendXObj(f, 0, 1, 'loadbang')
-        #line 1.5
+        loadbang_id = bf.appendXObj(f, 0, 0.25, 'loadbang')
+        #line 0.5
         #msg
-        msg_id = bf.appendXMsg(f, 0, 1.5, str(ind))
+        msg_id = bf.appendXMsg(f, 0, 0.5, str(ind))
         #float
-        float_id = bf.appendXObj(f, 1, 1.5, 'float \$1')
-        #line 1.75
+        float_id = bf.appendXObj(f, 1, 0.5, 'float \$1')
+        #line 0.75
         #float box
-        floatbox_id = bf.appendXFloat(f, 1, 1.75, '0 ')
-        #line 2
-        cstforencoder_id = bf.appendXObj(f, 0, 2, 'cstforencoder')
+        floatbox_id = bf.appendXFloat(f, 1, 0.75, '0 ')
+        #line 1
+        cstforencoder_id = bf.appendXObj(f, 0, 1, 'cstforencoder')
         #line 4.5
         #snake~ in
         snake_id = bf.appendXObj(f, 0, 4.5, 'snake~ in '+str(2*ind+1)+' ----------')
         #line 5
-        #outlet~~
+        #outlet~
         out_id = bf.appendXObj(f, 0, 5, 'outlet~')
         #line 3
         #sinandcos abstractions
@@ -51,7 +51,7 @@ def generate_mccstencoder(dDir):
         for j in range(2*ind):
             ind2 = j + 1
             ind3 = 0.5 * ind2
-            k = bf.appendXObj(f, ind3, 4, '*~')
+            k = bf.appendXObj(f, ind3, 3.5, '*~')
             #ids from 9+ind to 9+3*ind-1
         #comes back to the first one
         mult_id = sinandcos_id + ind

@@ -9,6 +9,8 @@ import pdgaGenerateSp as gsp
 import pdgaGenerateCstEncoder as gcstenco
 import pdgaGenerateDecoderBlock as gdb
 import pdgaGenerateRegDecoder as grd
+import pdgaGenerateGain as gg
+import pdgaGenerateEncoder as genco
 
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
@@ -28,7 +30,8 @@ mcsp_flag = True
 mccstencoder_flag = True
 mcdecoderblock_flag = True
 mcregdecoder_flag = True
-
+mcgain_flag = True
+mcencoder_flag = True
 
 
 print("________________________________________________")
@@ -89,4 +92,21 @@ if (mcregdecoder_flag):
     print('=>'+str(bf.maxAmbiOrder)+' mc.regdecoder#ind.pd common abstractions generated')
 else :
     print('=> no mc.regdecoder#ind.pd user abstractions generated')
-
+#
+print("________________________________________________")
+print("STEP#05 GENERATING GAIN ABSTRACTIONS")
+print("________________________________________________")
+if (mcgain_flag):
+    gg.generate_mcgain(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.gain#ind.pd common abstractions generated')
+else:
+    print('=> no mc.gain#ind.pd user abstractions generated')
+#
+print("________________________________________________")
+print("STEP#06 GENERATING ENCODER ABSTRACTIONS")
+print("________________________________________________")
+if (mcencoder_flag):
+    genco.generate_mcencoder(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' mc.encoder#ind.pd common abstractions generated')
+else:
+    print('=> no mc.encoder#ind.pd user abstractions generated')

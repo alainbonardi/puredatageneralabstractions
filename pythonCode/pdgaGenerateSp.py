@@ -25,13 +25,13 @@ def generate_mcsp(dDir):
         in2_id = bf.appendXObj(f, 1, 1, 'inlet~')
         #line 5
         out_id = bf.appendXObj(f, 0, 5, 'outlet~')
-        #line 2
-        snake1_id = bf.appendXObj(f, 0, 2, 'snake~ out '+str(ind))
-        snake2_id = bf.appendXObj(f, 1, 2, 'snake~ out '+str(ind))
-        #writes the *~ on the line 4
+        #line 1.5
+        snake1_id = bf.appendXObj(f, 0, 1.5, 'snake~ out '+str(ind))
+        snake2_id = bf.appendXObj(f, 1, 1.5, 'snake~ out '+str(ind))
+        #writes the *~ on the line 3
         for j in range(ind):
             #the ids of the *~ are between 7 and 7+ind-1
-            k = bf.appendXObj(f, j, 4, '*~')
+            k = bf.appendXObj(f, j*0.5, 3, '*~')
         #comes back to the first one
         mult_id = snake2_id + 1
         #writes the connections
