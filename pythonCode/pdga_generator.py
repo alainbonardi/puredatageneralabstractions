@@ -2,6 +2,7 @@
 
 import os
 import shutil
+import array as arr
 import tkinter as tkinter
 from tkinter import filedialog
 
@@ -18,19 +19,23 @@ topMargin = 25
 dx = 100
 dy = 100
 maxAmbiOrder = 7
-patchMiddleCanvas = '#N canvas 50 50 600 600 10;'
-patchMiddleCredits = '#X obj 10 550 pdga_helpcredit;'
+patchMiddleCanvas = '#N canvas 50 50 600 600 10;\n'
+patchMiddleCredits = '#X obj 10 550 pdga_helpcredit;\n'
 patchAbstractionCnv1_1 = '#X obj 15 6 cnv 15 550 25 empty empty'
 patchAbstractionCnv1_2 = '#X obj 15 32 cnv 15 550 25 empty empty'
 patchAbstractionCnv2_1 = '20 12 0 18 #606060 #fcfcfc 0;'
 patchAbstractionCnv2_2 = '20 12 0 12 #606060 #fcfcfc 0;'
-commonComment = ' Common abstractions generated - '
-xObj = '#X obj '
-xText = '#X text '
-xConnect = '#X connect '
-xMsg = '#X msg '
-xFloat = '#X floatatom '
+commonComment = 'Common abstractions generated - '
+xObj = '#X obj'
+xText = '#X text'
+xConnect = '#X connect'
+xMsg = '#X msg'
+xFloat = '#X floatatom'
 xFloat2 = '5 0 0 0 - - - 0;\n'
+#
+#global variables
+objInd = 0
+
 
 def getPx(ix):
     px = leftMargin + ix * dx
@@ -39,6 +44,63 @@ def getPx(ix):
 def getPy(iy):
     py = topMargin + iy * dy
     return int(py)
+
+def getXText(px, py, s):
+    sText = xText+' '+str(getPx(px))+' '+str(getPy(py))+' '+s+';\n'
+    return sText
+    
+def getXObj(px, py, s):
+    sObj = xObj+' '+str(getPx(px))+' '+str(getPy(py))+' '+s+';\n'
+    return sObj
+
+def getXMsg(px, py, s):
+    sMsg = xMsg+' '+str(getPx(px))+' '+str(getPy(py))+' '+s+';\n'
+    return sMsg
+
+def getXFloat(px, py, s):
+    sFloat = xFloat+' '+str(getPx(px))+' '+str(getPy(py))+' '+s+';\n'
+    return sFloat
+
+def getXConnect(obj1, out1, obj2, in2):
+    sConnect = xConnect+' '+str(obj1)+' '+str(out1)+' '+str(obj2)+' '+str(in2)+';\n'
+    return sConnect
+
+#writes the formatted XText on f file and returns the obj index
+def appendXText(f, px, py, s):
+    global objInd
+    f.write(getXText(px, py, s))
+    objInd = objInd + 1
+
+#writes the formatted XObj on f file and returns the obj index
+def appendXObj(f, px, py, s):
+    global objInd
+    f.write(getXObj(px, py, s))
+    objInd = objInd + 1
+    return objInd
+
+#writes the formatted XMsg on f file and returns the obj index
+def appendXMsg(f, px, py, s):
+    global objInd
+    f.write(getXMsg(px, py, s))
+    objInd = objInd + 1
+    return objInd
+
+#writes the formatted XFloat on f file and returns the obj index
+def appendXFloat(f, px, py, s):
+    global objInd
+    f.write(getXFloat(px, py, s))
+    objInd = objInd + 1
+    return objInd
+    
+def appendXConnect(f, obj1, out1, obj2, in2):
+    f.write(getXConnect(obj1, out1, obj2, in2))
+    
+def createMiddleCommonAbstraction(f):
+    global objInd
+    f.write(patchMiddleCanvas)
+    f.write(patchMiddleCredits)
+    objInd = 0
+    
 
 print("________________________________________________")
 print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTIONS FOLDER")
@@ -55,49 +117,49 @@ os.mkdir(destLibDir)
 
 #
 print("________________________________________________")
+print("GENERATING COMMON ABSTRACTIONS==================")
+print("________________________________________________")
+#
+print("________________________________________________")
 print("STEP#01 GENERATING SCALAR PRODUCT ABSTRACTIONS")
 print("________________________________________________")
-for i in range (2*maxAmbiOrder+1):
+for i in range (2*maxAmbiOrder+2):
     ind = i + 1
     #opens a Pure Data file for the mc.sp#ind.pd abstraction
     fileName = destLibDir+'/mc.sp'+str(ind)+".pd"
     f = open(fileName, 'w')
+    #
     #writes the lines of the mc.sp#ind.pd Pure Data abstraction
     #writes the objects
-    f.write(patchMiddleCanvas+'\n')
-    f.write(patchMiddleCredits+'\n')
+    createMiddleCommonAbstraction(f)
     #line 0 - comment
-    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.sp#ind.pd;\n')
+    appendXText(f, 0, 0, commonComment+'mc.sp#ind.pd')
     #line 1
-    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
-    in1_id = 2
-    f.write(xObj+str(getPx(1))+' '+str(getPy(1))+' inlet~;\n')
-    in2_id = 3
+    in1_id = appendXObj(f, 0, 1, 'inlet~')
+    in2_id = appendXObj(f, 1, 1, 'inlet~')
     #line 5
-    f.write(xObj+str(getPx(0))+' '+str(getPy(5))+' outlet~;\n')
-    out_id = 4
+    out_id = appendXObj(f, 0, 5, 'outlet~')
     #line 2
-    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' snake~ out '+str(ind)+';\n')
-    snake1_id = 5
-    f.write(xObj+str(getPx(1))+' '+str(getPy(2))+' snake~ out '+str(ind)+';\n')
-    snake2_id = 6
+    snake1_id = appendXObj(f, 0, 2, 'snake~ out '+str(ind))
+    snake2_id = appendXObj(f, 1, 2, 'snake~ out '+str(ind))
     #writes the *~ on the line 4
     for j in range(ind):
         #the ids of the *~ are between 7 and 7+ind-1
-        f.write(xObj+str(getPx(j))+' '+str(getPy(4))+' *~;\n')
-    mult_id = 7
+        k = appendXObj(f, j, 4, '*~')
+    #comes back to the first one
+    mult_id = snake2_id + 1
     #writes the connections
     #connects the inlets to the snake~ out
-    f.write(xConnect+str(in1_id)+' 0 '+str(snake1_id)+' 0;\n')
-    f.write(xConnect+str(in2_id)+' 0 '+str(snake2_id)+' 0;\n')
+    appendXConnect(f, in1_id, 0, snake1_id, 0)
+    appendXConnect(f, in2_id, 0, snake2_id, 0)
     #connects the snake~ out to the *~~
     #connects the *~ to the outlet~
     for j in range(ind):
-        f.write(xConnect+str(snake1_id)+' '+str(j)+' '+str(mult_id+j)+' 0;\n')
-        f.write(xConnect+str(snake2_id)+' '+str(j)+' '+str(mult_id+j)+' 1;\n')
-        f.write(xConnect+str(mult_id+j)+' 0 '+str(out_id)+' 0;\n')
+        appendXConnect(f, snake1_id, j, mult_id+j, 0)
+        appendXConnect(f, snake2_id, j, mult_id+j, 1)
+        appendXConnect(f, mult_id+j, 0, out_id, 0)
     f.close()
-print('=>'+str(2*maxAmbiOrder+1)+' mc.sp#ind.pd common abstractions generated')
+print('=>'+str(2*maxAmbiOrder+2)+' mc.sp#ind.pd common abstractions generated')
 #
 print("________________________________________________")
 print("STEP#02 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
@@ -109,84 +171,78 @@ for i in range (maxAmbiOrder):
     f = open(fileName, 'w')
     #writes the lines of the mc.cstencoder#ind.pd Pure Data abstraction
     #writes the objects
-    f.write(patchMiddleCanvas+'\n')
-    f.write(patchMiddleCredits+'\n')
+    createMiddleCommonAbstraction(f)
     #line 0 - comment
-    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.cstencoder#ind.pd;\n')
+    appendXText(f, 0, 0, commonComment+'mc.cstencoder#ind.pd')
     #line 1
     #loadbang
-    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' loadbang;\n')
-    loadbang_id = 2
+    loadbang_id = appendXObj(f, 0, 1, 'loadbang')
     #line 1.5
     #msg
-    f.write(xMsg+str(getPx(0))+' '+str(getPy(1.5))+' '+str(ind)+';\n')
-    msg_id = 3
+    msg_id = appendXMsg(f, 0, 1.5, str(ind))
     #float
-    f.write(xObj+str(getPx(1))+' '+str(getPy(1.5))+' float \$1;\n')
-    float_id = 4
+    float_id = appendXObj(f, 1, 1.5, 'float \$1')
     #line 1.75
     #float box
-    f.write(xFloat+str(getPx(1))+' '+str(getPy(1.75))+' 0 '+xFloat2)
-    floatbox_id = 5
+    floatbox_id = appendXFloat(f, 1, 1.75, '0 '+xFloat2)
     #line 2
-    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' cstforencoder;\n')
-    cstforencoder_id = 6
+    cstforencoder_id = appendXObj(f, 0, 2, 'cstforencoder')
     #line 4.5
     #snake~ in
-    f.write(xObj+str(getPx(0))+' '+str(getPy(4.5))+' snake~ in '+str(2*ind+1)+' ----------;\n')
-    snake_id = 7
+    snake_id = appendXObj(f, 0, 4.5, 'snake~ in '+str(2*ind+1)+' ----------')
     #line 5
     #outlet~~
-    f.write(xObj+str(getPx(0))+' '+str(getPy(5))+' outlet~;\n')
-    out_id = 8
+    out_id = appendXObj(f, 0, 5, 'outlet~')
     #line 3
     #sinandcos abstractions
     for j in range(ind):
         ind2 = j + 1
-        f.write(xObj+str(getPx(ind2))+' '+str(getPy(3))+' sinandcos '+str(ind2)+';\n')
+        k = appendXObj(f, ind2, 3, 'sinandcos '+str(ind2))
         #ids from 9 to 9+ind-1
-    sinandcos_id = 9
+    #comes back to the first one
+    sinandcos_id = out_id + 1
     #line 4
     #*~
     for j in range(2*ind):
         ind2 = j + 1
         ind3 = 0.5 * ind2
-        f.write(xObj+str(getPx(ind3))+' '+str(getPy(4))+' *~;\n')
+        k = appendXObj(f, ind3, 4, '*~')
         #ids from 9+ind to 9+3*ind-1
-    mult_id = 9 + ind
+    #comes back to the first one
+    mult_id = sinandcos_id + ind
     #connections
     #loadbang to message
-    f.write(xConnect+str(loadbang_id)+' 0 '+str(msg_id)+' 0;\n')
+    appendXConnect(f, loadbang_id, 0, msg_id, 0)
     #loadbang to float object
-    f.write(xConnect+str(loadbang_id)+' 0 '+str(float_id)+' 0;\n')
+    appendXConnect(f, loadbang_id, 0, float_id, 0)
     #float object to float box
-    f.write(xConnect+str(float_id)+' 0 '+str(floatbox_id)+' 0;\n')
+    appendXConnect(f, float_id, 0, floatbox_id, 0)
     #message to cstforencoder
-    f.write(xConnect+str(msg_id)+' 0 '+str(cstforencoder_id)+' 0;\n')
+    appendXConnect(f, msg_id, 0, cstforencoder_id, 0)
     #float box to cstforencoder
-    f.write(xConnect+str(floatbox_id)+' 0 '+str(cstforencoder_id)+' 1;\n')
+    appendXConnect(f, floatbox_id, 0, cstforencoder_id, 1)
     #cstforencoder to sinandcos abstractions
     for j in range(ind):
-        f.write(xConnect+str(cstforencoder_id)+' 1 '+str(sinandcos_id+j)+' 0;\n')
+        appendXConnect(f, cstforencoder_id, 1, sinandcos_id+j, 0)
     #cstforencoder to *~
     for j in range(2*ind):
-        f.write(xConnect+str(cstforencoder_id)+' 0 '+str(mult_id+j)+' 0;\n')
+        appendXConnect(f, cstforencoder_id, 0, mult_id+j, 0)
     #cstforencoder to input 0 of snake~ in
-    f.write(xConnect+str(cstforencoder_id)+' 0 '+str(snake_id)+' 0;\n')
+    appendXConnect(f, cstforencoder_id, 0, snake_id, 0)
     #sinandcos to *~~
     for j in range(ind):
-        f.write(xConnect+str(sinandcos_id+j)+' 0 '+str(mult_id+2*j)+' 1;\n')
-        f.write(xConnect+str(sinandcos_id+j)+' 1 '+str(mult_id+2*j+1)+' 1;\n')
+        appendXConnect(f, sinandcos_id+j, 0, mult_id+2*j, 1)
+        appendXConnect(f, sinandcos_id+j, 1, mult_id+2*j+1, 1)
     #*~ to snake~ in
     for j in range(2*ind):
-        f.write(xConnect+str(mult_id+j)+' 0 '+str(snake_id)+' '+str(j+1)+';\n')
+        appendXConnect(f, mult_id+j, 0, snake_id, j+1)
     #snake~ in to outlet~~
-    f.write(xConnect+str(snake_id)+' 0 '+str(out_id)+' 0;\n')
+    appendXConnect(f, snake_id, 0, out_id, 0)
     f.close()
 print('=>'+str(maxAmbiOrder)+' mc.cstencoder#ind.pd common abstractions generated')
 #
 print("________________________________________________")
-print("STEP#03 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
+print("STEP#03 GENERATING DECODER BLOCK ABSTRACTIONS")
 print("________________________________________________")
 for i in range (maxAmbiOrder):
     ind = i + 1
@@ -195,47 +251,56 @@ for i in range (maxAmbiOrder):
     f = open(fileName, 'w')
     #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
     #writes the objects
-    f.write(patchMiddleCanvas+'\n')
-    f.write(patchMiddleCredits+'\n')
+    createMiddleCommonAbstraction(f)
     #line 0 - comment
-    f.write(xText+str(getPx(0))+' '+str(getPy(0))+commonComment+'mc.decoderblock#ind.pd;\n')
+    appendXText(f, 0, 0, commonComment+'mc.decoderblock#ind.pd')
     #line 1
     #inlet~
-    f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
-    in_id = 2
+    in_id = appendXObj(f, 0, 1, 'inlet~')
+    #f.write(xObj+str(getPx(0))+' '+str(getPy(1))+' inlet~;\n')
+    #in_id = 2
     #line 1.5
     #snake~ out
-    f.write(xObj+str(getPx(0))+' '+str(getPy(1.5))+' snake~ out '+str(2*ind+1)+';\n')
-    snakeout_id = 3
+    snakeout_id = appendXObj(f, 0, 1.5, 'snake~ out '+str(2*ind+1))
+    #f.write(xObj+str(getPx(0))+' '+str(getPy(1.5))+' snake~ out '+str(2*ind+1)+';\n')
+    #snakeout_id = 3
     #line 2
     #*~0.5
-    f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' *~ 0.5;\n')
-    mult_id = 4
+    mult_id = appendXObj(f, 0, 2, '*~ 0.5')
+    #f.write(xObj+str(getPx(0))+' '+str(getPy(2))+' *~ 0.5;\n')
+    #mult_id = 4
     #line 2.5
     #snake~ in
-    f.write(xObj+str(getPx(0))+' '+str(getPy(2.5))+' snake~ in '+str(2*ind+1)+';\n')
-    snakein1_id = 5
+    snakein1_id = appendXObj(f, 0, 2.5, 'snake~ in '+str(2*ind+1))
+    #f.write(xObj+str(getPx(0))+' '+str(getPy(2.5))+' snake~ in '+str(2*ind+1)+';\n')
+    #snakein1_id = 5
     #line 4
     #snake~ in
-    f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4))+' snake~ in '+str(2*ind+2)+';\n')
-    snakein2_id = 6
+    snakein2_id = appendXObj(f, 0.5*ind, 4, 'snake~ in '+str(2*ind+2))
+    #f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4))+' snake~ in '+str(2*ind+2)+';\n')
+    #snakein2_id = 6
     #line 4.5
     #outlet~~
-    f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4.5))+' outlet~;\n')
-    out_id = 7
+    out_id = appendXObj(f, 0.5*ind, 4.5, 'outlet~')
+    #f.write(xObj+str(getPx(0.5*ind))+' '+str(getPy(4.5))+' outlet~;\n')
+    #out_id = 7
     #line 2
     #mc.cstencoder#ind
     for j in range(2*ind+2):
         ind2 = j + 1
-        f.write(xObj+str(getPx(ind2))+' '+str(getPy(2))+' mc.cstencoder'+str(ind)+' '+str(j)+';\n')
-    cstencoder_id = 8
+        k = appendXObj(f, ind2, 2, 'mc.cstencoder'+str(ind)+' '+str(j))
+        #f.write(xObj+str(getPx(ind2))+' '+str(getPy(2))+' mc.cstencoder'+str(ind)+' '+str(j)+';\n')
+    #comes back to the first one
+    cstencoder_id = out_id + 1
     #cstencoder_id between 8 and 8+2*ind+1
     #line 3
     #mc.sp#2*ind+1
     for j in range(2*ind+2):
         ind2 = j + 1
-        f.write(xObj+str(getPx(j))+' '+str(getPy(3))+' mc.sp'+str(2*ind+1)+';\n')
-    sp_id = 8+2*ind+2
+        k = appendXObj(f, j, 3, 'mc.sp'+str(2*ind+1))
+        #f.write(xObj+str(getPx(j))+' '+str(getPy(3))+' mc.sp'+str(2*ind+1)+';\n')
+    #comes back to the first one
+    sp_id = cstencoder_id+2*ind+2
     #connexions
     #inlet~ to snake~ out
     f.write(xConnect+str(in_id)+' 0 ' +str(snakeout_id)+' 0;\n')
