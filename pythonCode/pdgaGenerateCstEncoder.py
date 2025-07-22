@@ -8,17 +8,17 @@ _______________________________________________________
 Generates the mc.cstencoder#ind abstractions
 _______________________________________________________
 """   
-def generate_mccstencoder(dDir):
+def generate_hoacstencoder(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
         #opens a Pure Data file for the mc.cstencoder#ind.pd abstraction
-        fileName = dDir+'/mc.cstencoder'+str(ind)+".pd"
+        fileName = dDir+'/hoa.cstencoder'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the mc.cstencoder#ind.pd Pure Data abstraction
         #writes the objects
         bf.createMiddleCommonAbstraction(f)
         #line 0 - comment
-        bf.appendXText(f, 0, 0, bf.commonComment+'mc.cstencoder#ind.pd')
+        bf.appendXText(f, 0, 0, bf.commonComment+'hoa.cstencoder#ind.pd')
         #line 0.25
         #loadbang
         loadbang_id = bf.appendXObj(f, 0, 0.25, 'loadbang')

@@ -8,16 +8,16 @@ _______________________________________________________
 Generates the mc.decoderblock#ind abstractions
 _______________________________________________________
 """   
-def generate_mcencoder(dDir):
+def generate_hoaencoder(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
         #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
-        fileName = dDir+'/mc.encoder'+str(ind)+".pd"
+        fileName = dDir+'/hoa.encoder'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
         #writes the objects
         f.write(bf.patchMiddleCanvas)
-        f.write(bf.patchAbstractionCnv1_1+' mc.encoder'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        f.write(bf.patchAbstractionCnv1_1+' hoa.encoder'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
         bf.resetObjInd()
         f.write(bf.patchAbstractionCnv1_2+ ' multichannel\ ambisonic\ encoder\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()

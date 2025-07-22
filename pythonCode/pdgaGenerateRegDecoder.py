@@ -8,16 +8,16 @@ _______________________________________________________
 Generates the mc.decoderblock#ind abstractions
 _______________________________________________________
 """   
-def generate_mcregdecoder(dDir):
+def generate_hoaregdecoder(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
         #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
-        fileName = dDir+'/mc.regdecoder'+str(ind)+".pd"
+        fileName = dDir+'/hoa.regdecoder'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
         #writes the objects
         f.write(bf.patchMiddleCanvas)
-        f.write(bf.patchAbstractionCnv1_1+' mc.regdecoder'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        f.write(bf.patchAbstractionCnv1_1+' hoa.regdecoder'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
         bf.resetObjInd()
         f.write(bf.patchAbstractionCnv1_2+ ' multichannel\ ambisonic\ regular\ decoder\ at\ order\ '+str(ind)+'\ to\ '+str(2*ind+2)+'\ loudspeakers '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
@@ -29,7 +29,7 @@ def generate_mcregdecoder(dDir):
         #inlet for the message amp+value
         in2_id = bf.appendXObj(f, 2, 1, 'inlet')
         #line 1.5 - mc.decoderblock1#ind
-        mcdb_id = bf.appendXObj(f, 0, 1.5, 'mc.decoderblock'+str(ind))
+        mcdb_id = bf.appendXObj(f, 0, 1.5, 'hoa.decoderblock'+str(ind))
         #line 3 - mc.gain#(2*ind+2)
         mcga_id = bf.appendXObj(f, 0, 3, 'mc.gain'+str(2*ind+2))
         #line 3.5 - outlet~

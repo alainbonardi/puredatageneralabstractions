@@ -8,17 +8,17 @@ _______________________________________________________
 Generates the mc.decoderblock#ind abstractions
 _______________________________________________________
 """   
-def generate_mcdecoderblock(dDir):
+def generate_hoadecoderblock(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
         #opens a Pure Data file for the mc.decoderblock#ind.pd abstraction
-        fileName = dDir+'/mc.decoderblock'+str(ind)+".pd"
+        fileName = dDir+'/hoa.decoderblock'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
         #writes the objects
         bf.createMiddleCommonAbstraction(f)
         #line 0 - comment
-        bf.appendXText(f, 0, 0, bf.commonComment+'mc.decoderblock#ind.pd')
+        bf.appendXText(f, 0, 0, bf.commonComment+'hoa.decoderblock#ind.pd')
         #line 1 - inlet~
         in_id = bf.appendXObj(f, 0, 1, 'inlet~')
         #line 1.5 - snake~ out
@@ -34,7 +34,7 @@ def generate_mcdecoderblock(dDir):
         #line 2 - mc.cstencoder#ind
         for j in range(2*ind+2):
             ind2 = j + 1
-            k = bf.appendXObj(f, ind2, 2, 'mc.cstencoder'+str(ind)+' '+str(j))
+            k = bf.appendXObj(f, ind2, 2, 'hoa.cstencoder'+str(ind)+' '+str(j))
         #comes back to the first one
         cstencoder_id = out_id + 1
         #cstencoder_id between 8 and 8+2*ind+1

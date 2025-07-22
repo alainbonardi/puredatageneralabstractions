@@ -66,19 +66,19 @@ print("________________________________________________")
 print("STEP#02 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
 print("________________________________________________")
 if (mccstencoder_flag):
-    gcstenco.generate_mccstencoder(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' mc.cstencoder#ind.pd common abstractions generated')
+    gcstenco.generate_hoacstencoder(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.cstencoder#ind.pd common abstractions generated')
 else:
-    print('=> no mc.cstencoder#ind.pd common abstractions generated')
+    print('=> no hoa.cstencoder#ind.pd common abstractions generated')
 #
 print("________________________________________________")
 print("STEP#03 GENERATING DECODER BLOCK ABSTRACTIONS")
 print("________________________________________________")
 if (mcdecoderblock_flag):
-    gdb.generate_mcdecoderblock(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' mc.decoderblock#ind.pd common abstractions generated')
+    gdb.generate_hoadecoderblock(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.decoderblock#ind.pd common abstractions generated')
 else:
-    print('=> no mc.decoderblock#ind.pd common abstractions generated')
+    print('=> no hoa.decoderblock#ind.pd common abstractions generated')
 #
 print("________________________________________________")
 print("GENERATING USER ABSTRACTIONS==================")
@@ -88,10 +88,10 @@ print("________________________________________________")
 print("STEP#04 GENERATING REGULAR DECODER ABSTRACTIONS")
 print("________________________________________________")
 if (mcregdecoder_flag):
-    grd.generate_mcregdecoder(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' mc.regdecoder#ind.pd common abstractions generated')
+    grd.generate_hoaregdecoder(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.regdecoder#ind.pd common abstractions generated')
 else :
-    print('=> no mc.regdecoder#ind.pd user abstractions generated')
+    print('=> no hoa.regdecoder#ind.pd user abstractions generated')
 #
 print("________________________________________________")
 print("STEP#05 GENERATING GAIN ABSTRACTIONS")
@@ -106,7 +106,7 @@ print("________________________________________________")
 print("STEP#06 GENERATING ENCODER ABSTRACTIONS")
 print("________________________________________________")
 if (mcencoder_flag):
-    genco.generate_mcencoder(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' mc.encoder#ind.pd common abstractions generated')
+    genco.generate_hoaencoder(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.encoder#ind.pd common abstractions generated')
 else:
-    print('=> no mc.encoder#ind.pd user abstractions generated')
+    print('=> no hoa.encoder#ind.pd user abstractions generated')
