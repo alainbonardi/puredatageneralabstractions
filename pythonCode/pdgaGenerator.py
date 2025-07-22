@@ -11,6 +11,7 @@ import pdgaGenerateDecoderBlock as gdb
 import pdgaGenerateRegDecoder as grd
 import pdgaGenerateGain as gg
 import pdgaGenerateEncoder as genco
+import pdgaGenerateRecorder as genrec
 
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
@@ -27,11 +28,12 @@ _______________________________________________________
 
 #flags to run or not such or such generation
 mcsp_flag = True
-mccstencoder_flag = True
-mcdecoderblock_flag = True
-mcregdecoder_flag = True
+hoacstencoder_flag = True
+hoadecoderblock_flag = True
+hoaregdecoder_flag = True
 mcgain_flag = True
-mcencoder_flag = True
+hoaencoder_flag = True
+mcrecorder_flag = True
 
 
 print("________________________________________________")
@@ -65,7 +67,7 @@ else:
 print("________________________________________________")
 print("STEP#02 GENERATING CONSTANT ENCODERS ABSTRACTIONS")
 print("________________________________________________")
-if (mccstencoder_flag):
+if (hoacstencoder_flag):
     gcstenco.generate_hoacstencoder(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' hoa.cstencoder#ind.pd common abstractions generated')
 else:
@@ -74,7 +76,7 @@ else:
 print("________________________________________________")
 print("STEP#03 GENERATING DECODER BLOCK ABSTRACTIONS")
 print("________________________________________________")
-if (mcdecoderblock_flag):
+if (hoadecoderblock_flag):
     gdb.generate_hoadecoderblock(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' hoa.decoderblock#ind.pd common abstractions generated')
 else:
@@ -87,9 +89,9 @@ print("________________________________________________")
 print("________________________________________________")
 print("STEP#04 GENERATING REGULAR DECODER ABSTRACTIONS")
 print("________________________________________________")
-if (mcregdecoder_flag):
+if (hoaregdecoder_flag):
     grd.generate_hoaregdecoder(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' hoa.regdecoder#ind.pd common abstractions generated')
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.regdecoder#ind.pd user abstractions generated')
 else :
     print('=> no hoa.regdecoder#ind.pd user abstractions generated')
 #
@@ -98,15 +100,24 @@ print("STEP#05 GENERATING GAIN ABSTRACTIONS")
 print("________________________________________________")
 if (mcgain_flag):
     gg.generate_mcgain(destLibDir)
-    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.gain#ind.pd common abstractions generated')
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.gain#ind.pd user abstractions generated')
 else:
     print('=> no mc.gain#ind.pd user abstractions generated')
 #
 print("________________________________________________")
 print("STEP#06 GENERATING ENCODER ABSTRACTIONS")
 print("________________________________________________")
-if (mcencoder_flag):
+if (hoaencoder_flag):
     genco.generate_hoaencoder(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' hoa.encoder#ind.pd common abstractions generated')
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.encoder#ind.pd user abstractions generated')
 else:
     print('=> no hoa.encoder#ind.pd user abstractions generated')
+#
+print("________________________________________________")
+print("STEP#07 GENERATING RECORDER ABSTRACTIONS")
+print("________________________________________________")
+if (mcrecorder_flag):
+    genrec.generate_mcrecorder(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.recorder#ind.pd user abstractions generated')
+else:
+    print('=> no mc.recorder#ind.pd user abstractions generated')
