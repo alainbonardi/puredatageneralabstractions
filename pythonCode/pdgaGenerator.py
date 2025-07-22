@@ -12,6 +12,7 @@ import pdgaGenerateRegDecoder as grd
 import pdgaGenerateGain as gg
 import pdgaGenerateEncoder as genco
 import pdgaGenerateRecorder as genrec
+import pdgaGeneratePlayer as genplay
 
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
@@ -34,6 +35,7 @@ hoaregdecoder_flag = True
 mcgain_flag = True
 hoaencoder_flag = True
 mcrecorder_flag = True
+mcplayer_flag = True
 
 
 print("________________________________________________")
@@ -121,3 +123,14 @@ if (mcrecorder_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.recorder#ind.pd user abstractions generated')
 else:
     print('=> no mc.recorder#ind.pd user abstractions generated')
+#
+print("________________________________________________")
+print("STEP#07 GENERATING PLAYER ABSTRACTIONS")
+print("________________________________________________")
+if (mcplayer_flag):
+    genplay.generate_mcplayer(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.player#ind.pd user abstractions generated')
+else:
+    print('=> no mc.player#ind.pd user abstractions generated')
+    
+    
