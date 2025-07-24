@@ -13,6 +13,7 @@ import pdgaGenerateGain as gg
 import pdgaGenerateEncoder as genco
 import pdgaGenerateRecorder as genrec
 import pdgaGeneratePlayer as genplay
+import pdgaGenerateStereoDecoder as gstereodec
 
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
@@ -36,6 +37,7 @@ mcgain_flag = True
 hoaencoder_flag = True
 mcrecorder_flag = True
 mcplayer_flag = True
+hoastereodecoder_flag = True
 
 
 print("________________________________________________")
@@ -132,5 +134,13 @@ if (mcplayer_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.player#ind.pd user abstractions generated')
 else:
     print('=> no mc.player#ind.pd user abstractions generated')
-    
+#
+print("________________________________________________")
+print("STEP#07 GENERATING STEREO HOA DECODERS")
+print("________________________________________________")
+if (mcplayer_flag):
+    gstereodec.generate_hoastereodecoder(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.stereodecoder#ind.pd user abstractions generated')
+else:
+    print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
     

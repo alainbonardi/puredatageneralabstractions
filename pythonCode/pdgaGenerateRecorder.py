@@ -23,9 +23,9 @@ def generate_mcrecorder(dDir):
         bf.incObjInd()
 
         #bang in the canvas to open a file
-        bng_id = bf.appendXObj(f, 0.8, 0.95, 'bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000')
+        bng_id = bf.appendXObj(f, 0.8, 0.96, 'bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000')
         #toggle in the canvas to start recording
-        tgl_id = bf.appendXObj(f, 1.27, 0.95, 'tgl 15 0 empty empty record 17 7 0 10 #fcfcfc #000000 #000000 0 1')
+        tgl_id = bf.appendXObj(f, 1.27, 0.96, 'tgl 15 0 empty empty record 17 7 0 10 #fcfcfc #000000 #000000 0 1')
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         #recordercontrol abstraction

@@ -23,13 +23,13 @@ def generate_mcplayer(dDir):
         bf.incObjInd()
 
         #bang in the canvas to open a file
-        bngopen_id = bf.appendXObj(f, 0.8, 1.45, 'bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000')
+        bngopen_id = bf.appendXObj(f, 0.8, 1.46, 'bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000')
         #toggle in the canvas to play
-        tglplay_id = bf.appendXObj(f, 1.27, 1.45, 'tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1')
+        tglplay_id = bf.appendXObj(f, 1.27, 1.46, 'tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1')
         #toggle for loop/no loop selection
-        tglloop_id = bf.appendXObj(f, 1.8, 1.45, 'tgl 15 0 empty empty loop 17 7 0 10 #fcfcfc #000000 #000000 0 1')
+        tglloop_id = bf.appendXObj(f, 1.8, 1.46, 'tgl 15 0 empty empty loop 17 7 0 10 #fcfcfc #000000 #000000 0 1')
         #horizontal slider to set the volume
-        hslvol_id = bf.appendXObj(f, 2.35, 1.45, 'hsl 80 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1')
+        hslvol_id = bf.appendXObj(f, 2.35, 1.46, 'hsl 80 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1')
         #inlet for control messages of the player
         in_id = bf.appendXObj(f, 2.5, 0.5, 'inlet')
         #route object

@@ -19,7 +19,7 @@ def generate_hoaregdecoder(dDir):
         f.write(bf.patchMiddleCanvas)
         f.write(bf.patchAbstractionCnv1_1+' hoa.regdecoder'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
         bf.resetObjInd()
-        f.write(bf.patchAbstractionCnv1_2+ ' multichannel\ ambisonic\ regular\ decoder\ at\ order\ '+str(ind)+'\ to\ '+str(2*ind+2)+'\ loudspeakers '+bf.patchAbstractionCnv2_2+'\n')
+        f.write(bf.patchAbstractionCnv1_2+ ' ambisonic\ regular\ decoder\ at\ order\ '+str(ind)+'\ to\ '+str(2*ind+2)+'\ loudspeakers '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
