@@ -14,6 +14,7 @@ import pdgaGenerateEncoder as genco
 import pdgaGenerateRecorder as genrec
 import pdgaGeneratePlayer as genplay
 import pdgaGenerateStereoDecoder as gstereodec
+import pdgaGenerateBusSelector as gbussel
 
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
@@ -38,6 +39,7 @@ hoaencoder_flag = True
 mcrecorder_flag = True
 mcplayer_flag = True
 hoastereodecoder_flag = True
+mcbusselector_flag = True
 
 
 print("________________________________________________")
@@ -143,4 +145,13 @@ if (mcplayer_flag):
     print('=>'+str(bf.maxAmbiOrder)+' hoa.stereodecoder#ind.pd user abstractions generated')
 else:
     print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
+#
+print("________________________________________________")
+print("STEP#08 GENERATING BUS SELECTORS")
+print("________________________________________________")
+if (mcbusselector_flag):
+    gbussel.generate_mcbusselector(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.busselector#ind.pd user abstractions generated')
+else:
+    print('=> no mc.busselector#ind.pd user abstractions generated')    
     

@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.decoderblock#ind abstractions
+Generates the mc.player#ind abstractions
 _______________________________________________________
 """   
 def generate_mcplayer(dDir):
@@ -22,7 +22,7 @@ def generate_mcplayer(dDir):
         f.write(bf.patchAbstractionCnv1_2+ ' multichannel\ player\ on\ '+str(ind)+'\ channels '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
 
-        #bang in the canvas to open a file
+        #bang in the canvas to open the file
         bngopen_id = bf.appendXObj(f, 0.8, 1.46, 'bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000')
         #toggle in the canvas to play
         tglplay_id = bf.appendXObj(f, 1.27, 1.46, 'tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1')
