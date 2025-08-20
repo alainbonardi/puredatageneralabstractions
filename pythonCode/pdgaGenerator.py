@@ -129,7 +129,7 @@ else:
     print('=> no mc.recorder#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#07 GENERATING PLAYER ABSTRACTIONS")
+print("STEP#08 GENERATING PLAYER ABSTRACTIONS")
 print("________________________________________________")
 if (mcplayer_flag):
     genplay.generate_mcplayer(destLibDir)
@@ -138,7 +138,7 @@ else:
     print('=> no mc.player#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#07 GENERATING STEREO HOA DECODERS")
+print("STEP#09 GENERATING STEREO HOA DECODERS")
 print("________________________________________________")
 if (mcplayer_flag):
     gstereodec.generate_hoastereodecoder(destLibDir)
@@ -147,7 +147,7 @@ else:
     print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
 #
 print("________________________________________________")
-print("STEP#08 GENERATING BUS SELECTORS")
+print("STEP#10 GENERATING BUS SELECTORS")
 print("________________________________________________")
 if (mcbusselector_flag):
     gbussel.generate_mcbusselector(destLibDir)

@@ -23,31 +23,28 @@ def generate_mcbusselector(dDir):
         bf.incObjInd()
 
         #vradio in the canvas to select the input
-        vardio_id = bf.appendXObj(f, 0.8, 1.46, 'vradio 16 1 0 3 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000 0')
-        #toggle in the canvas to play
-        #tglplay_id = bf.appendXObj(f, 1.27, 1.46, 'tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1')
-        #toggle for loop/no loop selection
-        #tglloop_id = bf.appendXObj(f, 1.8, 1.46, 'tgl 15 0 empty empty loop 17 7 0 10 #fcfcfc #000000 #000000 0 1')
-        #horizontal slider to set the volume
-        #hslvol_id = bf.appendXObj(f, 2.35, 1.46, 'hsl 80 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1')
-        #inlet for control messages of the player
-        #in_id = bf.appendXObj(f, 2.5, 0.5, 'inlet')
+        vradio_id = bf.appendXObj(f, 0.8, 1.9, 'vradio 16 1 0 3 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000 0')
+        #number_box
+        numbox_id = bf.appendXFloat(f, 0.8, 2.45, 'ramptime')
+        #control inlet
+        in1_id = bf.appendXObj(f, 0.2, 0.5, 'inlet')
+        #inlet~ #1
+        in2_id = bf.appendXObj(f, 2, 0.5, 'inlet~')
+        #inlet~ #2
+        in3_id = bf.appendXObj(f, 4,  0.5, 'inlet~')
         #route object
-        #route_id = bf.appendXObj(f, 2.5, 0.8, 'route vol play loop')
-        #openpanel object
-        #openpanel_id = bf.appendXObj(f, 2.5, 2, 'openpanel')
-        #list prepend
-        #list1_id = bf.appendXObj(f, 2.5, 2.25, 'list prepend set open')
-        #list trim
-        #list2_id = bf.appendXObj(f, 2.5, 2.5, 'list trim')
-        #open message
-        #msgopen_id = bf.appendXMsg(f, 2.5, 2.75, 'open')
-        #readsf~ #ind object
-        #readsf_id = bf.appendXObj(f, 2.5, 3.25, 'readsf~ '+str(ind))
-        #bang object
-        #bang_id = bf.appendXObj(f, 3.5, 3.75, 'bang')
-        #float object
-        #float_id = bf.appendXObj(f, 3.5, 4, 'f 0')
+        route_id = bf.appendXObj(f, 0.2, 0.8, 'route out ramptime')
+        #clip object
+        clip_id = bf.appendXObj(f, 0.2, 1.1, 'clip 0 2')
+        #snake~ out #ind #1
+        snakeout1_id = bf.appendXObj(f, 2, 1.1, 'snake~ out '+str(ind))
+        #snake~ out #ind #2
+        snakeout2_id = bf.appendXObj(f, 4, 1.1, 'snake~ out '+str(ind))
+        #out message
+        msgout_id = bf.appendXMsg(f, 0.2, 2.6, 'out $1')
+        #ramptime message
+        
+        #toggle in the canvas to play
         #various *~ (#ind instances)
         #for j in range(ind):
         #    k = bf.appendXObj(f, 2.5+0.5*j, 4.5, '*~')

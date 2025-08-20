@@ -18,7 +18,9 @@ xText = '#X text'
 xConnect = '#X connect'
 xMsg = '#X msg'
 xFloat = '#X floatatom'
-xFloat2 = '5 0 0 0 - - - 0;\n'
+#xFloat2 = '5 0 0 0 - - - 0;\n'
+xFloat2 = '5 0 0 1 '
+xFloat3 = ' - - 0'
 
 maxAmbiOrder = 7
 commonComment = 'Common abstractions generated - '
@@ -97,7 +99,7 @@ Prepares an XFloat line for a float box
 _______________________________________________________
 """   
 def getXFloat(px, py, s):
-    sFloat = xFloat+' '+str(getPx(px))+' '+str(getPy(py))+' '+s+xFloat2+';\n'
+    sFloat = xFloat+' '+str(getPx(px))+' '+str(getPy(py))+' '+xFloat2+s+xFloat3+';\n'
     return sFloat
 
 """
