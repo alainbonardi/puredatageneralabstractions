@@ -41,31 +41,52 @@ def generate_mcbusselector(dDir):
         #snake~ out #ind #2
         snakeout2_id = bf.appendXObj(f, 4, 1.1, 'snake~ out '+str(ind))
         #out message
-        msgout_id = bf.appendXMsg(f, 0.2, 2.6, 'out $1')
+        msgout_id = bf.appendXMsg(f, 0.2, 2.8, 'out \$1')
         #ramptime message
-        
-        #toggle in the canvas to play
-        #various *~ (#ind instances)
-        #for j in range(ind):
-        #    k = bf.appendXObj(f, 2.5+0.5*j, 4.5, '*~')
+        msgramptime_id = bf.appendXMsg(f, 0.8, 2.8, 'ramptime \$1') 
+        #adds ind selector2-mod abstractions
+        for j in range(ind):
+            k = bf.appendXObj(f, 0.8+j, 3.5, 'selector2-mod')
         #comes back to the first one
-        #mult_id = float_id + 1
-        #snake~ in #ind object
-        #snakein_id = bf.appendXObj(f, 2.5, 4.75, 'snake~ in '+str(ind))
-        #outlet~ object
-        #out_id = bf.appendXObj(f, 2.5, 5, 'outlet~')
-        #level msg
-        #msglevel_id = bf.appendXMsg(f, 2.5+0.5*ind, 3.75, '\$1 20')
-        #line~ object
-        #line_id = bf.appendXObj(f, 2.5+0.5*ind, 4, 'line~')
-        #trigger object
-        #trig_id = bf.appendXObj(f, 2, 2.25, 't f b')
+        selector2_mult_id = msgramptime_id + 1
+        #adds snake~ in #ind object
+        snakein_id = bf.appendXObj(f, 0.8, 4, 'snake~ in '+str(ind))
+        #adds outlet~ object
+        outlet_id = bf.appendXObj(f, 0.8, 4.5, 'outlet~')
         #
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         #connections
         #inlet to route
-        #bf.appendXConnect(f, in_id, 0, route_id, 0)
+        bf.appendXConnect(f, in1_id, 0, route_id, 0)
+        #route to clip
+        bf.appendXConnect(f, route_id, 0, clip_id, 0)
+        #clip to vradio
+        bf.appendXConnect(f, clip_id, 0, vradio_id, 0)
+        #vradio to out message
+        bf.appendXConnect(f, vradio_id, 0, msgout_id, 0)
+        #2nd outlet of route (ramptime) to ramptime box number
+        bf.appendXConnect(f, route_id, 1, numbox_id, 0)
+        #ramptime box number to ramptime msg
+        bf.appendXConnect(f, numbox_id, 0, msgramptime_id, 0)
+        #inlet~ 1 to snake~ out 1
+        bf.appendXConnect(f, in2_id, 0, snakeout1_id, 0)
+        #inlet~ 2 to snake~ out 2
+        bf.appendXConnect(f, in3_id, 0, snakeout2_id, 0)
+        #snake~ in #ind to outlet~~
+        bf.appendXConnect(f, snakein_id, 0, outlet_id, 0)
+        #multiple connections
+        for j in range(ind):
+            #connects out $1 message to all left inlets of selector2-mod abstractions
+            bf.appendXConnect(f, msgout_id, 0, selector2_mult_id+j, 0)
+            #connects ramptime $1 message to all left inlets of selector2-mod abstractions
+            bf.appendXConnect(f, msgramptime_id, 0, selector2_mult_id+j, 0)
+            #connects outlets of the first snake~ out to the middle inlet of selector2-mod abstractions
+            bf.appendXConnect(f, snakeout1_id, j, selector2_mult_id+j, 1)
+            #connects outlets of the second snake~ out to the right inlet of selector2-mod abstrationcs
+            bf.appendXConnect(f, snakeout2_id, j, selector2_mult_id+j, 2)
+            #connects all selector2-mod outlets to the inlets of snake~ in #ind object
+            bf.appendXConnect(f, selector2_mult_id+j, 0, snakein_id, j)
         #vol in route to hsl vol
         #bf.appendXConnect(f, route_id, 0, hslvol_id, 0)
         #play in route to play toogle
