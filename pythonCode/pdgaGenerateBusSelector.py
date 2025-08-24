@@ -27,23 +27,23 @@ def generate_mcbusselector(dDir):
         #number_box
         numbox_id = bf.appendXFloat(f, 0.8, 2.45, 'ramptime')
         #control inlet
-        in1_id = bf.appendXObj(f, 0.2, 0.5, 'inlet')
+        in1_id = bf.appendXObj(f, 0.2, 0.5, 'inlet~')
         #inlet~ #1
         in2_id = bf.appendXObj(f, 2, 0.5, 'inlet~')
         #inlet~ #2
-        in3_id = bf.appendXObj(f, 4,  0.5, 'inlet~')
+        in3_id = bf.appendXObj(f, 4,  0.5, 'inlet')
         #route object
-        route_id = bf.appendXObj(f, 0.2, 0.8, 'route out ramptime')
+        route_id = bf.appendXObj(f, 4, 0.8, 'route out ramptime')
         #clip object
-        clip_id = bf.appendXObj(f, 0.2, 1.1, 'clip 0 2')
+        clip_id = bf.appendXObj(f, 4, 1.1, 'clip 0 2')
         #snake~ out #ind #1
-        snakeout1_id = bf.appendXObj(f, 2, 1.1, 'snake~ out '+str(ind))
+        snakeout1_id = bf.appendXObj(f, 0.2, 1.1, 'snake~ out '+str(ind))
         #snake~ out #ind #2
-        snakeout2_id = bf.appendXObj(f, 4, 1.1, 'snake~ out '+str(ind))
+        snakeout2_id = bf.appendXObj(f, 2, 1.1, 'snake~ out '+str(ind))
         #out message
-        msgout_id = bf.appendXMsg(f, 0.2, 2.8, 'out \$1')
+        msgout_id = bf.appendXMsg(f, 4, 2.8, 'out \$1')
         #ramptime message
-        msgramptime_id = bf.appendXMsg(f, 0.8, 2.8, 'ramptime \$1') 
+        msgramptime_id = bf.appendXMsg(f, 4.5, 2.8, 'ramptime \$1') 
         #adds ind selector2-mod abstractions
         for j in range(ind):
             k = bf.appendXObj(f, 0.8+j, 3.5, 'selector2-mod')
@@ -58,7 +58,7 @@ def generate_mcbusselector(dDir):
         bf.incObjInd()
         #connections
         #inlet to route
-        bf.appendXConnect(f, in1_id, 0, route_id, 0)
+        bf.appendXConnect(f, in3_id, 0, route_id, 0)
         #route to clip
         bf.appendXConnect(f, route_id, 0, clip_id, 0)
         #clip to vradio
@@ -70,21 +70,21 @@ def generate_mcbusselector(dDir):
         #ramptime box number to ramptime msg
         bf.appendXConnect(f, numbox_id, 0, msgramptime_id, 0)
         #inlet~ 1 to snake~ out 1
-        bf.appendXConnect(f, in2_id, 0, snakeout1_id, 0)
+        bf.appendXConnect(f, in1_id, 0, snakeout1_id, 0)
         #inlet~ 2 to snake~ out 2
-        bf.appendXConnect(f, in3_id, 0, snakeout2_id, 0)
+        bf.appendXConnect(f, in2_id, 0, snakeout2_id, 0)
         #snake~ in #ind to outlet~~
         bf.appendXConnect(f, snakein_id, 0, outlet_id, 0)
         #multiple connections
         for j in range(ind):
-            #connects out $1 message to all left inlets of selector2-mod abstractions
-            bf.appendXConnect(f, msgout_id, 0, selector2_mult_id+j, 0)
-            #connects ramptime $1 message to all left inlets of selector2-mod abstractions
-            bf.appendXConnect(f, msgramptime_id, 0, selector2_mult_id+j, 0)
-            #connects outlets of the first snake~ out to the middle inlet of selector2-mod abstractions
-            bf.appendXConnect(f, snakeout1_id, j, selector2_mult_id+j, 1)
-            #connects outlets of the second snake~ out to the right inlet of selector2-mod abstrationcs
-            bf.appendXConnect(f, snakeout2_id, j, selector2_mult_id+j, 2)
+            #connects out $1 message to all right inlets of selector2-mod abstractions
+            bf.appendXConnect(f, msgout_id, 0, selector2_mult_id+j, 2)
+            #connects ramptime $1 message to all right inlets of selector2-mod abstractions
+            bf.appendXConnect(f, msgramptime_id, 0, selector2_mult_id+j, 2)
+            #connects outlets of the first snake~ out to the left inlet of selector2-mod abstractions
+            bf.appendXConnect(f, snakeout1_id, j, selector2_mult_id+j, 0)
+            #connects outlets of the second snake~ out to the middle inlet of selector2-mod abstrationcs
+            bf.appendXConnect(f, snakeout2_id, j, selector2_mult_id+j, 1)
             #connects all selector2-mod outlets to the inlets of snake~ in #ind object
             bf.appendXConnect(f, selector2_mult_id+j, 0, snakein_id, j)
         #vol in route to hsl vol
