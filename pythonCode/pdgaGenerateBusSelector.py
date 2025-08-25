@@ -5,16 +5,16 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.player#ind abstractions
+Generates the mc.busselector#ind abstractions
 _______________________________________________________
 """   
 def generate_mcbusselector(dDir):
     for i in range (2*bf.maxAmbiOrder+2):
         ind = i + 1
-        #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
+        #opens a Pure Data file for the mc.busselector#ind.pd abstraction
         fileName = dDir+'/mc.busselector'+str(ind)+".pd"
         f = open(fileName, 'w')
-        #writes the lines of the mc.player#ind.pd Pure Data abstraction
+        #writes the lines of the mc.busselector#ind.pd Pure Data abstraction
         #writes the objects
         f.write(bf.patchMiddleCanvas)
         f.write(bf.patchAbstractionCnv1_1+' mc.busselector'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
@@ -87,50 +87,5 @@ def generate_mcbusselector(dDir):
             bf.appendXConnect(f, snakeout2_id, j, selector2_mult_id+j, 1)
             #connects all selector2-mod outlets to the inlets of snake~ in #ind object
             bf.appendXConnect(f, selector2_mult_id+j, 0, snakein_id, j)
-        #vol in route to hsl vol
-        #bf.appendXConnect(f, route_id, 0, hslvol_id, 0)
-        #play in route to play toogle
-        #bf.appendXConnect(f, route_id, 1, tglplay_id, 0)
-        #loop in route to loop toggle
-        #bf.appendXConnect(f, route_id, 2, tglloop_id, 0)
-        #open bang to openpanel object
-        #bf.appendXConnect(f, bngopen_id, 0, openpanel_id, 0)
-        #play toggle to trigger object
-        #bf.appendXConnect(f, tglplay_id, 0, trig_id, 0)
-        #trigger object to readsf~ #ind
-        #bf.appendXConnect(f, trig_id, 0, readsf_id, 0)
-        #trigger object to open message
-        #bf.appendXConnect(f, trig_id, 1, msgopen_id, 0)
-        #openpanel object to list prepend object
-        #bf.appendXConnect(f, openpanel_id, 0, list1_id, 0)
-        #list prepend object to list trim object
-        #bf.appendXConnect(f, list1_id, 0, list2_id, 0)
-        #list trim to message open
-        #bf.appendXConnect(f, list2_id, 0, msgopen_id, 0)
-        #message open to readsf object
-        #bf.appendXConnect(f, msgopen_id, 0, readsf_id, 0)
-        #last output of readsf~ to bang object
-        #bf.appendXConnect(f, readsf_id, ind, bang_id, 0)
-        #bang object to float object
-        #bf.appendXConnect(f, bang_id, 0, float_id, 0)
-        #loop toggle to float object
-        #bf.appendXConnect(f, tglloop_id, 0, float_id, 1)
-        #float object to play toggle
-        #bf.appendXConnect(f, float_id, 0, tglplay_id, 0)
-        #hsl vol to level msg
-        #bf.appendXConnect(f, hslvol_id, 0, msglevel_id, 0)
-        #level msg to line~ object
-        #bf.appendXConnect(f, msglevel_id, 0, line_id, 0)
-        #connections between readsf~ object to the various *~~
-        #for j in range(ind):
-            #bf.appendXConnect(f, readsf_id, j, mult_id+j, 0)
-        #connections between line~ object to the various *~
-        #for j in range(ind):
-            #bf.appendXConnect(f, line_id, 0, mult_id+j, 1)
-        #connections between the various *~ and snake~ in #ind object
-        #for j in range(ind):
-            #bf.appendXConnect(f, mult_id+j, 0, snakein_id, j)
-        #snake~ in #ind object to outlet~ object
-        #bf.appendXConnect(f, snakein_id, 0, out_id, 0)
         f.write('#X coords 0 -1 1 1 90 90 1 100 200;\n')
         f.close()

@@ -15,7 +15,10 @@ import pdgaGenerateRecorder as genrec
 import pdgaGeneratePlayer as genplay
 import pdgaGenerateStereoDecoder as gstereodec
 import pdgaGenerateBusSelector as gbussel
-
+import pdgaGenerateBusPlus as gbusplus
+import pdgaGenerateBusMult as gbusmult
+import pdgaGenerateElemVbap as gvbap
+import pdgaGenerateHoaVbap as ghoavbap
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
@@ -40,6 +43,10 @@ mcrecorder_flag = True
 mcplayer_flag = True
 hoastereodecoder_flag = True
 mcbusselector_flag = True
+mcbusplus_flag = True
+mcbusmult_flag = True
+vbap_f_flag = True
+hoavbap_flag = True
 
 
 print("________________________________________________")
@@ -153,5 +160,42 @@ if (mcbusselector_flag):
     gbussel.generate_mcbusselector(destLibDir)
     print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.busselector#ind.pd user abstractions generated')
 else:
-    print('=> no mc.busselector#ind.pd user abstractions generated')    
-    
+    print('=> no mc.busselector#ind.pd user abstractions generated')   
+#
+print("________________________________________________")
+print("STEP#11 GENERATING BUS PLUS")
+print("________________________________________________")
+#
+if (mcbusplus_flag):
+    gbusplus.generate_mcbusplus(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.busplus#ind.pd user abstractions generated')
+else:
+    print('=> no mc.busplus#ind.pd user abstractions generated')  
+#
+print("________________________________________________")
+print("STEP#12 GENERATING BUS MULT")
+print("________________________________________________")
+#
+if (mcbusmult_flag):
+    gbusmult.generate_mcbusmult(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.busmult#ind.pd user abstractions generated')
+else:
+    print('=> no mc.busmult#ind.pd user abstractions generated')  
+#
+print("________________________________________________")
+print("STEP#13 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
+print("________________________________________________")
+if (vbap_f_flag):
+    gvbap.generate_vbap(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' vbap#ind_f.pd user abstractions generated')
+else:
+    print('=> no vbap#ind_f.pd user abstractions generated')   
+#
+print("________________________________________________")
+print("STEP#14 GENERATING HOA VBAP ABSTRACTIONS")
+print("________________________________________________")
+if (hoavbap_flag):
+    ghoavbap.generate_hoavbap(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
+else:
+    print('=> no hoa.vbap#ind.pd user abstractions generated')    
