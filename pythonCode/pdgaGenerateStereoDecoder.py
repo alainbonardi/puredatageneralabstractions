@@ -34,7 +34,7 @@ def generate_hoastereodecoder(dDir):
         snakeout_id = bf.appendXObj(f, 0, 2, 'snake~ out '+str(2*ind+2))
         #line 3 - 2*ind+2 stereogains
         for j in range(2*ind+2):
-            k = bf.appendXObj(f, j, 3, 'stereogains '+str(j*360/(2*ind+2)))
+            k = bf.appendXObj(f, j*1.2, 3, 'stereogains '+str(j*360/(2*ind+2)))
         #comes back to the first
         stereog_id = snakeout_id+1
         #line 4 - snake~ in 2

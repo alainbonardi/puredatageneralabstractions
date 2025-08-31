@@ -17,6 +17,7 @@ import pdgaGenerateStereoDecoder as gstereodec
 import pdgaGenerateBusSelector as gbussel
 import pdgaGenerateBusPlus as gbusplus
 import pdgaGenerateBusMult as gbusmult
+import pdgaGenerateDuplicate as gdup
 import pdgaGenerateElemVbap as gvbap
 import pdgaGenerateHoaVbap as ghoavbap
 
@@ -45,6 +46,7 @@ hoastereodecoder_flag = True
 mcbusselector_flag = True
 mcbusplus_flag = True
 mcbusmult_flag = True
+mcduplicate_flag = True
 vbap_f_flag = True
 hoavbap_flag = True
 
@@ -183,7 +185,16 @@ else:
     print('=> no mc.busmult#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#13 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
+print("STEP#13 GENERATING DUPLICATE ABSTRACTIONS")
+print("________________________________________________")
+if (mcduplicate_flag):
+    gdup.generate_mcduplicate(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.duplicate#ind_f.pd user abstractions generated')
+else:
+    print('=> no mc.duplicate#ind_f.pd user abstractions generated')   
+#
+print("________________________________________________")
+print("STEP#14 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (vbap_f_flag):
     gvbap.generate_vbap(destLibDir)
@@ -192,10 +203,11 @@ else:
     print('=> no vbap#ind_f.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#14 GENERATING HOA VBAP ABSTRACTIONS")
+print("STEP#15 GENERATING HOA VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (hoavbap_flag):
     ghoavbap.generate_hoavbap(destLibDir)
     print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
 else:
-    print('=> no hoa.vbap#ind.pd user abstractions generated')    
+    print('=> no hoa.vbap#ind.pd user abstractions generated')  
+
