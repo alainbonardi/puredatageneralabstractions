@@ -9,7 +9,7 @@ Generates the vbap#ind abstractions
 _______________________________________________________
 """   
 def generate_vbap(dDir):
-    for i in range (2*bf.maxAmbiOrder+2):
+    for i in range (1, 2*bf.maxAmbiOrder+2):
         ind = i + 1
         #opens a Pure Data file for vbap#ind_f.pd abstraction
         fileName = dDir+'/vbap'+str(ind)+"_f.pd"
@@ -26,15 +26,19 @@ def generate_vbap(dDir):
             k = bf.appendXObj(f, j+1, 1, 'inlet')
         #comes back to the first one
         multiinlet_id = in_id + 1
+        """
         #loadbang
         loadbang_id = bf.appendXObj(f, ind+1, 1, 'loadbang')
         #float object
         float_id = bf.appendXObj(f, ind+1, 1.5, 'float \$1')
+        """
+        #inlet for the angle of the source
+        in_ang_id = bf.appendXObj(f, ind+1, 1, 'inlet')
         #vbap abstractions
         for j in range(ind):
             k = bf.appendXObj(f, j+1, 2, 'vbap')
         #comes back to the first one
-        multivbap_id = float_id + 1
+        multivbap_id = in_ang_id + 1
         #+~ objects
         for j in range(ind):
             k = bf.appendXObj(f, j+1, 3, '+~')
@@ -45,8 +49,10 @@ def generate_vbap(dDir):
         #outlet~ object
         outlet_id = bf.appendXObj(f, 0, 5, 'outlet~')
         #connexions
+        """
         #loadbang to float
         bf.appendXConnect(f, loadbang_id, 0, float_id, 0)
+        """
         #inlet~ to all vbap abstrations
         for j in range(ind):
             bf.appendXConnect(f, in_id, 0, multivbap_id+j, 0)
@@ -58,7 +64,7 @@ def generate_vbap(dDir):
         bf.appendXConnect(f, multiinlet_id, 0, multivbap_id+ind-1, 2)
         #float to vbap abstractions
         for j in range(ind):
-            bf.appendXConnect(f, float_id, 0, multivbap_id+j, 3)
+            bf.appendXConnect(f, in_ang_id, 0, multivbap_id+j, 3)
         #vbap abstractions to +~ objects
         for j in range(ind):
             bf.appendXConnect(f, multivbap_id+j, 0, multiplus_id+j, 1)

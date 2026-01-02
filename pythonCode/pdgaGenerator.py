@@ -20,6 +20,7 @@ import pdgaGenerateBusMult as gbusmult
 import pdgaGenerateDuplicate as gdup
 import pdgaGenerateElemVbap as gvbap
 import pdgaGenerateHoaVbap as ghoavbap
+import pdgaGenerateCompleteDecoder as ghoadeco
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
@@ -49,6 +50,7 @@ mcbusmult_flag = True
 mcduplicate_flag = True
 vbap_f_flag = True
 hoavbap_flag = True
+hoadeco_flag = True
 
 
 print("________________________________________________")
@@ -210,4 +212,12 @@ if (hoavbap_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
 else:
     print('=> no hoa.vbap#ind.pd user abstractions generated')  
-
+#
+print("________________________________________________")
+print("STEP#16 GENERATING HOA COMPLETE DECODERS")
+print("________________________________________________")
+if (hoadeco_flag):
+    ghoadeco.generate_hoadeco(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
+else:
+    print('=> no hoa.vbap#ind.pd user abstractions generated')  
