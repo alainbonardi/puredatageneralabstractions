@@ -1,4 +1,4 @@
-#N canvas 454 179 691 438 12;
+#N canvas 454 179 653 500 10;
 #X obj 10 450 pdga_helpcredit;
 #X obj 46 67 inlet;
 #X text 92 67 current angle;

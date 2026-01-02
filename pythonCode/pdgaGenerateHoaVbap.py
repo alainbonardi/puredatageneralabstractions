@@ -22,40 +22,46 @@ def generate_hoavbap(dDir):
         bf.resetObjInd()
         f.write(bf.patchAbstractionCnv1_2+ ' multichannel\ vbap\ of\ one\ source\ on\ '+str(ind)+'\ loudspeakers '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
-            #
+        #
         #line 0.5 - inlet~
         in1_id = bf.appendXObj(f, 0, 0.5, 'inlet~')
         #line 0.5 - inlet for the angles of the loudspeakers
         in2_id = bf.appendXObj(f, 3, 0.5, 'inlet')
         #line 0.5 - inlet for the angle of the source
-        in3_id = bf.appendXObj(f, 6, 0.5, 'inlet')
+        in3_id = bf.appendXObj(f, 7, 0.5, 'inlet')
         #line 0.75 - route
         route_content = 'route'
         for j in range(ind):
             route_content = route_content + ' a' + str(j)
+        #we add direct $1 (1 or 0) message
+        #we add shift $1 (angle in degrees) message
+        route_content = route_content+' direct'
+        route_content = route_content+' shift'
         route_id = bf.appendXObj(f, 3, 0.75, route_content)
+        #we add the anglecontrol abstraction to transform the angle of the source
+        #according to the global parameters (direct and shift)
+        ang_ctrl_id = bf.appendXObj(f, 7, 1, 'anglecontrol')
         #vbap elementary modules for each loudspeaker
         for j in range(ind):
-            k = bf.appendXObj(f, j, 1.5, 'vbap'+str(ind)+'_f')
+            k = bf.appendXObj(f, j, 1.75, 'vbap'+str(ind))
         #comes back to the first
-        multivbap_id = route_id +  1
+        multivbap_id = ang_ctrl_id +  1
         #mc.busplus#ind abstractions
         for j in range(ind-1):
-            k = bf.appendXObj(f, j*0.5, 1.75+0.25*j, 'mc.busplus'+str(ind))
+            k = bf.appendXObj(f, j*0.5, 2+0.25*j, 'mc.busplus'+str(ind))
         #comes back to the first
         multibusplus_id = multivbap_id + ind
         #
         #outlet~~
-        out_id = bf.appendXObj(f, 0.5*(ind-2), 1.75+0.25*(ind-1), 'outlet~')
+        out_id = bf.appendXObj(f, 0.5*(ind-2), 2+0.25*(ind-1), 'outlet~')
         #connection of the first two vbap abstractions to the 
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         #connections
-        #inlet~ to snake~ out
-        #no longer the snake_out
-        #bf.appendXConnect(f, in1_id, 0, snakeout_id, 0)
         #inlet to route
         bf.appendXConnect(f, in2_id, 0, route_id, 0)
+        #inlet 3 connected to anglecontrol
+        bf.appendXConnect(f, in3_id, 0, ang_ctrl_id, 0)
         #the source is connected to all the first inputs of the vbap abstractions
         for j in range(ind):
             bf.appendXConnect(f, in1_id, 0, multivbap_id+j, 0)
@@ -63,9 +69,9 @@ def generate_hoavbap(dDir):
         for j in range(ind):
             for k in range(ind):
                 bf.appendXConnect(f, route_id, j, multivbap_id+k, j+1)
-        #the last inlet (angle of the source) is connected to all the last inputs of the vbap abstractions
+        #the anglecontrol abstraction (angle of the source recomputed) is connected to all the last inputs of the vbap abstractions
         for j in range(ind):
-            bf.appendXConnect(f, in3_id, 0, multivbap_id+j, ind + 1)
+            bf.appendXConnect(f, ang_ctrl_id, 0, multivbap_id+j, ind + 1)
         #first and second vbaps are connected to the inputs of the first mc.busplus
         bf.appendXConnect(f, multivbap_id, 0, multibusplus_id, 0)
         bf.appendXConnect(f, multivbap_id+1, 0, multibusplus_id, 1)
@@ -78,5 +84,8 @@ def generate_hoavbap(dDir):
                 bf.appendXConnect(f, multibusplus_id+j, 0, multibusplus_id+j+1, 0)
         #connection of the last mc.busplus to the outlet~~
         bf.appendXConnect(f, multibusplus_id+ind-2, 0, out_id, 0)
+        #connection of the direct and shift outputs of the route to the inputs of anglecontrol
+        bf.appendXConnect(f, route_id, ind, ang_ctrl_id, 1)
+        bf.appendXConnect(f, route_id, ind+1, ang_ctrl_id, 2)
         #
         f.close()

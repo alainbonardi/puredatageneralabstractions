@@ -12,7 +12,7 @@ def generate_vbap(dDir):
     for i in range (1, 2*bf.maxAmbiOrder+2):
         ind = i + 1
         #opens a Pure Data file for vbap#ind_f.pd abstraction
-        fileName = dDir+'/vbap'+str(ind)+"_f.pd"
+        fileName = dDir+'/vbap'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the vbap#ind_f.pd Pure Data abstraction
         #writes the objects
