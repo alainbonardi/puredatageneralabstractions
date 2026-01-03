@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.decoderblock#ind abstractions
+Generates the hoa.stereodecoder#ind abstractions
 _______________________________________________________
 """   
 def generate_hoastereodecoder(dDir):
@@ -23,45 +23,26 @@ def generate_hoastereodecoder(dDir):
         bf.incObjInd()
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
-        bf.appendXText(f, 2.5, 1, 'amp+value message')
+        #03/01/2026 - remove the amplitude control from the stereodecoder
+        #bf.appendXText(f, 2.5, 1, 'amp+value message')
         #line 1 - inlet~
         in1_id = bf.appendXObj(f, 0, 1, 'inlet~')
+        #03/01/2026 - remove the amplitude control from the stereodecoder
         #inlet for the message amp+value
-        in2_id = bf.appendXObj(f, 2, 1, 'inlet')
+        #in2_id = bf.appendXObj(f, 2, 1, 'inlet')
         #line 1.5 - mc.decoderblock1#ind
         hoadb_id = bf.appendXObj(f, 0, 1.5, 'hoa.decoderblock'+str(ind))
-        #line 2 - snake~ out #2*ind+2
-        snakeout_id = bf.appendXObj(f, 0, 2, 'snake~ out '+str(2*ind+2))
-        #line 3 - 2*ind+2 stereogains
-        for j in range(2*ind+2):
-            k = bf.appendXObj(f, j*1.2, 3, 'stereogains '+str(j*360/(2*ind+2)))
-        #comes back to the first
-        stereog_id = snakeout_id+1
-        #line 4 - snake~ in 2
-        snakein_id = bf.appendXObj(f, 0, 4, 'snake~ in 2')
-        #line 4.5- mc.gains2
-        mcg_id = bf.appendXObj(f, 0, 4.5, 'mc.gain2')
-        #line 5 - outlet~~
-        out_id = bf.appendXObj(f, 0, 5, 'outlet~')
+        #line 2 - hoa.2dprojection#ind
+        hoa2dproj_id = bf.appendXObj(f, 0, 2, 'hoa.2dprojection'+str(ind))
+        #line 3 - outlet~~
+        out_id = bf.appendXObj(f, 0, 3, 'outlet~')
         #connections
         #inlet~ to hoa.decoderblock#ind
         bf.appendXConnect(f, in1_id, 0, hoadb_id, 0)
-        #hoa.decoderblock#ind to snake~ out #2*ind+2
-        bf.appendXConnect(f, hoadb_id, 0, snakeout_id, 0)
-        #all the outputs of snake~ out #2*ind+2 to the various stereogains
-        for j in range(2*ind+2):
-            bf.appendXConnect(f, snakeout_id, j, stereog_id+j, 0)
-        #connects the left outputs of stereogains objects to the left input of snake~ in 2
-        for j in range(2*ind+2):
-            bf.appendXConnect(f, stereog_id+j, 0, snakein_id, 0)
-        #connects the right outputs of stereogains objects to the right input of snake~ in 2
-        for j in range(2*ind+2):
-            bf.appendXConnect(f, stereog_id+j, 1, snakein_id, 1)  
-        #connects the snake~ in 2 object to the mc.gain2 object
-        bf.appendXConnect(f, snakein_id, 0, mcg_id, 0)
-        #connects the mc.gain2 object to the outlet~~
-        bf.appendXConnect(f, mcg_id, 0, out_id, 0)
-        #connects the inlet to the right input of mc.gain2
-        bf.appendXConnect(f, in2_id, 0, mcg_id, 1)
+        #hoa.decoderblock#ind to hoa.2dprojection#ind
+        bf.appendXConnect(f, hoadb_id, 0, hoa2dproj_id, 0)
+        #hoa.2dprojection#ind to outlet~~
+        bf.appendXConnect(f, hoa2dproj_id, 0, out_id, 0)
+        #
         #
         f.close()

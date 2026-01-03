@@ -13,7 +13,7 @@ def generate_hoadeco(dDir):
         #ind1 is the ambisonic order, between 1 and maxAmbiOder
         ind1 = i1 + 1
         nh = 2 * ind1 + 1
-        for q in range(nh, 2*bf.maxAmbiOrder+2):
+        for q in range(4, 2*bf.maxAmbiOrder+2):
             #opens a Pure Data file for hoa.vbap#i1_#q.pd abstraction
             fileName = dDir+'/hoa.decoder'+str(ind1)+'_'+str(q)+".pd"
             f = open(fileName, 'w')
@@ -29,30 +29,30 @@ def generate_hoadeco(dDir):
             #line 0.5 - inlet
             in2_id = bf.appendXObj(f, 3, 0.5, 'inlet')
             #line 0.75 - snake~ out #ind
-            decoblock_id = bf.appendXObj(f, 0, 0.75, 'hoa.decoderblock'+str(ind1))
+            decoblock_id = bf.appendXObj(f, 0, 0.7, 'hoa.decoderblock'+str(ind1))
             #line 0.75 - loadbang
             loadbang_id = bf.appendXObj(f, 6, 0.75, 'loadbang')
             #line 1 - snake_out#ind1
-            snakeout_id = bf.appendXObj(f, 0, 1, 'snake~ out '+str(q))
+            snakeout_id = bf.appendXObj(f, 0, 0.9, 'snake~ out '+str(nh+1))
             #vbap elementary modules for each virtual source
-            for j in range(q):
+            for j in range(nh+1):
                 #k = bf.appendXObj(f, j, 1.25, 'vbap'+str(q)+'_f '+str(j*360/q))
                 k = bf.appendXObj(f, j, 1.5, 'hoa.vbap'+str(q))
             #comes back to the first
             multivbap_id = snakeout_id +  1
             #mc.busplus#ind abstractions
-            for j in range(q-1):
+            for j in range(nh):
                 k = bf.appendXObj(f, j*0.5, 1.75+0.25*j, 'mc.busplus'+str(q))
             #comes back to the first
-            multibusplus_id = multivbap_id + q
+            multibusplus_id = multivbap_id + nh + 1
             #messages for the initialization of the angles of the virtual sources
-            for j in range(q):
-                k = bf.appendXMsg(f, j+0.5, 1.25, str(j*360/q))
+            for j in range(nh+1):
+                k = bf.appendXMsg(f, j+0.5, 1.25, str(j*360/(nh+1)))
             #comes back to the first
-            multimsg_id = multibusplus_id + q-1
+            multimsg_id = multibusplus_id + nh
             #
             #outlet~~
-            out_id = bf.appendXObj(f, 0.5*(q-2), 1.75+0.25*(q-1), 'outlet~')
+            out_id = bf.appendXObj(f, 0.5*(nh-1), 1.75+0.25*(nh), 'outlet~')
             #
             f.write(bf.patchMiddleCredits)
             bf.incObjInd()
@@ -64,17 +64,27 @@ def generate_hoadeco(dDir):
             #inlet to route
             #bf.appendXConnect(f, in2_id, 0, route_id, 0)
             #the snake_out outputs are connected to all the first inputs of the vbap abstractions
-            for j in range(q):
+            for j in range(nh+1):
                 bf.appendXConnect(f, snakeout_id, j, multivbap_id+j, 0)
             #the 2nd inlet is connected to all second inputs of hoa.vbap#i abstractions
-            for j in range(q):
+            for j in range(nh+1):
                 bf.appendXConnect(f, in2_id, 0, multivbap_id+j, 1)
-            #the outputs of the route object are connected to all the inputs (#1 to #ind2) of the vbap abstractions
-            #for j in range(q):
-                #for k in range(q):
-                    #bf.appendXConnect(f, route_id, j, multivbap_id+k, j+1)
-            #connection of the first two vbap abstractions to the first mc.busplus
-            #bf.appendXConnect(f, multivbap_id, 0, multibusplus_id, 0)
-            #bf.appendXConnect(f, multivbap_id+1, 0, multibusplus_id, 1)
+            #the loadbang object is connected to all messages
+            for j in range(nh+1):
+                bf.appendXConnect(f, loadbang_id, 0, multimsg_id+j, 0)
+            #the messages are connected to the vbap#i abstractions
+            for j in range(nh+1):
+                bf.appendXConnect(f, multimsg_id+j, 0, multivbap_id+j, 2)
+            #connects the two first hoa.vbap#i to the inputs of the mc.busplus#i
+            bf.appendXConnect(f, multivbap_id, 0, multibusplus_id, 0)
+            bf.appendXConnect(f, multivbap_id+1, 0, multibusplus_id, 1)
+            #connects the following hoa.vbap#i to the inputs of the mc.busplus#i
+            for j in range(2, nh+1):
+                bf.appendXConnect(f, multivbap_id+j, 0, multibusplus_id+j-1, 1)
+            #connections between the mc.busplus#i
+            for j in range(nh-1):
+                bf.appendXConnect(f, multibusplus_id+j, 0, multibusplus_id+j+1, 0)
+            #connection between the last mc.busplus and the outlet~ object
+            bf.appendXConnect(f, multibusplus_id+nh-1, 0, out_id, 0)
             #
             f.close()

@@ -13,6 +13,7 @@ import pdgaGenerateGain as gg
 import pdgaGenerateEncoder as genco
 import pdgaGenerateRecorder as genrec
 import pdgaGeneratePlayer as genplay
+import pdgaGenerate2dprojection as gen2dproj
 import pdgaGenerateStereoDecoder as gstereodec
 import pdgaGenerateBusSelector as gbussel
 import pdgaGenerateBusPlus as gbusplus
@@ -43,6 +44,7 @@ mcgain_flag = True
 hoaencoder_flag = True
 mcrecorder_flag = True
 mcplayer_flag = True
+hoa2dprojection_flag = True
 hoastereodecoder_flag = True
 mcbusselector_flag = True
 mcbusplus_flag = True
@@ -149,7 +151,16 @@ else:
     print('=> no mc.player#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#09 GENERATING STEREO HOA DECODERS")
+print("STEP#09 GENERATING 2D PROJECTIONS")
+print("________________________________________________")
+if (hoa2dprojection_flag):
+    gen2dproj.generate_hoa2dprojection(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.2dprojection#ind.pd user abstractions generated')
+else:
+    print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
+#
+print("________________________________________________")
+print("STEP#10 GENERATING STEREO HOA DECODERS")
 print("________________________________________________")
 if (mcplayer_flag):
     gstereodec.generate_hoastereodecoder(destLibDir)
@@ -158,7 +169,7 @@ else:
     print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
 #
 print("________________________________________________")
-print("STEP#10 GENERATING BUS SELECTORS")
+print("STEP#11 GENERATING BUS SELECTORS")
 print("________________________________________________")
 if (mcbusselector_flag):
     gbussel.generate_mcbusselector(destLibDir)
@@ -167,7 +178,7 @@ else:
     print('=> no mc.busselector#ind.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#11 GENERATING BUS PLUS")
+print("STEP#12 GENERATING BUS PLUS")
 print("________________________________________________")
 #
 if (mcbusplus_flag):
@@ -177,7 +188,7 @@ else:
     print('=> no mc.busplus#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#12 GENERATING BUS MULT")
+print("STEP#13 GENERATING BUS MULT")
 print("________________________________________________")
 #
 if (mcbusmult_flag):
@@ -187,7 +198,7 @@ else:
     print('=> no mc.busmult#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#13 GENERATING DUPLICATE ABSTRACTIONS")
+print("STEP#14 GENERATING DUPLICATE ABSTRACTIONS")
 print("________________________________________________")
 if (mcduplicate_flag):
     gdup.generate_mcduplicate(destLibDir)
@@ -196,7 +207,7 @@ else:
     print('=> no mc.duplicate#ind_f.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#14 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
+print("STEP#15 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (vbap_f_flag):
     gvbap.generate_vbap(destLibDir)
@@ -205,7 +216,7 @@ else:
     print('=> no vbap#ind_f.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#15 GENERATING HOA VBAP ABSTRACTIONS")
+print("STEP#16 GENERATING HOA VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (hoavbap_flag):
     ghoavbap.generate_hoavbap(destLibDir)
@@ -214,10 +225,10 @@ else:
     print('=> no hoa.vbap#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#16 GENERATING HOA COMPLETE DECODERS")
+print("STEP#17 GENERATING HOA COMPLETE DECODERS")
 print("________________________________________________")
 if (hoadeco_flag):
     ghoadeco.generate_hoadeco(destLibDir)
-    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.decoder#ind.pd user abstractions generated')
 else:
-    print('=> no hoa.vbap#ind.pd user abstractions generated')  
+    print('=> no hoa.decoder#ind.pd user abstractions generated')  
