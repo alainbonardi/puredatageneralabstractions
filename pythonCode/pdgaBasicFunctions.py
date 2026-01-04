@@ -7,7 +7,7 @@ dx = 100
 dy = 100
 
 patchMiddleCanvas = '#N canvas 50 50 600 600 10;\n'
-patchMiddleCredits = '#X obj 10 550 pdga_helpcredit;\n'
+patchMiddleCredits = '#X obj 10 750 pdga_helpcredit;\n'
 patchAbstractionCnv1_1 = '#X obj 15 6 cnv 15 550 25 empty empty'
 patchAbstractionCnv1_2 = '#X obj 15 32 cnv 15 550 25 empty empty'
 patchAbstractionCnv2_1 = '20 12 0 18 #606060 #fcfcfc 0;'

@@ -1,0 +1,3 @@
+Version 1.1.0 of the puredatageneralabstractions library epresents a major change, introducing a large number of new multichannel abstractions:
+- for high order ambisonics: hoa.encoder, hoa.decoder (full decoders even for irregular configurations, including a stereo decoder), hoa.regdecoder (regular decoder), hoa.stereodecoder, hoa.vbap
+- for multichannel patching: mc.busmult, mc.busplus, mc.busselector, mc.gain, mc.meter, mc.player, mc.recorder

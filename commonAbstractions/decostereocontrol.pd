@@ -1,0 +1,18 @@
+#N canvas 547 109 639 501 10;
+#X obj 10 450 pdga_helpcredit;
+#X obj 40 22 inlet;
+#X obj 40 77 route stereo;
+#X obj 40 151 + 1;
+#X obj 40 233 outlet;
+#X obj 110 233 outlet;
+#X obj 132 76 loadbang;
+#X msg 132 110 0;
+#X text 163 110 initialized not in stereo;
+#X msg 40 192 out \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 5 0;
+#X connect 3 0 9 0;
+#X connect 6 0 7 0;
+#X connect 7 0 3 0;
+#X connect 9 0 4 0;

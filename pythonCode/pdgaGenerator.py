@@ -23,6 +23,8 @@ import pdgaGenerateElemVbap as gvbap
 import pdgaGenerateHoaVbap as ghoavbap
 import pdgaGenerateCompleteDecoder as ghoadeco
 import pdgaGenerateZeroPadding as gzeropad
+import pdgaCopyHelpPatches as chp
+import pdgaCopyWholeLibrary as cwl
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
@@ -55,21 +57,25 @@ vbap_flag = True
 hoavbap_flag = True
 mczeropad_flag = True
 hoadeco_flag = True
+chp_flag = True
+cwl_flag = True
 
 
 print("________________________________________________")
-print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTIONS FOLDER")
+#print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTIONS FOLDER")
 #choose a folder
 #rootPath = filedialog.askdirectory()
 #destLibDir = rootPath+'/generated_pdga_abstractions'
 #provisional fixed directory
-destLibDir = '/Users/alainbonardi/Dropbox/pythonFactory/puredatageneralabstractions_factory/generated_pdga_abstractions'
+destLibDir = '/Users/alainbonardi/Library/CloudStorage/Dropbox/pythonFactory/puredatageneralabstractions_factory/puredatageneralabstractions'
 #
 if os.path.exists(destLibDir):
     print("Existing directory containing the original generated abstractions, the previous one is deleted")
     shutil.rmtree(destLibDir)
 #we create a new folder for the generated abstractions
 os.mkdir(destLibDir)
+
+helpOrigDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions/helpPatches'
 
 #
 print("________________________________________________")
@@ -243,3 +249,21 @@ if (hoadeco_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.decoder#ind.pd user abstractions generated')
 else:
     print('=> no hoa.decoder#ind.pd user abstractions generated')  
+#
+print("________________________________________________")
+print("STEP#19 COPYING HELP PATCHES")
+print("________________________________________________")
+if (chp_flag):
+    chp.copyHelpPatches(helpOrigDir, destLibDir)
+    print('=> help patches copied') 
+else:
+    print('=> help patches not copied') 
+#
+print("________________________________________________")
+print("STEP#20 COPYING THE WHOLE LIBRARY")
+print("________________________________________________")
+if (cwl_flag):
+    cwl.copyWholeLibrary(destLibDir)
+    print('=> whole library copied') 
+else:
+    print('=> whole library not copied') 

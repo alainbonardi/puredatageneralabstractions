@@ -5,7 +5,7 @@
 #X obj 14 32 cnv 15 500 25 empty empty enables\ the\ vbap\ diffusion\ of\ a\ sound\ source\ through\ n\ loudspeakers 20 12 0 12 #606060 #fcfcfc 0;
 #X obj 13 661 pdga_helpcredit;
 #X obj 186 127 noiseburst;
-#X obj 259 161 meter;
+#X obj 206 153 meter;
 #X obj 186 104 r n11;
 #X obj 443 311 loadbang;
 #X obj 188 594 dac~ 1;
@@ -22,6 +22,7 @@
 #X msg 444 168 1;
 #X obj 444 144 loadbang;
 #X msg 443 345 \; n11 freq 5 \; n11 ratio 31 \; ctl a0 -30 \; ctl a1 30 \; ctl a2 150 \; ctl a3 210 \; ctl direct 1 \; ctl shift 0 \;;
+#X text 295 311 angle in degrees;
 #X connect 1 0 0 0;
 #X connect 5 0 6 0;
 #X connect 5 0 10 0;

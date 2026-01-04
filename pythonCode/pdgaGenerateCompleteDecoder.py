@@ -28,47 +28,58 @@ def generate_hoadeco(dDir):
             in1_id = bf.appendXObj(f, 0, 0.5, 'inlet~')
             #line 0.5 - inlet
             in2_id = bf.appendXObj(f, 3, 0.5, 'inlet')
-            #line 0.75 - snake~ out #ind
-            decoblock_id = bf.appendXObj(f, 0, 0.7, 'hoa.decoderblock'+str(ind1))
-            #line 0.75 - loadbang
-            loadbang_id = bf.appendXObj(f, 6, 0.75, 'loadbang')
-            #line 1 - snake_out#ind1
-            snakeout_id = bf.appendXObj(f, 0, 0.9, 'snake~ out '+str(nh+1))
+            #line 0.5 - loadbang
+            loadbang_id = bf.appendXObj(f, 6, 0.5, 'loadbang')
+            #line 0.75 - snake~ out #ind abstraction
+            decoblock_id = bf.appendXObj(f, 0, 0.75, 'hoa.decoderblock'+str(ind1))
+            #line 0.75 - decostereocontrol abstraction
+            stereoctl_id = bf.appendXObj(f, 3, 0.75, 'decostereocontrol')
+            #line 1.25 - snake_out#ind1
+            snakeout_id = bf.appendXObj(f, 0, 1.25, 'snake~ out '+str(nh+1))
             #vbap elementary modules for each virtual source
             for j in range(nh+1):
                 #k = bf.appendXObj(f, j, 1.25, 'vbap'+str(q)+'_f '+str(j*360/q))
-                k = bf.appendXObj(f, j, 1.5, 'hoa.vbap'+str(q))
+                k = bf.appendXObj(f, j, 2, 'hoa.vbap'+str(q))
             #comes back to the first
             multivbap_id = snakeout_id +  1
             #mc.busplus#ind abstractions
             for j in range(nh):
-                k = bf.appendXObj(f, j*0.5, 1.75+0.25*j, 'mc.busplus'+str(q))
+                k = bf.appendXObj(f, j*0.5, 2.5+0.25*j, 'mc.busplus'+str(q))
             #comes back to the first
             multibusplus_id = multivbap_id + nh + 1
             #messages for the initialization of the angles of the virtual sources
             for j in range(nh+1):
-                k = bf.appendXMsg(f, j+0.5, 1.25, str(j*360/(nh+1)))
+                k = bf.appendXMsg(f, j+0.5, 1.75, str(j*360/(nh+1)))
             #comes back to the first
             multimsg_id = multibusplus_id + nh
             #
             #outlet~~
-            out_id = bf.appendXObj(f, 0.5*(nh-1), 1.75+0.25*(nh), 'outlet~')
+            out_id = bf.appendXObj(f, 0.5*(nh+1), 2.5+0.25*(nh+4), 'outlet~')
+            #hoa.2dprojection#ind1
+            hoa2dproj_id = bf.appendXObj(f, nh+1, 1.25, 'hoa.2dprojection'+str(ind1))
+            #mc.stereozeropad#q
+            mczeropad_id = bf.appendXObj(f, nh+1, 2, 'mc.stereozeropad'+str(q))
+            #mc.busselector#q
+            mcbussel_id = bf.appendXObj(f, (nh+1)*0.5, 2.5+0.25*nh, 'mc.busselector'+str(q))
             #
             f.write(bf.patchMiddleCredits)
             bf.incObjInd()
-            #connections
+            #----------connections-----------#
             #inlet~ to decoderblock#ind1
             bf.appendXConnect(f, in1_id, 0, decoblock_id, 0)
             #decoderblock#ind1 to snake~ out#ind1
             bf.appendXConnect(f, decoblock_id, 0, snakeout_id, 0)
-            #inlet to route
+            #inlet to decostereocontrol abstraction
+            bf.appendXConnect(f, in2_id, 0, stereoctl_id, 0)
+            #decostereocontrol abstraction to mc.busselector#q abstraction
+            bf.appendXConnect(f, stereoctl_id, 0, mcbussel_id, 2)
             #bf.appendXConnect(f, in2_id, 0, route_id, 0)
             #the snake_out outputs are connected to all the first inputs of the vbap abstractions
             for j in range(nh+1):
                 bf.appendXConnect(f, snakeout_id, j, multivbap_id+j, 0)
-            #the 2nd inlet is connected to all second inputs of hoa.vbap#i abstractions
+            #the decostereocontrol abstraction is connected to all second inputs of hoa.vbap#i abstractions
             for j in range(nh+1):
-                bf.appendXConnect(f, in2_id, 0, multivbap_id+j, 1)
+                bf.appendXConnect(f, stereoctl_id, 1, multivbap_id+j, 1)
             #the loadbang object is connected to all messages
             for j in range(nh+1):
                 bf.appendXConnect(f, loadbang_id, 0, multimsg_id+j, 0)
@@ -84,7 +95,17 @@ def generate_hoadeco(dDir):
             #connections between the mc.busplus#i
             for j in range(nh-1):
                 bf.appendXConnect(f, multibusplus_id+j, 0, multibusplus_id+j+1, 0)
-            #connection between the last mc.busplus and the outlet~ object
-            bf.appendXConnect(f, multibusplus_id+nh-1, 0, out_id, 0)
+            #connection between the hoa.decoblock#ind1 and the hoa.2dprojection#ind1 abstractions
+            bf.appendXConnect(f, decoblock_id, 0, hoa2dproj_id, 0)
+            #connection between the hoa.2dprojection#ind1 and the mc.stereozeropad#q abstractions
+            bf.appendXConnect(f, hoa2dproj_id, 0, mczeropad_id, 0)
+            #connection between the last mc.busplus#q and the mc.busselector#q abstractions
+            bf.appendXConnect(f, multibusplus_id+nh-1, 0, mcbussel_id, 0)
+            #connection between the mc.stereozeropad#q and the mc.busselector#q abstractions
+            bf.appendXConnect(f, mczeropad_id, 0, mcbussel_id, 1)
+            #connection between the mc.busselector#q and the outlet~ object
+            bf.appendXConnect(f, mcbussel_id, 0, out_id, 0)
+            
+
             #
             f.close()
