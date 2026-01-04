@@ -22,6 +22,7 @@ import pdgaGenerateDuplicate as gdup
 import pdgaGenerateElemVbap as gvbap
 import pdgaGenerateHoaVbap as ghoavbap
 import pdgaGenerateCompleteDecoder as ghoadeco
+import pdgaGenerateZeroPadding as gzeropad
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
@@ -50,8 +51,9 @@ mcbusselector_flag = True
 mcbusplus_flag = True
 mcbusmult_flag = True
 mcduplicate_flag = True
-vbap_f_flag = True
+vbap_flag = True
 hoavbap_flag = True
+mczeropad_flag = True
 hoadeco_flag = True
 
 
@@ -61,7 +63,7 @@ print("CHOOSE A FOLDER WHERE YOU WILL INCLUDE YOUR PURE DATA GENERATED ABSTRACTI
 #rootPath = filedialog.askdirectory()
 #destLibDir = rootPath+'/generated_pdga_abstractions'
 #provisional fixed directory
-destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_pdga_abstractions'
+destLibDir = '/Users/alainbonardi/Dropbox/pythonFactory/puredatageneralabstractions_factory/generated_pdga_abstractions'
 #
 if os.path.exists(destLibDir):
     print("Existing directory containing the original generated abstractions, the previous one is deleted")
@@ -209,7 +211,7 @@ else:
 print("________________________________________________")
 print("STEP#15 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
 print("________________________________________________")
-if (vbap_f_flag):
+if (vbap_flag):
     gvbap.generate_vbap(destLibDir)
     print('=>'+str(2*bf.maxAmbiOrder+2)+' vbap#ind_f.pd user abstractions generated')
 else:
@@ -225,7 +227,16 @@ else:
     print('=> no hoa.vbap#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#17 GENERATING HOA COMPLETE DECODERS")
+print("STEP#17 GENERATING STEREO ZERO PADDING ABSTRACTIONS")
+print("________________________________________________")
+if (mczeropad_flag):
+    gzeropad.generate_mczeropad(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.stereozeropad#ind_f.pd user abstractions generated')
+else:
+    print('=> no mc.stereozeropad#ind_f.pd user abstractions generated')  
+#
+print("________________________________________________")
+print("STEP#18 GENERATING HOA COMPLETE DECODERS")
 print("________________________________________________")
 if (hoadeco_flag):
     ghoadeco.generate_hoadeco(destLibDir)

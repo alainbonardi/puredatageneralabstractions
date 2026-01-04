@@ -13,7 +13,7 @@ def generate_hoadeco(dDir):
         #ind1 is the ambisonic order, between 1 and maxAmbiOder
         ind1 = i1 + 1
         nh = 2 * ind1 + 1
-        for q in range(4, 2*bf.maxAmbiOrder+2):
+        for q in range(4, 2*bf.maxAmbiOrder+2+1):
             #opens a Pure Data file for hoa.vbap#i1_#q.pd abstraction
             fileName = dDir+'/hoa.decoder'+str(ind1)+'_'+str(q)+".pd"
             f = open(fileName, 'w')
