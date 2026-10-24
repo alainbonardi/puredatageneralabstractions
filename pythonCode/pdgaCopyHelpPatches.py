@@ -97,14 +97,9 @@ def copyHelpPatches(dir1, dir2):
     f = '/meter-help.pd'
     #meter
     shutil.copy(dir1+f, dir2+f)
-    #mc.meter2
-    shutil.copy(dir1+f, dir2+'/mc.meter2-help.pd')
-    #mc.meter4
-    shutil.copy(dir1+f, dir2+'/mc.meter4-help.pd')
-    #mc.meter8
-    shutil.copy(dir1+f, dir2+'/mc.meter8-help.pd')
-    #mc.meter16
-    shutil.copy(dir1+f, dir2+'/mc.meter16-help.pd')
+    #mc.meter
+    for n in range(2*bf.maxAmbiOrder+2):
+        shutil.copy(dir1+f, dir2+'/mc.meter'+str(n+1)+'-help.pd')
     #
     f = '/multisource-help.pd'
     shutil.copy(dir1+f, dir2+f)

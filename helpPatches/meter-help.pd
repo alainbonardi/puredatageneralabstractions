@@ -1,4 +1,4 @@
-#N canvas 1758 453 866 714 10;
+#N canvas 1456 392 866 714 10;
 #X obj 44 294 meter;
 #X msg 352 520 \; pd dsp \$1 \;;
 #X obj 352 496 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
@@ -42,8 +42,8 @@
 #X obj 562 211 cos~;
 #X obj 562 147 wrap~;
 #X obj 547 236 *~;
-#X obj 523 430 dac~ 1;
-#X obj 523 338 mc.gain4;
+#X obj 550 429 dac~ 1;
+#X obj 550 337 mc.gain4;
 #X obj 684 70 dbamp -100;
 #X obj 616 146 +~ 0.25;
 #X obj 616 189 *~ 0.5;
