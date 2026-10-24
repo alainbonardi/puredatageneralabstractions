@@ -18,6 +18,7 @@ xText = '#X text'
 xConnect = '#X connect'
 xMsg = '#X msg'
 xFloat = '#X floatatom'
+xListBox = "#X listbox"
 #xFloat2 = '5 0 0 0 - - - 0;\n'
 xFloat2 = '5 0 0 1 '
 xFloat3 = ' - - 0'
@@ -104,6 +105,15 @@ def getXFloat(px, py, s):
 
 """
 _______________________________________________________
+Prepares an XListBox line for a list box
+_______________________________________________________
+"""   
+def getXListBox(s):
+    sListBox = xListBox+' '+s+';\n'
+    return sListBox
+
+"""
+_______________________________________________________
 Prepares an XConnect line for a connection
 _______________________________________________________
 """  
@@ -160,6 +170,18 @@ def appendXFloat(f, px, py, s):
 
 """
 _______________________________________________________
+Writes an XListBox line for a list box
+_______________________________________________________
+"""   
+#writes the formatted XListBox on f file and returns the obj index
+def appendXListBox(f, s):
+    global objInd
+    f.write(getXListBox(s))
+    objInd = objInd + 1
+    return objInd
+
+"""
+_______________________________________________________
 Writes an XConnect line for a connection
 _______________________________________________________
 """      
@@ -167,6 +189,7 @@ def appendXConnect(f, obj1, out1, obj2, in2):
     f.write(getXConnect(obj1, out1, obj2, in2))
 
 """
+
 _______________________________________________________
 Writes the canvas and credits lines and resets the index of objects
 _______________________________________________________

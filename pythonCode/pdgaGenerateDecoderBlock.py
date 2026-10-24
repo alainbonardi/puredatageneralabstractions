@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.decoderblock#ind abstractions
+Generates the hoa.decoderblock#ind abstractions
 _______________________________________________________
 """   
 def generate_hoadecoderblock(dDir):

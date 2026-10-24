@@ -8,6 +8,7 @@ import pdgaBasicFunctions as bf
 import pdgaGenerateSp as gsp
 import pdgaGenerateCstEncoder as gcstenco
 import pdgaGenerateDecoderBlock as gdb
+import pdgaGenerateNormalize as gnorm
 import pdgaGenerateRegDecoder as grd
 import pdgaGenerateGain as gg
 import pdgaGenerateEncoder as genco
@@ -23,6 +24,7 @@ import pdgaGenerateElemVbap as gvbap
 import pdgaGenerateHoaVbap as ghoavbap
 import pdgaGenerateCompleteDecoder as ghoadeco
 import pdgaGenerateZeroPadding as gzeropad
+import pdgaGenerateScope as gscope
 import pdgaCopyHelpPatches as chp
 import pdgaCopyWholeLibrary as cwl
 
@@ -43,6 +45,7 @@ mcsp_flag = True
 hoacstencoder_flag = True
 hoadecoderblock_flag = True
 hoaregdecoder_flag = True
+mcnormalize_flag = True
 mcgain_flag = True
 hoaencoder_flag = True
 mcrecorder_flag = True
@@ -57,6 +60,7 @@ vbap_flag = True
 hoavbap_flag = True
 mczeropad_flag = True
 hoadeco_flag = True
+hoascope_flag = True
 chp_flag = True
 cwl_flag = True
 
@@ -251,7 +255,25 @@ else:
     print('=> no hoa.decoder#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#19 COPYING HELP PATCHES")
+print("STEP#19 GENERATING MC NORMALIZE ABSTRACTIONS")
+print("________________________________________________")
+if (mcnormalize_flag):
+    gnorm.generate_normalize(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.normalize#ind.pd user abstractions generated')
+else:
+    print('=> no mc.norm#ind.pd user abstractions generated') 
+#
+print("________________________________________________")
+print("STEP#20 GENERATING HOA SCOPE ABSTRACTIONS")
+print("________________________________________________")
+if (hoascope_flag):
+    gscope.generate_hoascope(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.scope#ind.pd user abstractions generated')
+else:
+    print('=> no mc.norm#ind.pd user abstractions generated') 
+#
+print("________________________________________________")
+print("STEP#21 COPYING HELP PATCHES")
 print("________________________________________________")
 if (chp_flag):
     chp.copyHelpPatches(helpOrigDir, destLibDir)
@@ -260,7 +282,7 @@ else:
     print('=> help patches not copied') 
 #
 print("________________________________________________")
-print("STEP#20 COPYING THE WHOLE LIBRARY")
+print("STEP#22 COPYING THE WHOLE LIBRARY")
 print("________________________________________________")
 if (cwl_flag):
     cwl.copyWholeLibrary(destLibDir)

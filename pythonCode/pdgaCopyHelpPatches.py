@@ -6,7 +6,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.decoderblock#ind abstractions
+Copies the help patches for all abstractions
 _______________________________________________________
 """   
 def copyHelpPatches(dir1, dir2):
@@ -41,8 +41,12 @@ def copyHelpPatches(dir1, dir2):
     shutil.copy(dir1+f, dir2+'/encoder1-help.pd')
     #
     f = '/hoa.vbap-help.pd'
-    for n in range(bf.maxAmbiOrder):
+    for n in range(2*bf.maxAmbiOrder+2):
         shutil.copy(dir1+f, dir2+'/hoa.vbap'+str(n+1)+'-help.pd')
+    #hoa.scopes
+    f = '/hoa.scope-help.pd'
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/hoa.scope'+str(n+1)+'-help.pd')
     #
     f = '/looper-help.pd'
     shutil.copy(dir1+f, dir2+f)
@@ -58,6 +62,10 @@ def copyHelpPatches(dir1, dir2):
     f = '/mc.busselector-help.pd'
     for n in range(2*bf.maxAmbiOrder+2):
         shutil.copy(dir1+f, dir2+'/mc.busselector'+str(n+1)+'-help.pd')
+    #
+    f = '/mc.normalize-help.pd'
+    for n in range(2*bf.maxAmbiOrder+2):
+        shutil.copy(dir1+f, dir2+'/mc.normalize'+str(n+1)+'-help.pd')
     #
     f = '/mc.gain-help.pd'
     #mc.gain

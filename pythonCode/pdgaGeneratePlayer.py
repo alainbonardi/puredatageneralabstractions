@@ -11,7 +11,7 @@ _______________________________________________________
 def generate_mcplayer(dDir):
     for i in range (2*bf.maxAmbiOrder+2):
         ind = i + 1
-        #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
+        #opens a Pure Data file for the mc.player#ind.pd abstraction
         fileName = dDir+'/mc.player'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the mc.player#ind.pd Pure Data abstraction
