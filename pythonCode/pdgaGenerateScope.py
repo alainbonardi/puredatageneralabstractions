@@ -11,7 +11,7 @@ _______________________________________________________
 def generate_hoascope(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
-        #opens a Pure Data file for the mc.regdecoder#ind.pd abstraction
+        #opens a Pure Data file for the hoa.scope#ind.pd abstraction
         fileName = dDir+'/hoa.scope'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the hoa.scope#ind.pd Pure Data abstraction

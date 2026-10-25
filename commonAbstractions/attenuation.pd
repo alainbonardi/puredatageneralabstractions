@@ -1,4 +1,4 @@
-#N canvas 1778 731 480 552 12;
+#N canvas 1778 731 480 552 10;
 #X obj 128 44 inlet;
 #X obj 128 111 moses 1;
 #X text 175 43 r;

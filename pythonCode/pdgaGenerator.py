@@ -26,6 +26,7 @@ import pdgaGenerateCompleteDecoder as ghoadeco
 import pdgaGenerateZeroPadding as gzeropad
 import pdgaGenerateScope as gscope
 import pdgaGenerateMeter as gmeter
+import pdgaGenerateMap as gmap
 import pdgaCopyHelpPatches as chp
 import pdgaCopyWholeLibrary as cwl
 
@@ -63,6 +64,7 @@ mczeropad_flag = True
 hoadeco_flag = True
 hoascope_flag = True
 mcmeter_flag = True
+hoamap_flag = True
 chp_flag = True
 cwl_flag = True
 
@@ -284,7 +286,16 @@ else:
     print('=> no mc.meter#ind.pd user abstractions generated') 
 #
 print("________________________________________________")
-print("STEP#22 COPYING HELP PATCHES")
+print("STEP#22 GENERATING HOA MAP ABSTRACTIONS")
+print("________________________________________________")
+if (hoamap_flag):
+    gmap.generate_hoamap(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.meter#ind.pd user abstractions generated')
+else:
+    print('=> no mc.meter#ind.pd user abstractions generated') 
+#
+print("________________________________________________")
+print("STEP#23 COPYING HELP PATCHES")
 print("________________________________________________")
 if (chp_flag):
     chp.copyHelpPatches(helpOrigDir, destLibDir)
@@ -293,7 +304,7 @@ else:
     print('=> help patches not copied') 
 #
 print("________________________________________________")
-print("STEP#23 COPYING THE WHOLE LIBRARY")
+print("STEP#24 COPYING THE WHOLE LIBRARY")
 print("________________________________________________")
 if (cwl_flag):
     cwl.copyWholeLibrary(destLibDir)
