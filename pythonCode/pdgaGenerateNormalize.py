@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the hoa.decoderblock#ind abstractions
+Generates the mc.normalize#ind abstractions
 _______________________________________________________
 """   
 def generate_normalize(dDir):
@@ -14,11 +14,15 @@ def generate_normalize(dDir):
         #opens a Pure Data file for the mc.decoderblock#ind.pd abstraction
         fileName = dDir+'/mc.normalize'+str(ind)+".pd"
         f = open(fileName, 'w')
-        #writes the lines of the mc.decoderblock#ind.pd Pure Data abstraction
+        #writes the lines of the mc.normalize#ind.pd Pure Data abstraction
         #writes the objects
-        bf.createMiddleCommonAbstraction(f)
-        #line 0 - comment
-        bf.appendXText(f, 0, 0, bf.commonComment+'mc.normalize#ind.pd')
+        f.write(bf.patchMiddleCanvas)
+        f.write(bf.patchAbstractionCnv1_1+' mc.normalize'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        bf.resetObjInd()
+        f.write(bf.patchAbstractionCnv1_2+ ' mc\ normalize\ for\ '+str(ind)+' channels\ '+bf.patchAbstractionCnv2_2+'\n')
+        bf.incObjInd()
+
+
         #line 1 - inlet~
         in_id = bf.appendXObj(f, 0, 1, 'inlet~')
         #line 1.5 - snake~ out
@@ -45,6 +49,11 @@ def generate_normalize(dDir):
         snakein_id = bf.appendXObj(f, 0, 5, 'snake~ in '+str(ind))
         #line 5.5 - outlet~
         out_id = bf.appendXObj(f, 0, 5.5, 'outlet~')
+        
+        f.write(bf.patchMiddleCredits)
+        bf.incObjInd()
+        
+        
         #connexions
         #inlet~ to snake~ out
         bf.appendXConnect(f, in_id, 0, snakeout_id, 0)

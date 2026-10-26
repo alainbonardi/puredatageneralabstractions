@@ -11,6 +11,7 @@ import pdgaGenerateDecoderBlock as gdb
 import pdgaGenerateNormalize as gnorm
 import pdgaGenerateRegDecoder as grd
 import pdgaGenerateGain as gg
+import pdgaGenerateEncodingModule as gencomod
 import pdgaGenerateEncoder as genco
 import pdgaGenerateRecorder as genrec
 import pdgaGeneratePlayer as genplay
@@ -49,6 +50,7 @@ hoadecoderblock_flag = True
 hoaregdecoder_flag = True
 mcnormalize_flag = True
 mcgain_flag = True
+hoaencodingmodule_flag = True
 hoaencoder_flag = True
 mcrecorder_flag = True
 mcplayer_flag = True
@@ -140,7 +142,17 @@ else:
     print('=> no mc.gain#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#06 GENERATING ENCODER ABSTRACTIONS")
+print("STEP#06 GENERATING ENCODING MODULE ABSTRACTIONS")
+print("________________________________________________")
+if (hoaencodingmodule_flag):
+    gencomod.generate_hoaencodingmodule(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.encodingmodule#ind.pd user abstractions generated')
+else:
+    print('=> no hoa.encodingmodule#ind.pd user abstractions generated')
+#
+#
+print("________________________________________________")
+print("STEP#07 GENERATING ENCODER ABSTRACTIONS")
 print("________________________________________________")
 if (hoaencoder_flag):
     genco.generate_hoaencoder(destLibDir)
@@ -149,7 +161,7 @@ else:
     print('=> no hoa.encoder#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#07 GENERATING RECORDER ABSTRACTIONS")
+print("STEP#08 GENERATING RECORDER ABSTRACTIONS")
 print("________________________________________________")
 if (mcrecorder_flag):
     genrec.generate_mcrecorder(destLibDir)
@@ -158,7 +170,7 @@ else:
     print('=> no mc.recorder#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#08 GENERATING PLAYER ABSTRACTIONS")
+print("STEP#09 GENERATING PLAYER ABSTRACTIONS")
 print("________________________________________________")
 if (mcplayer_flag):
     genplay.generate_mcplayer(destLibDir)
@@ -167,7 +179,7 @@ else:
     print('=> no mc.player#ind.pd user abstractions generated')
 #
 print("________________________________________________")
-print("STEP#09 GENERATING 2D PROJECTIONS")
+print("STEP#10 GENERATING 2D PROJECTIONS")
 print("________________________________________________")
 if (hoa2dprojection_flag):
     gen2dproj.generate_hoa2dprojection(destLibDir)
@@ -176,7 +188,7 @@ else:
     print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
 #
 print("________________________________________________")
-print("STEP#10 GENERATING STEREO HOA DECODERS")
+print("STEP#11 GENERATING STEREO HOA DECODERS")
 print("________________________________________________")
 if (mcplayer_flag):
     gstereodec.generate_hoastereodecoder(destLibDir)
@@ -185,7 +197,7 @@ else:
     print('=> no hoa.stereodecoder#ind.pduser abstractions generated')
 #
 print("________________________________________________")
-print("STEP#11 GENERATING BUS SELECTORS")
+print("STEP#12 GENERATING BUS SELECTORS")
 print("________________________________________________")
 if (mcbusselector_flag):
     gbussel.generate_mcbusselector(destLibDir)
@@ -194,7 +206,7 @@ else:
     print('=> no mc.busselector#ind.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#12 GENERATING BUS PLUS")
+print("STEP#13 GENERATING BUS PLUS")
 print("________________________________________________")
 #
 if (mcbusplus_flag):
@@ -204,7 +216,7 @@ else:
     print('=> no mc.busplus#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#13 GENERATING BUS MULT")
+print("STEP#14 GENERATING BUS MULT")
 print("________________________________________________")
 #
 if (mcbusmult_flag):
@@ -214,7 +226,7 @@ else:
     print('=> no mc.busmult#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#14 GENERATING DUPLICATE ABSTRACTIONS")
+print("STEP#15 GENERATING DUPLICATE ABSTRACTIONS")
 print("________________________________________________")
 if (mcduplicate_flag):
     gdup.generate_mcduplicate(destLibDir)
@@ -223,7 +235,7 @@ else:
     print('=> no mc.duplicate#ind_f.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#15 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
+print("STEP#16 GENERATING ELEMENTARY VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (vbap_flag):
     gvbap.generate_vbap(destLibDir)
@@ -232,7 +244,7 @@ else:
     print('=> no vbap#ind_f.pd user abstractions generated')   
 #
 print("________________________________________________")
-print("STEP#16 GENERATING HOA VBAP ABSTRACTIONS")
+print("STEP#17 GENERATING HOA VBAP ABSTRACTIONS")
 print("________________________________________________")
 if (hoavbap_flag):
     ghoavbap.generate_hoavbap(destLibDir)
@@ -241,7 +253,7 @@ else:
     print('=> no hoa.vbap#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#17 GENERATING STEREO ZERO PADDING ABSTRACTIONS")
+print("STEP#18 GENERATING STEREO ZERO PADDING ABSTRACTIONS")
 print("________________________________________________")
 if (mczeropad_flag):
     gzeropad.generate_mczeropad(destLibDir)
@@ -250,7 +262,7 @@ else:
     print('=> no mc.stereozeropad#ind_f.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#18 GENERATING HOA COMPLETE DECODERS")
+print("STEP#19 GENERATING HOA COMPLETE DECODERS")
 print("________________________________________________")
 if (hoadeco_flag):
     ghoadeco.generate_hoadeco(destLibDir)
@@ -259,7 +271,7 @@ else:
     print('=> no hoa.decoder#ind.pd user abstractions generated')  
 #
 print("________________________________________________")
-print("STEP#19 GENERATING MC NORMALIZE ABSTRACTIONS")
+print("STEP#20 GENERATING MC NORMALIZE ABSTRACTIONS")
 print("________________________________________________")
 if (mcnormalize_flag):
     gnorm.generate_normalize(destLibDir)
@@ -268,7 +280,7 @@ else:
     print('=> no mc.norm#ind.pd user abstractions generated') 
 #
 print("________________________________________________")
-print("STEP#20 GENERATING HOA SCOPE ABSTRACTIONS")
+print("STEP#21 GENERATING HOA SCOPE ABSTRACTIONS")
 print("________________________________________________")
 if (hoascope_flag):
     gscope.generate_hoascope(destLibDir)
@@ -277,7 +289,7 @@ else:
     print('=> no mc.norm#ind.pd user abstractions generated') 
 #
 print("________________________________________________")
-print("STEP#21 GENERATING MC METER ABSTRACTIONS")
+print("STEP#22 GENERATING MC METER ABSTRACTIONS")
 print("________________________________________________")
 if (mcmeter_flag):
     gmeter.generate_mcmeter(destLibDir)
@@ -286,7 +298,7 @@ else:
     print('=> no mc.meter#ind.pd user abstractions generated') 
 #
 print("________________________________________________")
-print("STEP#22 GENERATING HOA MAP ABSTRACTIONS")
+print("STEP#23 GENERATING HOA MAP ABSTRACTIONS")
 print("________________________________________________")
 if (hoamap_flag):
     gmap.generate_hoamap(destLibDir)
@@ -295,7 +307,7 @@ else:
     print('=> no mc.meter#ind.pd user abstractions generated') 
 #
 print("________________________________________________")
-print("STEP#23 COPYING HELP PATCHES")
+print("STEP#24 COPYING HELP PATCHES")
 print("________________________________________________")
 if (chp_flag):
     chp.copyHelpPatches(helpOrigDir, destLibDir)
@@ -304,7 +316,7 @@ else:
     print('=> help patches not copied') 
 #
 print("________________________________________________")
-print("STEP#24 COPYING THE WHOLE LIBRARY")
+print("STEP#25 COPYING THE WHOLE LIBRARY")
 print("________________________________________________")
 if (cwl_flag):
     cwl.copyWholeLibrary(destLibDir)

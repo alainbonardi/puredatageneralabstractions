@@ -31,35 +31,25 @@ def generate_hoascope(dDir):
         #line 1 - inlet~
         in_id = bf.appendXObj(f, 2, 1, 'inlet~')
         #line 1 - loadbang
-        loadbang_id = bf.appendXObj(f, 4, 1, 'loadbang')
+        loadbang_id = bf.appendXObj(f, 5, 1, 'loadbang')
         #line 1.25 - snake~ out
         snakeout_id = bf.appendXObj(f, 2, 1.25, 'snake~ out '+str(2*ind+1))
         #line 1.25 - msg 1
-        msg1_id = bf.appendXMsg(f, 4, 1.25, '1')
+        #msg1_id = bf.appendXMsg(f, 4, 1.25, '1')
         #line 1.25 - msg 25
         msg25_id = bf.appendXMsg(f, 5, 1.25, '25')
         #line 1.5 - *~ 0.5
         mult0_id = bf.appendXObj(f, 2, 1.5, '*~ 0.5')
-        #line 1.5 - toggle
-        tgl_id = bf.appendXObj(f, 4, 1.5, 'tgl 15 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1')
         #line 1.5 - float
         flo_id = bf.appendXFloat(f, 5, 1.5, '5 0 0 0 - - - 0')
         #line 1.75 - snake~ in
         snakein_id = bf.appendXObj(f, 2, 1.75, 'snake~ in '+str(2*ind+1))
-        #line 1.75 - metro
-        metro_id = bf.appendXObj(f, 4, 1.75, 'metro 1')
         #line 1.75 - phasor~~
         phasor_id = bf.appendXObj(f, 5, 1.75, 'phasor~')
         #line 1.75 - sig~~
         sig_id = bf.appendXObj(f, 3, 1.75, 'sig~ 1')
-        #line 2 - *~ 360
-        mult360_id = bf.appendXObj(f, 5, 2, '*~ 360')
-        #line 2.25 - snapshot~
-        snap_id = bf.appendXObj(f, 4, 2.25, 'snapshot~')
-        #line 2.5 - msgangle
-        msgangle_id = bf.appendXMsg(f, 3.75, 2.5, 'angle \$1')
-        #line 2.75 - hoa.encoder
-        encoder_id = bf.appendXObj(f, 3, 2.75, 'hoa.encoder'+str(ind))
+        #line 2.75 - hoa.encodingmodule
+        encomod_id = bf.appendXObj(f, 3, 2.75, 'hoa.encodingmodule'+str(ind))
         #line 2.75 - expr~~
         expr_id = bf.appendXObj(f, 4.5, 2.75, 'expr~ 0.75 - $v1')
         #line 3. - mc.normalize 1 and 2
@@ -104,28 +94,14 @@ def generate_hoascope(dDir):
         #abs~ to mult1 and mult2
         bf.appendXConnect(f, abs_id, 0, mult1_id, 0)
         bf.appendXConnect(f, abs_id, 0, mult2_id, 0)
-        #loadbang to msg 1
-        bf.appendXConnect(f, loadbang_id, 0, msg1_id, 0)
         #loadbang to msg 25
         bf.appendXConnect(f, loadbang_id, 0, msg25_id, 0)
-        #msg1 to toggle
-        bf.appendXConnect(f, msg1_id, 0, tgl_id, 0)
-        #toggle to metro
-        bf.appendXConnect(f, tgl_id, 0, metro_id, 0)
         #msg25 to Float
         bf.appendXConnect(f, msg25_id, 0, flo_id, 0)
         #Float to phasor~
         bf.appendXConnect(f, flo_id, 0, phasor_id, 0)
-        #metro to snapshot~
-        bf.appendXConnect(f, metro_id, 0, snap_id, 0)
-        #phasor~ to *~ 360
-        bf.appendXConnect(f, phasor_id, 0, mult360_id, 0)
-        #*~ 360 to snapshot~~
-        bf.appendXConnect(f, mult360_id, 0, snap_id, 0)
-        #snapshot~ to msgangle
-        bf.appendXConnect(f, snap_id, 0, msgangle_id, 0)
-        #msgangle to inlet 1 of encoder
-        bf.appendXConnect(f, msgangle_id, 0, encoder_id, 1)
+        #phasor to inlet 1 of hoa.encodingmodule#ind
+        bf.appendXConnect(f, phasor_id, 0, encomod_id, 1)
         #phasor~ to expr~~
         bf.appendXConnect(f, phasor_id, 0, expr_id, 0)
         #phasor~ to cos~ 2
@@ -136,10 +112,10 @@ def generate_hoascope(dDir):
         bf.appendXConnect(f, cos1_id, 0, mult1_id, 1)
         #cos~ 2 to the inlet 1 of mult 2
         bf.appendXConnect(f, cos2_id, 0, mult2_id, 1)        
-        #sig~ to encoder
-        bf.appendXConnect(f, sig_id, 0, encoder_id, 0)
-        #encoder to mc.normalize 2
-        bf.appendXConnect(f, encoder_id, 0, norm2_id, 0)
+        #sig~ to encodingmodule
+        bf.appendXConnect(f, sig_id, 0, encomod_id, 0)
+        #encodingmodule to mc.normalize 2
+        bf.appendXConnect(f, encomod_id, 0, norm2_id, 0)
         #mult1 to inlet 0 of scope
         bf.appendXConnect(f, mult1_id, 0, scope_id, 0)
         #mult2 to inlet 1 of scope
