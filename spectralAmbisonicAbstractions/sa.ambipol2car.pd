@@ -1,0 +1,16 @@
+#N canvas 878 377 234 382 10;
+#X obj 33 21 inlet~;
+#X obj 121 23 inlet~;
+#X text 84 21 c_k;
+#X text 172 22 phi_k;
+#X obj 121 108 *~ 6.28319;
+#X obj 33 155 else/pol2car~;
+#X obj 121 310 outlet~;
+#X obj 34 309 outlet~;
+#X text 33 334 b_k;
+#X text 119 335 a_k;
+#X connect 0 0 5 0;
+#X connect 1 0 4 0;
+#X connect 4 0 5 1;
+#X connect 5 0 6 0;
+#X connect 5 1 7 0;

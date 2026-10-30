@@ -23,4 +23,7 @@ def copyWholeLibrary(dir2):
     #user abstractions
     dir1 = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions/userAbstractions'
     copy_tree(dir1, dir2)
+    #spectral ambisonic abstractions
+    dir1 = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions/spectralAmbisonicAbstractions'
+    copy_tree(dir1, dir2)
     

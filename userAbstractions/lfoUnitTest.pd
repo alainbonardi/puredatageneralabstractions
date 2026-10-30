@@ -1,0 +1,14 @@
+#N canvas 14 418 870 624 10;
+#X obj 237 90 lfoUnit;
+#X obj 115 435 cyclone/scope~ 130 130 256 3 128 -1 1 0 0 0 0 205 229 232 74 79 77 96 98 102 0 empty;
+#X floatatom 422 342 5 0 0 0 - - - 0;
+#X msg 250 55 freq \$1;
+#X floatatom 250 26 5 0 0 0 - - - 0;
+#X obj 277 433 cyclone/scope~ 130 130 256 3 128 -1 1 0 0 0 0 205 229 232 74 79 77 96 98 102 0 empty;
+#X obj 284 364 lop~ 20;
+#X connect 0 0 1 0;
+#X connect 0 0 6 0;
+#X connect 0 1 2 0;
+#X connect 3 0 0 0;
+#X connect 4 0 3 0;
+#X connect 6 0 5 0;

@@ -31,6 +31,8 @@ import pdgaGenerateMap as gmap
 import pdgaCopyHelpPatches as chp
 import pdgaCopyWholeLibrary as cwl
 
+import saGeneration as sag
+
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
 
@@ -69,6 +71,9 @@ mcmeter_flag = True
 hoamap_flag = True
 chp_flag = True
 cwl_flag = True
+
+sa_atos_flag = True
+sa_stoa_flag = True
 
 
 print("________________________________________________")
@@ -305,9 +310,29 @@ if (hoamap_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.meter#ind.pd user abstractions generated')
 else:
     print('=> no mc.meter#ind.pd user abstractions generated') 
+
 #
 print("________________________________________________")
-print("STEP#24 COPYING HELP PATCHES")
+print("STEP#24 GENERATING SA AMBI TO SPECTRAL ABSTRACTIONS")
+print("________________________________________________")
+if (sa_atos_flag):
+    sag.generate_atosAbstractions(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.ambi2sa#ind.pd user abstractions generated')
+else:
+    print('=> no sa.ambi2sa#ind.pd user abstractions generated') 
+#
+print("________________________________________________")
+print("STEP#25 GENERATING SA SPECTRAL TO AMBI ABSTRACTIONS")
+print("________________________________________________")
+if (sa_stoa_flag):
+    sag.generate_stoaAbstractions(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.sa2ambi#ind.pd user abstractions generated')
+else:
+    print('=> no sa.sa2ambi#ind.pd user abstractions generated') 
+
+#
+print("________________________________________________")
+print("STEP#30 COPYING HELP PATCHES")
 print("________________________________________________")
 if (chp_flag):
     chp.copyHelpPatches(helpOrigDir, destLibDir)
@@ -316,7 +341,7 @@ else:
     print('=> help patches not copied') 
 #
 print("________________________________________________")
-print("STEP#25 COPYING THE WHOLE LIBRARY")
+print("STEP#31 COPYING THE WHOLE LIBRARY")
 print("________________________________________________")
 if (cwl_flag):
     cwl.copyWholeLibrary(destLibDir)
