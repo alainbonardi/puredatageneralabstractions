@@ -227,13 +227,20 @@ if (sag_flag):
     print("STEP#301 GENERATING SA AMBI TO SPECTRAL ABSTRACTIONS")
     print("________________________________________________")
     sag.generate_atosAbstractions(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' sa.ambi2sa#ind.pd user abstractions generated')
+    print('=>'+str(bf.maxAmbiOrder)+' sa.ambi2sa#ind.pd common abstractions generated')
     #
     print("________________________________________________")
     print("STEP#302 GENERATING SA SPECTRAL TO AMBI ABSTRACTIONS")
     print("________________________________________________")
     sag.generate_stoaAbstractions(destLibDir)
-    print('=>'+str(bf.maxAmbiOrder)+' sa.sa2ambi#ind.pd user abstractions generated')
+    print('=>'+str(bf.maxAmbiOrder)+' sa.sa2ambi#ind.pd common abstractions generated')
+    #
+    print("________________________________________________")
+    print("STEP#303 GENERATING SA SPECTRAL ENCODERS")
+    print("________________________________________________")
+    sag.generate_saencoders(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.encoder#ind.pd user abstractions generated')
+    
     
     print("\n\n\n")
 #

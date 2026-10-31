@@ -638,7 +638,7 @@ def generate_hoamap(dDir):
         snakeout_id = bf.appendXObj(f, 1, 2.25, 'snake~ out '+str(2*ind+1))
         #line 3 - list of mapWeight
         for j in range(ind+1):
-            k = bf.appendXObj(f, 3+j, 3, 'mapWeight '+str(ind)+' '+str(j))
+            k = bf.appendXObj(f, 3+j, 3, 'mapweight '+str(ind)+' '+str(j))
         #comes back to the beginning
         mapweight_id = snakeout_id + 1
         #line 4 - mutipliers of the initial encoder
