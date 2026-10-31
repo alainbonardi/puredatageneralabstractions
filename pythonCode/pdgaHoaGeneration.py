@@ -624,8 +624,12 @@ def generate_hoamap(dDir):
         in1_id = bf.appendXObj(f, 1, 1, 'inlet~')
         #line 1 - inlet
         in2_id = bf.appendXObj(f, 3, 1, 'inlet')
+        #line 1 - loadbang
+        loadbang_id = bf.appendXObj(f, 4, 1, 'loadbang')
         #line 1.25 - route distance
         route_id = bf.appendXObj(f, 3, 1.25, 'route distance')
+        #line 1.25 - message 1
+        msg1_id = bf.appendXMsg(f, 4, 1.25, '1')
         #line 2 - hoa.encoder
         encoder_id = bf.appendXObj(f, 1, 2, 'hoa.encoder'+str(ind))
         #line 2 - flonum
@@ -654,6 +658,10 @@ def generate_hoamap(dDir):
         bf.appendXConnect(f, in2_id, 0, route_id, 0)
         #inlet~ to encoder
         bf.appendXConnect(f, in1_id, 0, encoder_id, 0)
+        #loadbang to msg1
+        bf.appendXConnect(f, loadbang_id, 0, msg1_id, 0)
+        #msg1 to flonum
+        bf.appendXConnect(f, msg1_id, 0, flo_id, 0)
         #route to flonum
         bf.appendXConnect(f, route_id, 0, flo_id, 0)
         #outlet 1 of route to inlet1 of encoder
