@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the mc.busplus#ind abstractions
+Generates the mc.duplicate#ind abstractions
 _______________________________________________________
 """   
 def generate_mcduplicate(dDir):

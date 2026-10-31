@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the hoa.stereodecoder#ind abstractions
+Generates the hoa.2dprojection#ind abstractions
 _______________________________________________________
 """   
 def generate_hoa2dprojection(dDir):

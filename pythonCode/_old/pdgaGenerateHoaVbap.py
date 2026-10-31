@@ -5,7 +5,7 @@ import pdgaBasicFunctions as bf
 
 """
 _______________________________________________________
-Generates the vbap#ind abstractions
+Generates the hoa.vbap#ind abstractions
 _______________________________________________________
 """   
 def generate_hoavbap(dDir):
