@@ -119,19 +119,13 @@ if (hoa_flag):
     print('=>'+str(2*bf.maxAmbiOrder+2)+' vbap#ind_f.pd user abstractions generated')
     #
     print("________________________________________________")
-    print("STEP#110 GENERATING HOA VBAP ABSTRACTIONS")
-    print("________________________________________________")
-    hoag.generate_hoavbap(destLibDir)
-    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
-    #
-    print("________________________________________________")
-    print("STEP#111 GENERATING HOA MAP ABSTRACTIONS")
+    print("STEP#110 GENERATING HOA MAP ABSTRACTIONS")
     print("________________________________________________")
     hoag.generate_hoamap(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' hoa.map#ind.pd user abstractions generated')
     #
     print("________________________________________________")
-    print("STEP#112 GENERATING HOA SCOPE ABSTRACTIONS")
+    print("STEP#111 GENERATING HOA SCOPE ABSTRACTIONS")
     print("________________________________________________")
     hoag.generate_hoascope(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' hoa.scope#ind.pd user abstractions generated')
@@ -212,7 +206,12 @@ if (mc_flag):
     print("________________________________________________")
     mcg.generate_mczeropad(destLibDir)
     print('=>'+str(2*bf.maxAmbiOrder+2)+' mc.stereozeropad#ind_f.pd user abstractions generated')
-
+    #
+    print("________________________________________________")
+    print("STEP#212 GENERATING MC VBAP ABSTRACTIONS")
+    print("________________________________________________")
+    mcg.generate_mcvbap(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
     
     #
     print("\n\n\n")
