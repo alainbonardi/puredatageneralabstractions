@@ -45,7 +45,7 @@ print("\n\n\n")
 #rootPath = filedialog.askdirectory()
 #destLibDir = rootPath+'/generated_pdga_abstractions'
 #provisional fixed directory
-destLibDir = '/Users/alainbonardi/Library/CloudStorage/Dropbox/pythonFactory/puredatageneralabstractions_factory/puredatageneralabstractions'
+destLibDir = '/Users/alainbonardi/Library/CloudStorage/Dropbox/pythonFactory/puredatageneralabstractions_factory/pdga'
 #
 if os.path.exists(destLibDir):
     print("Existing directory containing the original generated abstractions, the previous one is deleted")
@@ -127,7 +127,8 @@ if (hoa_flag):
     print("________________________________________________")
     print("STEP#111 GENERATING HOA SCOPE ABSTRACTIONS")
     print("________________________________________________")
-    hoag.generate_hoascope(destLibDir)
+    hoag.generate_hoa_sa_scope(destLibDir, 0)
+    #hoa.scope generation
     print('=>'+str(bf.maxAmbiOrder)+' hoa.scope#ind.pd user abstractions generated')
     #
     print("\n\n\n")
@@ -226,13 +227,13 @@ if (sag_flag):
     print("________________________________________________")
     print("STEP#301 GENERATING SA AMBI TO SPECTRAL ABSTRACTIONS")
     print("________________________________________________")
-    sag.generate_atosAbstractions(destLibDir)
+    sag.generate_hoa2saAbstractions(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' sa.ambi2sa#ind.pd common abstractions generated')
     #
     print("________________________________________________")
     print("STEP#302 GENERATING SA SPECTRAL TO AMBI ABSTRACTIONS")
     print("________________________________________________")
-    sag.generate_stoaAbstractions(destLibDir)
+    sag.generate_sa2hoaAbstractions(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' sa.sa2ambi#ind.pd common abstractions generated')
     #
     print("________________________________________________")
@@ -240,7 +241,19 @@ if (sag_flag):
     print("________________________________________________")
     sag.generate_saencoders(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' sa.encoder#ind.pd user abstractions generated')
-    
+    #
+    print("________________________________________________")
+    print("STEP#304 GENERATING SA SCOPE ABSTRACTIONS")
+    print("________________________________________________")
+    hoag.generate_hoa_sa_scope(destLibDir, 1)
+    #sa.scope generation
+    print('=>'+str(bf.maxAmbiOrder)+' sa.scope#ind.pd user abstractions generated')
+    #
+    print("________________________________________________")
+    print("STEP#305 GENERATING SA ADDSOURCE ABSTRACTIONS")
+    print("________________________________________________")
+    sag.generate_saAddSource(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.addsource#ind.pd user abstractions generated')    
     
     print("\n\n\n")
 #

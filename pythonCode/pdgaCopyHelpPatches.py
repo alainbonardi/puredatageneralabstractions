@@ -40,6 +40,11 @@ def copyHelpPatches(dir1, dir2):
     #encoder1
     shutil.copy(dir1+f, dir2+'/encoder1-help.pd')
     #
+    f = '/sa.encoder-help.pd'
+    #sa encoders
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/sa.encoder'+str(n+1)+'-help.pd')
+    #
     f = '/hoa.map-help.pd'
     #hoa maps
     for n in range(bf.maxAmbiOrder):
@@ -52,6 +57,10 @@ def copyHelpPatches(dir1, dir2):
     f = '/hoa.scope-help.pd'
     for n in range(bf.maxAmbiOrder):
         shutil.copy(dir1+f, dir2+'/hoa.scope'+str(n+1)+'-help.pd')
+    #sa.scopes
+    f = '/sa.scope-help.pd'
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/sa.scope'+str(n+1)+'-help.pd')
     #
     f = '/looper-help.pd'
     shutil.copy(dir1+f, dir2+f)
@@ -132,3 +141,8 @@ def copyHelpPatches(dir1, dir2):
     #
     f = '/spectrogram-help.pd'
     shutil.copy(dir1+f, dir2+f)
+    #
+    f = '/sa.addsource-help.pd'
+    #sa addsource
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/sa.addsource'+str(n+1)+'-help.pd')

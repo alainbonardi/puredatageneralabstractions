@@ -692,31 +692,44 @@ def generate_hoamap(dDir):
 
 """
 _______________________________________________________
-Generates the hoa.scope#ind abstractions
+Generates the hoa.scope#ind or sa.scope#ind abstractions
 _______________________________________________________
 """   
-def generate_hoascope(dDir):
+def generate_hoa_sa_scope(dDir, whichScope):
+    #this function enables to generate both hoa.scope and sa.scope abstractions
+    hoa_id = 0
+    sa_id = 1
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
-        #opens a Pure Data file for the hoa.scope#ind.pd abstraction
-        fileName = dDir+'/hoa.scope'+str(ind)+".pd"
+        #opens a Pure Data file for the scope#ind.pd abstraction
+        if (whichScope == hoa_id):
+            abstractionName = 'hoa.scope'
+        else:
+            abstractionName = 'sa.scope'
+        fileName = dDir+'/'+abstractionName+str(ind)+".pd"
         f = open(fileName, 'w')
-        #writes the lines of the hoa.scope#ind.pd Pure Data abstraction
+        #writes the lines of the scope#ind.pd Pure Data abstraction
         #writes the objects
         f.write(bf.patchMiddleCanvas)
-        f.write(bf.patchAbstractionCnv1_1+' hoa.scope'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        f.write(bf.patchAbstractionCnv1_1+' '+abstractionName+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
         bf.resetObjInd()
-        f.write(bf.patchAbstractionCnv1_2+ ' hoa\ scope\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
+        if (whichScope == hoa_id):
+            f.write(bf.patchAbstractionCnv1_2+ ' hoa\ scope\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
+        else:
+            f.write(bf.patchAbstractionCnv1_2+ ' sa\ scope\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
 
         #the scope in the canvas
         scope_id = bf.appendXObj(f, 0.29, 1.45, 'else/scope~ 128 128 64 3 32 -1 1 0 0 0 0 30 30 30 190 190 190 160 160 160 0 empty;')
         #line 0.5 - else/initmess 64 32
-        init_id = bf.appendXObj(f, 1, 0.5, 'else/initmess 64 32')
+        init_id = bf.appendXObj(f, 0.5, 0.5, 'else/initmess 64 32')
+        #line 0.5 - inlet~
+        in_id = bf.appendXObj(f, 2, 0.5, 'inlet~')
         #line 1 - list box
         listBox_id = bf.appendXListBox(f, '125 125 10 0 0 0 - - - 10')
-        #line 1 - inlet~
-        in_id = bf.appendXObj(f, 2, 1, 'inlet~')
+        #line 1 - sa.sa2ambi#ind if this is an sa.scope
+        if (whichScope == sa_id):
+            sa2ambi_id = bf.appendXObj(f, 2, 1, 'sa.sa2hoa'+str(ind))
         #line 1 - loadbang
         loadbang_id = bf.appendXObj(f, 5, 1, 'loadbang')
         #line 1.25 - snake~ out
@@ -761,8 +774,12 @@ def generate_hoascope(dDir):
         bf.appendXConnect(f, init_id, 0, listBox_id, 0)
         #listbox to scope
         bf.appendXConnect(f, listBox_id, 0, scope_id, 0)
-        #inlet~ to snake~ out
-        bf.appendXConnect(f, in_id, 0, snakeout_id, 0)
+        #inlet~ to snake~ out for hoa.scope or inlet~ to sa.sa2ambi#ind to snake~ out for sa.scope
+        if (whichScope == hoa_id):
+            bf.appendXConnect(f, in_id, 0, snakeout_id, 0)
+        else:
+            bf.appendXConnect(f, in_id, 0, sa2ambi_id, 0)
+            bf.appendXConnect(f, sa2ambi_id, 0, snakeout_id, 0)                 
         #outlet 0 of snake~ out to *~ 0.5
         bf.appendXConnect(f, snakeout_id, 0, mult0_id, 0)
         #outlet of *~ 0.5 to inlet 0 of snake~ in

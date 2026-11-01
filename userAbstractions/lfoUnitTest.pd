@@ -1,7 +1,7 @@
 #N canvas 14 418 870 624 10;
 #X obj 237 90 lfoUnit;
 #X obj 237 408 cyclone/scope~ 130 130 256 3 128 -1 1 0 0 0 0 205 229 232 74 79 77 96 98 102 0 empty;
-#X floatatom 420 342 5 0 0 0 - - - 0;
+#X floatatom 415 342 5 0 0 0 - - - 0;
 #X msg 237 55 freq \$1;
 #X floatatom 237 26 5 0 0 0 - - - 0;
 #X connect 0 0 1 0;
