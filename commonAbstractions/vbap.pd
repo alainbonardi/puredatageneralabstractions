@@ -1,4 +1,4 @@
-#N canvas 700 37 609 903 10;
+#N canvas 700 37 728 1076 10;
 #X obj 125 23 inlet;
 #X obj 231 22 inlet;
 #X text 161 23 theta1;
@@ -90,6 +90,7 @@
 #X obj 124 476 +;
 #X floatatom 100 535 5 0 0 0 - - - 0;
 #X text 57 536 1 or 0;
+#X obj 19 883 pdga_helpcredit;
 #X connect 0 0 5 0;
 #X connect 1 0 4 0;
 #X connect 4 0 7 0;

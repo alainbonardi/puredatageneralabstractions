@@ -1,4 +1,4 @@
-#N canvas 1284 153 465 1174 10;
+#N canvas 1284 153 465 1213 10;
 #X obj 61 125 + 1;
 #X text 97 56 N;
 #X obj 61 157 log;
@@ -52,6 +52,7 @@
 #X msg 125 989 \$1 20;
 #X obj 125 1010 line 0;
 #X floatatom 125 1031 5 0 0 0 - - - 0;
+#X obj 21 1120 pdga_helpcredit;
 #X connect 0 0 2 0;
 #X connect 2 0 8 0;
 #X connect 4 0 37 0;

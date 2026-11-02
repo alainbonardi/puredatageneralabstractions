@@ -50,9 +50,14 @@ def copyHelpPatches(dir1, dir2):
     for n in range(bf.maxAmbiOrder):
         shutil.copy(dir1+f, dir2+'/hoa.map'+str(n+1)+'-help.pd')
     #
-    f = '/mc.vbap-help.pd'
+    f = '/sa.map-help.pd'
+    #sa maps
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/sa.map'+str(n+1)+'-help.pd')
+    #
+    f = '/hoa.vbap-help.pd'
     for n in range(2*bf.maxAmbiOrder+2):
-        shutil.copy(dir1+f, dir2+'/mc.vbap'+str(n+1)+'-help.pd')
+        shutil.copy(dir1+f, dir2+'/hoa.vbap'+str(n+1)+'-help.pd')
     #hoa.scopes
     f = '/hoa.scope-help.pd'
     for n in range(bf.maxAmbiOrder):
@@ -108,7 +113,7 @@ def copyHelpPatches(dir1, dir2):
     #stereorecorder
     shutil.copy(dir1+f, dir2+'/stereorecorder-help.pd') 
     #
-    f = '/meter-help.pd'
+    f = '/mc.meter-help.pd'
     #meter
     shutil.copy(dir1+f, dir2+f)
     #mc.meter

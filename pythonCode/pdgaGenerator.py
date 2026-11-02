@@ -131,6 +131,12 @@ if (hoa_flag):
     #hoa.scope generation
     print('=>'+str(bf.maxAmbiOrder)+' hoa.scope#ind.pd user abstractions generated')
     #
+    print("________________________________________________")
+    print("STEP#112 GENERATING HOA VBAP ABSTRACTIONS")
+    print("________________________________________________")
+    hoag.generate_hoavbap(destLibDir)
+    print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
+    #
     print("\n\n\n")
     
 #
@@ -254,6 +260,12 @@ if (sag_flag):
     print("________________________________________________")
     sag.generate_saAddSource(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' sa.addsource#ind.pd user abstractions generated')    
+    #
+    print("________________________________________________")
+    print("STEP#306 GENERATING SA MAP ABSTRACTIONS")
+    print("________________________________________________")
+    sag.generate_samap(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.map#ind.pd user abstractions generated')    
     
     print("\n\n\n")
 #

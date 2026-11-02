@@ -1,4 +1,4 @@
-#N canvas 179 217 269 300 10;
+#N canvas 179 217 369 475 10;
 #X obj 124 147 cos~;
 #X obj 49 204 cos~;
 #X obj 49 147 *~ -1;
@@ -11,6 +11,7 @@
 #X obj 125 253 outlet~;
 #X text 71 231 sin;
 #X text 149 231 cos;
+#X obj 12 437 pdga_helpcredit;
 #X connect 0 0 9 0;
 #X connect 1 0 8 0;
 #X connect 2 0 3 0;

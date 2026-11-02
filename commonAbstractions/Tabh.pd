@@ -6,8 +6,7 @@
 #X obj 25 103 outlet;
 #X obj 25 58 route click;
 #X obj 25 80 get \$0-template-master sym;
-#X obj 25 21 struct \$0-template-master float x float x2 float color
-float colort float xs float ys symbol sym;
+#X obj 25 21 struct \$0-template-master float x float x2 float color float colort float xs float ys symbol sym;
 #X obj 27 164 filledpolygon color 0 1 0 -1 x2 -1 x2 1 0 1;
 #X obj 26 192 drawsymbol sym xs ys colort;
 #X connect 1 0 2 0;
@@ -106,8 +105,7 @@ float colort float xs float ys symbol sym;
 #X obj 55 14 inlet;
 #X obj 13 222 s \$0-lsize;
 #X obj 126 215 f 1;
-#X obj 55 457 append \$0-template-master x x2 color colort xs ys,
-f 36;
+#X obj 55 457 append \$0-template-master x x2 color colort xs ys, f 36;
 #X obj 340 16 inlet;
 #X obj 175 14 inlet;
 #X obj 175 58 t b f;
@@ -206,8 +204,7 @@ f 36;
 #X connect 4 0 3 1;
 #X connect 6 0 5 0;
 #X restore 167 158 pd route_input;
-#X obj 420 256 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 420 256 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X obj 359 115 namecanvas \$0-master;
 #X obj 345 170 route set pos size toggle;
 #N canvas 0 22 450 362 color_data 0;
@@ -280,6 +277,7 @@ f 36;
 #X obj 202 232 == 0;
 #X obj 157 301 f -1;
 #X obj 157 279 delay 100;
+#X obj 12 437 pdga_helpcredit;
 #X connect 1 0 9 0;
 #X connect 2 0 10 0;
 #X connect 3 0 13 0;

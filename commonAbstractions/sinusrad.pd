@@ -1,4 +1,4 @@
-#N canvas 885 42 261 246 10;
+#N canvas 885 42 370 506 10;
 #X obj 46 27 inlet;
 #X text 88 26 angle in degrees;
 #X obj 47 195 outlet;
@@ -7,6 +7,7 @@
 #X obj 47 129 sin;
 #X text 111 107 angle in radians;
 #X text 79 128 sinus;
+#X obj 12 437 pdga_helpcredit;
 #X connect 0 0 3 0;
 #X connect 3 0 4 0;
 #X connect 4 0 5 0;

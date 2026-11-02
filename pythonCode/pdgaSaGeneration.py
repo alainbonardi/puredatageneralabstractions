@@ -158,15 +158,6 @@ def generate_saencoders(dDir):
             bf.appendXConnect(f, mult_id+j, 0, snakein_id, ind+1+j)
         #connects the outlet of the snake~ in to the inlet of the outlet~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
-        '''
-        bf.appendXConnect(f, in1_id, 0, encomod_id, 0)
-        #connects the inlet 2 to the encodercontrol abstraction
-        bf.appendXConnect(f, in2_id, 0, encoctrl_id, 0)
-        #connects the encodercontrol to the right inlet of encodingmodule#ind
-        bf.appendXConnect(f, encoctrl_id, 0, encomod_id, 1)
-        #connects the encodingmodule#ind to the outlet
-        bf.appendXConnect(f, encomod_id, 0, out_id, 0)
-        '''
         f.close()
         
         
@@ -224,4 +215,76 @@ def generate_saAddSource(dDir):
         #connects the outlet of the snake~ in to the inlet of the outlet~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
 
+        f.close()
+        
+"""
+_______________________________________________________
+Generates the sa.map#ind abstractions
+_______________________________________________________
+"""   
+def generate_samap(dDir):
+    for i in range (bf.maxAmbiOrder):
+        ind = i + 1
+        #opens a Pure Data file for the sa.map#ind.pd abstraction
+        fileName = dDir+'/sa.map'+str(ind)+".pd"
+        f = open(fileName, 'w')
+        #writes the lines of the sa.map#ind.pd Pure Data abstraction
+        #writes the objects
+        f.write(bf.patchMiddleCanvas)
+        f.write(bf.patchAbstractionCnv1_1+' sa.map'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        bf.resetObjInd()
+        f.write(bf.patchAbstractionCnv1_2+ ' sa\ map\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
+        bf.incObjInd()
+
+
+        #line 0.5 - inlet 1 for phase
+        in1_id = bf.appendXObj(f, 1, 0.5, 'inlet~')
+        #line 0.5 - inlet~ 2 for distance
+        in2_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
+        #line 1 - sa.encoder(2*ind+1)
+        encoder_id = bf.appendXObj(f, 1, 1, 'sa.encoder'+str(ind))
+        #line 1 - snapshot10line
+        snap_id = bf.appendXObj(f, 3, 1, 'snapshot10line')
+        #line 1.5 - snake~ out
+        snakeout_id = bf.appendXObj(f, 1, 1.5, 'snake~ out '+str(2*ind+1))
+        #line 1.5 - list of mapweight
+        for j in range(ind+1):
+            k = bf.appendXObj(f, 3+j, 1.5, 'mapweight '+str(ind)+' '+str(j))
+        #comes back to the beginning
+        mapweight_id = snakeout_id + 1
+        #line 2 - sig~ objects under the mapweight abstractions
+        for j in range(ind+1):
+            k = bf.appendXObj(f, 3+j, 2, 'sig~')
+        #comes back to the first one
+        sig_id = mapweight_id + ind + 1
+        #line 3 - snake~ in
+        snakein_id = bf.appendXObj(f, 3, 3, 'snake~ in '+str(2*ind+1)+' -------')
+        #line 5 - outlet~
+        out_id = bf.appendXObj(f, 1, 5, 'outlet~')
+        
+        f.write(bf.patchMiddleCredits)
+        bf.incObjInd()
+        
+        #connections
+        #inlet~ 1 to encoder
+        bf.appendXConnect(f, in1_id, 0, encoder_id, 0)
+        #encoder to snake~ out
+        bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
+        #inlet~ 2 to snapshot10line
+        bf.appendXConnect(f, in2_id, 0, snap_id, 0)
+        #snapshot10line to all mapweight abstractions
+        for j in range(ind+1):
+            bf.appendXConnect(f, snap_id, 0, mapweight_id+j, 0)
+        #all mapweight abstractions to sig~~
+        for j in range(ind+1):
+            bf.appendXConnect(f, mapweight_id+j, 0, sig_id+j, 0)
+        #all sig~ to the left inlets of snake~ in
+        for j in range(ind+1):
+            bf.appendXConnect(f, sig_id+j, 0, snakein_id, j)
+        #the phase outlets of the encoder are connected to the right inlets of snake~ in
+        for j in range(ind):
+            bf.appendXConnect(f, snakeout_id, j+ind+1, snakein_id, j+ind+1)
+        #snake~ in to outlet~~
+        bf.appendXConnect(f, snakein_id, 0, out_id, 0)
+        
         f.close()

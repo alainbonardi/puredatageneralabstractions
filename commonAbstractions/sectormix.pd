@@ -1,4 +1,4 @@
-#N canvas 535 132 775 676 10;
+#N canvas 535 132 808 762 10;
 #X obj 203 73 loadbang;
 #X obj 90 72 inlet;
 #X obj 203 115 f \$1;
@@ -51,6 +51,7 @@
 #X obj 204 568 *;
 #X obj 250 534 t b f;
 #X obj 204 605 outlet;
+#X obj 14 644 pdga_helpcredit;
 #X connect 0 0 2 0;
 #X connect 0 0 4 0;
 #X connect 0 0 14 0;

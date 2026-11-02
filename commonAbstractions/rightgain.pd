@@ -1,4 +1,4 @@
-#N canvas 550 218 245 457 10;
+#N canvas 550 218 299 560 10;
 #X floatatom 101 143 5 0 0 0 - - - 0;
 #X floatatom 102 271 14 0 0 0 - - - 0;
 #X obj 54 344 *~;
@@ -7,6 +7,7 @@
 #X obj 100 88 expr 360 - $f1;
 #X obj 100 27 inlet;
 #X obj 102 210 onesidemix;
+#X obj 12 437 pdga_helpcredit;
 #X connect 0 0 7 0;
 #X connect 1 0 2 1;
 #X connect 2 0 4 0;

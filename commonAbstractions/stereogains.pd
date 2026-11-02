@@ -1,4 +1,4 @@
-#N canvas 150 187 276 310 10;
+#N canvas 150 187 612 527 10;
 #X obj 141 48 loadbang;
 #X obj 141 72 f \$1;
 #X floatatom 141 96 5 0 0 0 - - - 0;
@@ -8,6 +8,7 @@
 #X obj 134 236 outlet~;
 #X obj 62 191 leftgain;
 #X obj 134 191 rightgain;
+#X obj 12 437 pdga_helpcredit;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 2 0 4 0;

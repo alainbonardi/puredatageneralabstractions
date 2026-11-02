@@ -2,11 +2,11 @@
 #X obj 54 102 multisource;
 #X msg 305 311 \; pd dsp 0 \;;
 #X msg 305 350 \; pd dsp 1 \;;
-#X obj 180 298 meter;
 #X obj 41 331 output~;
 #X obj 14 6 cnv 15 500 25 empty empty multisource\ abstraction 20 12 0 18 #606060 #fcfcfc 0;
 #X obj 14 32 cnv 15 500 25 empty empty a\ multisource\ generator 20 12 0 12 #606060 #fcfcfc 0;
 #X obj 13 484 pdga_helpcredit;
-#X connect 0 0 4 0;
-#X connect 0 0 4 1;
+#X obj 180 298 mc.meter1;
 #X connect 0 0 3 0;
+#X connect 0 0 3 1;
+#X connect 0 0 7 0;

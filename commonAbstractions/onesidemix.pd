@@ -14,6 +14,7 @@
 #X obj 66 132 sectormix 0 30 1 1 0.25;
 #X obj 298 132 sectormix 30 180 0 1 0.5;
 #X obj 539 132 sectormix 330 360 1 0 0.25;
+#X obj 11 487 pdga_helpcredit;
 #X connect 0 0 12 0;
 #X connect 0 0 13 0;
 #X connect 0 0 14 0;
