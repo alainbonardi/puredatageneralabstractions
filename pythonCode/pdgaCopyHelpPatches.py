@@ -55,6 +55,11 @@ def copyHelpPatches(dir1, dir2):
     for n in range(bf.maxAmbiOrder):
         shutil.copy(dir1+f, dir2+'/sa.map'+str(n+1)+'-help.pd')
     #
+    f = '/sa.widen-help.pd'
+    #sa widens
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/sa.widen'+str(n+1)+'-help.pd')
+    #
     f = '/hoa.vbap-help.pd'
     for n in range(2*bf.maxAmbiOrder+2):
         shutil.copy(dir1+f, dir2+'/hoa.vbap'+str(n+1)+'-help.pd')

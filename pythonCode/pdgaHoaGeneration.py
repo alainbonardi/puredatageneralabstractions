@@ -636,7 +636,7 @@ def generate_hoamap(dDir):
         flo_id = bf.appendXFloat(f, 3, 2, '5 0 0 0 - - - 0')       
         #line 2.25 - snake~ out
         snakeout_id = bf.appendXObj(f, 1, 2.25, 'snake~ out '+str(2*ind+1))
-        #line 3 - list of mapWeight
+        #line 3 - list of mapweight
         for j in range(ind+1):
             k = bf.appendXObj(f, 3+j, 3, 'mapweight '+str(ind)+' '+str(j))
         #comes back to the beginning
@@ -668,15 +668,15 @@ def generate_hoamap(dDir):
         bf.appendXConnect(f, route_id, 1, encoder_id, 1)
         #hoa.encoder to snake~ out
         bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
-        #flo_id to mapWeights
+        #flo_id to mapweights
         for j in range(ind+1):
             bf.appendXConnect(f, flo_id, 0, mapweight_id+j, 0)
         #snake~ out to *~
         for j in range(2*ind+1):
             bf.appendXConnect(f, snakeout_id, j, mult_id+j, 0)
-        #mapWeight ind 0 to inlet 1 of *~ #0
+        #mapweight ind 0 to inlet 1 of *~ #0
         bf.appendXConnect(f, mapweight_id, 0, mult_id, 1)
-        #all other mapWeight ind j+1 to inlet 1 of *~ #2*j+1 and #2*j+2
+        #all other mapweight ind j+1 to inlet 1 of *~ #2*j+1 and #2*j+2
         for j in range(ind):
             bf.appendXConnect(f, mapweight_id+j+1, 0, mult_id+2*j+1, 1)
             bf.appendXConnect(f, mapweight_id+j+1, 0, mult_id+2*j+2, 1)

@@ -266,6 +266,12 @@ if (sag_flag):
     print("________________________________________________")
     sag.generate_samap(destLibDir)
     print('=>'+str(bf.maxAmbiOrder)+' sa.map#ind.pd user abstractions generated')    
+    #
+    print("________________________________________________")
+    print("STEP#307 GENERATING SA WIDEN ABSTRACTIONS")
+    print("________________________________________________")
+    sag.generate_sawiden(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' sa.widen#ind.pd user abstractions generated')   
     
     print("\n\n\n")
 #

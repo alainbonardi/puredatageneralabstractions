@@ -225,7 +225,7 @@ _______________________________________________________
 def generate_samap(dDir):
     for i in range (bf.maxAmbiOrder):
         ind = i + 1
-        #opens a Pure Data file for the sa.map#ind.pd abstraction
+        #opens a Pure Data file for the sa.map#ind.pd abstractions
         fileName = dDir+'/sa.map'+str(ind)+".pd"
         f = open(fileName, 'w')
         #writes the lines of the sa.map#ind.pd Pure Data abstraction
@@ -241,7 +241,7 @@ def generate_samap(dDir):
         in1_id = bf.appendXObj(f, 1, 0.5, 'inlet~')
         #line 0.5 - inlet~ 2 for distance
         in2_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
-        #line 1 - sa.encoder(2*ind+1)
+        #line 1 - sa.encoder(2*ind+1) 
         encoder_id = bf.appendXObj(f, 1, 1, 'sa.encoder'+str(ind))
         #line 1 - snapshot10line
         snap_id = bf.appendXObj(f, 3, 1, 'snapshot10line')
@@ -266,10 +266,9 @@ def generate_samap(dDir):
         bf.incObjInd()
         
         #connections
-        #inlet~ 1 to encoder
+        #inlet~ 1 to encoder and encoder to snake~ out if it is a map
         bf.appendXConnect(f, in1_id, 0, encoder_id, 0)
-        #encoder to snake~ out
-        bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
+        bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)         
         #inlet~ 2 to snapshot10line
         bf.appendXConnect(f, in2_id, 0, snap_id, 0)
         #snapshot10line to all mapweight abstractions
@@ -282,6 +281,78 @@ def generate_samap(dDir):
         for j in range(ind+1):
             bf.appendXConnect(f, sig_id+j, 0, snakein_id, j)
         #the phase outlets of the encoder are connected to the right inlets of snake~ in
+        for j in range(ind):
+            bf.appendXConnect(f, snakeout_id, j+ind+1, snakein_id, j+ind+1)
+        #snake~ in to outlet~~
+        bf.appendXConnect(f, snakein_id, 0, out_id, 0)
+        
+        f.close()
+        
+        
+"""
+_______________________________________________________
+Generates the sa.widen#ind abstractions
+_______________________________________________________
+"""   
+def generate_sawiden(dDir):
+    for i in range (bf.maxAmbiOrder):
+        ind = i + 1
+        #opens a Pure Data file for the sa.widen#ind.pd abstractions
+        fileName = dDir+'/sa.widen'+str(ind)+".pd"
+        f = open(fileName, 'w')
+        #writes the lines of the sa.widen#ind.pd Pure Data abstraction
+        #writes the objects
+        f.write(bf.patchMiddleCanvas)
+        f.write(bf.patchAbstractionCnv1_1+' sa.widen'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        bf.resetObjInd()
+        f.write(bf.patchAbstractionCnv1_2+ ' sa\ widen\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
+        bf.incObjInd()
+
+
+        #line 0.5 - inlet 1 for phase
+        in1_id = bf.appendXObj(f, 1, 0.5, 'inlet~')
+        #line 0.5 - inlet~ 2 for distance
+        in2_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
+        #line 1 - snapshot10line
+        snap_id = bf.appendXObj(f, 3, 1, 'snapshot10line')
+        #line 1.5 - snake~ out
+        snakeout_id = bf.appendXObj(f, 1, 1.5, 'snake~ out '+str(2*ind+1))
+        #line 1.5 - list of mapweight
+        for j in range(ind+1):
+            k = bf.appendXObj(f, 3+j, 1.5, 'widenweight '+str(ind)+' '+str(j))
+        #comes back to the beginning
+        widenweight_id = snakeout_id + 1
+        #line 2 - *~ objects under the mapweight abstractions
+        for j in range(ind+1):
+            k = bf.appendXObj(f, 1+j, 2.5, '*~')
+        #comes back to the first one
+        mult_id = widenweight_id + ind + 1
+        #line 3 - snake~ in
+        snakein_id = bf.appendXObj(f, 1, 3, 'snake~ in '+str(2*ind+1)+' -------')
+        #line 5 - outlet~
+        out_id = bf.appendXObj(f, 1, 5, 'outlet~')
+        
+        f.write(bf.patchMiddleCredits)
+        bf.incObjInd()
+        
+        #connections
+        #inlet~ 1 to snake~ out if it is a map
+        bf.appendXConnect(f, in1_id, 0, snakeout_id, 0)       
+        #inlet~ 2 to snapshot10line
+        bf.appendXConnect(f, in2_id, 0, snap_id, 0)
+        #snapshot10line to all widenweight abstractions
+        for j in range(ind+1):
+            bf.appendXConnect(f, snap_id, 0, widenweight_id+j, 0)
+        #all widenweight abstractions to the right inlets of *~
+        for j in range(ind+1):
+            bf.appendXConnect(f, widenweight_id+j, 0, mult_id+j, 1)
+        #all *~ to the left inlets of snake~ in
+        for j in range(ind+1):
+            bf.appendXConnect(f, mult_id+j, 0, snakein_id, j)
+        #the amplitude outlets of the incoming sa situation are connected to the left inlets of *~~
+        for j in range(ind+1):
+            bf.appendXConnect(f, snakeout_id, j, mult_id+j, 0)
+        #the phase outlets of the incoming sa situation are connected to the right inlets of snake~ in
         for j in range(ind):
             bf.appendXConnect(f, snakeout_id, j+ind+1, snakein_id, j+ind+1)
         #snake~ in to outlet~~
