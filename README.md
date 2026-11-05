@@ -1,2 +1,2 @@
 # puredatageneralabstractions
-General abstractions for PureData software
+General abstractions for Pure Data and PlugData softwares
