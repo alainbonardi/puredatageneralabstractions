@@ -918,3 +918,25 @@ def generate_hoavbap(dDir):
         #
         f.close()
         
+
+"""
+_______________________________________________________
+Generates the hoa.syndecorrelation#ind abstractions
+_______________________________________________________
+"""   
+def generate_hoasyndecorrelation(dDir):
+    #scaled delays are applied on each circular harmonic
+    for i in range(2*bf.maxAmbiOrder+1):
+        ind = i + 1
+        #opens a Pure Data file for hoa.syndecorrelation#ind.pd abstraction
+        fileName = dDir+'/hoa.syndecorrelation'+str(ind)+".pd"
+        f = open(fileName, 'w')
+        #writes the lines of the hoa.syndecorrelation#ind.pd Pure Data abstraction
+        f.write(bf.patchMiddleCanvas)
+        f.write(bf.patchAbstractionCnv1_1+' hoa.syndecorrelation'+str(ind)+' '+bf.patchAbstractionCnv2_1+'\n')
+        bf.resetObjInd()
+        f.write(bf.patchAbstractionCnv1_2+ ' syn\ decorrelation\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
+        bf.incObjInd()
+        #
+        #line 0.5 - inlet~
+        in1_id = bf.appendXObj(f, 0, 0.5, 'inlet~')
