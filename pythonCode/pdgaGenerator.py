@@ -137,6 +137,12 @@ if (hoa_flag):
     hoag.generate_hoavbap(destLibDir)
     print('=>'+str(2*bf.maxAmbiOrder+2)+' hoa.vbap#ind.pd user abstractions generated')
     #
+    print("________________________________________________")
+    print("STEP#113 GENERATING HOA SYN DECORRELATION ABSTRACTIONS")
+    print("________________________________________________")
+    hoag.generate_hoasyndecorrelation(destLibDir)
+    print('=>'+str(bf.maxAmbiOrder)+' hoa.syndecorrelation#ind.pd user abstractions generated')
+    #
     print("\n\n\n")
     
 #
