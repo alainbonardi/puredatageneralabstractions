@@ -1,4 +1,4 @@
-#N canvas 1531 223 395 583 10;
+#N canvas 236 415 395 583 10;
 #X obj 63 328 doubledelay;
 #X obj 62 41 inlet~;
 #X obj 140 465 *~;
@@ -13,6 +13,7 @@
 #X text 193 19 fdbk;
 #X text 235 19 factor;
 #X text 284 19 easing fn;
+#X obj 10 553 pdga_helpcredit;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 2 0 4 0;

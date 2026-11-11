@@ -1,0 +1,16 @@
+#N canvas 100 392 266 405 12;
+#X msg 60 127 open zymbale.wav;
+#X obj 61 204 readsf~ 1;
+#X obj 121 239 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X msg 194 127 1;
+#X obj 60 75 t b b;
+#X obj 60 38 loadbang;
+#X obj 61 299 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 6 0;
+#X connect 1 1 2 0;
+#X connect 2 0 4 0;
+#X connect 3 0 1 0;
+#X connect 4 0 3 0;
+#X connect 4 1 0 0;
+#X connect 5 0 4 0;

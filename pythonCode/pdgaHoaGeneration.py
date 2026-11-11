@@ -942,29 +942,35 @@ def generate_hoasyndecorrelation(dDir):
         insig_id = bf.appendXObj(f, 0, 0.5, 'inlet~')
         #comment
         comment1_id = bf.appendXText(f, 0.4, 0.5, 'ambi flow')
+        #line 0.5 - common inlet for control
+        inctrl_id = bf.appendXObj(f, 1, 0.5, 'inlet')
+        #comment
+        comment2_id = bf.appendXText(f, 1.4, 0.5, 'ctrl inlet')
         #line 0.5 - inlet dmax
-        indmax_id = bf.appendXObj(f, 1, 0.5, 'inlet')
+        #indmax_id = bf.appendXObj(f, 1, 0.5, 'inlet')
         #comment
-        comment2_id = bf.appendXText(f, 1.4, 0.5, 'dmax')
+        #comment2_id = bf.appendXText(f, 1.4, 0.5, 'dmax')
         #line 0.5 - inlet fdbk
-        infdbk_id = bf.appendXObj(f, 2, 0.5, 'inlet')
+        #infdbk_id = bf.appendXObj(f, 2, 0.5, 'inlet')
         #comment
-        comment3_id = bf.appendXText(f, 2.4, 0.5, 'dmax')
+        #comment3_id = bf.appendXText(f, 2.4, 0.5, 'dmax')
         #line 0.5 - inlet factor
-        infactor_id = bf.appendXObj(f, 3, 0.5, 'inlet')
+        #infactor_id = bf.appendXObj(f, 3, 0.5, 'inlet')
         #comment
-        comment4_id = bf.appendXText(f, 3.4, 0.5, 'factor')
+        #comment4_id = bf.appendXText(f, 3.4, 0.5, 'factor')
         #line 0.5 - inlet easing fn
-        ineasing_id = bf.appendXObj(f, 4, 0.5, 'inlet')
+        #ineasing_id = bf.appendXObj(f, 4, 0.5, 'inlet')
         #comment
-        comment5_id = bf.appendXText(f, 4.4, 0.5, 'easing function')
+        #comment5_id = bf.appendXText(f, 4.4, 0.5, 'easing function')
         #line 1 - snake~ out
         snakeout_id = bf.appendXObj(f, 0, 1, 'snake~ out '+str(2*ind+1))
+        #line 1 - route
+        route_id = bf.appendXObj(f, 1, 1, 'route dmax fdbk factor function')
         #Series of syndecorrelationmod modules line 2
         for j in range(2*ind+1):
             k = bf.appendXObj(f, j*1.5, 2, 'syndecorrelationmod '+str(j)+' '+str(2*ind+1))
         #comes back to the beginning
-        syndecmult_id = snakeout_id + 1
+        syndecmult_id = route_id + 1
         #line 3 - snake~ in
         snakein_id = bf.appendXObj(f, 0, 3, 'snake~ in '+str(2*ind+1))
         #line 4 - outlet~~
@@ -973,21 +979,23 @@ def generate_hoasyndecorrelation(dDir):
         #connections
         #from inlet~ to snake~ out
         bf.appendXConnect(f, insig_id, 0, snakeout_id, 0)
+        #from inlet to route_id
+        bf.appendXConnect(f, inctrl_id, 0, route_id, 0)
         #from snake~ out outlets to syndecorrelation modules signal inputs
         for j in range(2*ind+1):
             bf.appendXConnect(f, snakeout_id, j, syndecmult_id+j, 0)
-        #from dmax inlet to all dmax inlets of syndecorrelation modules
+        #from outlet 0 of route_id to all dmax inlets of syndecorrelation modules
         for j in range(2*ind+1):
-             bf.appendXConnect(f, indmax_id, 0, syndecmult_id+j, 1)
-        #from fdbk inlet to all fdbk inlets of syndecorrelation modules
+             bf.appendXConnect(f, route_id, 0, syndecmult_id+j, 1)
+        #from outlet 1 of route_id to all fdbk inlets of syndecorrelation modules
         for j in range(2*ind+1):
-             bf.appendXConnect(f, infdbk_id, 0, syndecmult_id+j, 2)
-        #from factor inlet to all factor inlets of syndecorrelation modules
+             bf.appendXConnect(f, route_id, 1, syndecmult_id+j, 2)
+        #from outlet 2 of route_id to all factor inlets of syndecorrelation modules
         for j in range(2*ind+1):
-             bf.appendXConnect(f, infactor_id, 0, syndecmult_id+j, 3)
-        #from easing fn inlet to all easing fn inlets of syndecorrelation modules
+             bf.appendXConnect(f, route_id, 2, syndecmult_id+j, 3)
+        #from outlet 3 of route_id to all easing fn inlets of syndecorrelation modules
         for j in range(2*ind+1):
-             bf.appendXConnect(f, ineasing_id, 0, syndecmult_id+j, 4)
+             bf.appendXConnect(f, route_id, 3, syndecmult_id+j, 4)
         #from syndecorrelation modules to snake~ in
         for j in range(2*ind+1):
             bf.appendXConnect(f, syndecmult_id+j, 0, snakein_id, j)
