@@ -62,6 +62,10 @@
 #X text 788 433 sqrt(1-(x-1)^2);
 #X obj 660 537 s cmd;
 #X obj 886 61 loadbang;
+#X obj 319 242 r cmd;
+#X text 592 107 syndecorrelation controls;
+#X text 577 243 in msec;
+#X text 818 517 easing function type;
 #X connect 1 0 0 0;
 #X connect 5 0 30 0;
 #X connect 7 0 10 1;
@@ -95,3 +99,4 @@
 #X connect 37 0 38 0;
 #X connect 38 0 36 0;
 #X connect 62 0 37 0;
+#X connect 63 0 17 1;
