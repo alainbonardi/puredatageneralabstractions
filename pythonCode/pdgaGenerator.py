@@ -12,6 +12,7 @@ import pdgaMcGeneration as mcg
 import pdgaSaGeneration as sag
 import pdgaCopyHelpPatches as chp
 import pdgaCopyWholeLibrary as cwl
+from distutils.dir_util import copy_tree
 
 #origLibDir = '/Users/alainbonardi/Documents/Github/puredatageneralabstractions'
 #destLibDir = '/Users/alainbonardi/Dropbox/faustFactory/puredatageneralabstractions_factory/generated_abstractions'
@@ -46,6 +47,7 @@ print("\n\n\n")
 #destLibDir = rootPath+'/generated_pdga_abstractions'
 #provisional fixed directory
 destLibDir = '/Users/alainbonardi/Library/CloudStorage/Dropbox/pythonFactory/puredatageneralabstractions_factory/pdga'
+destLibDir2 = '/Users/alainbonardi/Documents/Pd/pdga'
 #
 if os.path.exists(destLibDir):
     print("Existing directory containing the original generated abstractions, the previous one is deleted")
@@ -297,10 +299,19 @@ else:
     print('=> help patches not copied') 
 #
 print("________________________________________________")
-print("STEP#402 COPYING THE WHOLE LIBRARY")
+print("STEP#402 COPYING THE WHOLE LIBRARY TO DESTLIBDIR")
 print("________________________________________________")
 if (cwl_flag):
     cwl.copyWholeLibrary(destLibDir)
-    print('=> whole library copied') 
+    print('=> whole library copied to destLibDir') 
+else:
+    print('=> whole library not copied') 
+#
+print("________________________________________________")
+print("STEP#403 COPYING THE WHOLE LIBRARY TO DESTLIBDIR2")
+print("________________________________________________")
+if (cwl_flag):
+    copy_tree(destLibDir, destLibDir2)
+    print('=> whole library copied to destLibDir2') 
 else:
     print('=> whole library not copied') 
