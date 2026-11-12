@@ -71,6 +71,11 @@ def copyHelpPatches(dir1, dir2):
     f = '/sa.scope-help.pd'
     for n in range(bf.maxAmbiOrder):
         shutil.copy(dir1+f, dir2+'/sa.scope'+str(n+1)+'-help.pd')
+    #hoa.syndecorrelation
+    f = '/hoa.syndecorrelation-help.pd'
+    #hoa maps
+    for n in range(bf.maxAmbiOrder):
+        shutil.copy(dir1+f, dir2+'/hoa.syndecorrelation'+str(n+1)+'-help.pd')
     #
     f = '/looper-help.pd'
     shutil.copy(dir1+f, dir2+f)

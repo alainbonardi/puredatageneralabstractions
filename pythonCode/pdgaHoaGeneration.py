@@ -943,29 +943,11 @@ def generate_hoasyndecorrelation(dDir):
         #comment
         comment1_id = bf.appendXText(f, 0.4, 0.5, 'ambi flow')
         #line 0.5 - common inlet for control
-        inctrl_id = bf.appendXObj(f, 1, 0.5, 'inlet')
+        inctrl_id = bf.appendXObj(f, 3, 0.5, 'inlet')
         #comment
-        comment2_id = bf.appendXText(f, 1.4, 0.5, 'ctrl inlet')
-        #line 0.5 - inlet dmax
-        #indmax_id = bf.appendXObj(f, 1, 0.5, 'inlet')
-        #comment
-        #comment2_id = bf.appendXText(f, 1.4, 0.5, 'dmax')
-        #line 0.5 - inlet fdbk
-        #infdbk_id = bf.appendXObj(f, 2, 0.5, 'inlet')
-        #comment
-        #comment3_id = bf.appendXText(f, 2.4, 0.5, 'dmax')
-        #line 0.5 - inlet factor
-        #infactor_id = bf.appendXObj(f, 3, 0.5, 'inlet')
-        #comment
-        #comment4_id = bf.appendXText(f, 3.4, 0.5, 'factor')
-        #line 0.5 - inlet easing fn
-        #ineasing_id = bf.appendXObj(f, 4, 0.5, 'inlet')
-        #comment
-        #comment5_id = bf.appendXText(f, 4.4, 0.5, 'easing function')
-        #line 1 - snake~ out
-        snakeout_id = bf.appendXObj(f, 0, 1, 'snake~ out '+str(2*ind+1))
+        comment2_id = bf.appendXText(f, 3.4, 0.5, 'ctrl inlet')
         #line 1 - route
-        route_id = bf.appendXObj(f, 1, 1, 'route dmax fdbk factor function')
+        route_id = bf.appendXObj(f, 3, 1, 'route dmax fdbk factor function')
         #Series of syndecorrelationmod modules line 2
         for j in range(2*ind+1):
             k = bf.appendXObj(f, j*1.5, 2, 'syndecorrelationmod '+str(j)+' '+str(2*ind+1))
@@ -977,13 +959,10 @@ def generate_hoasyndecorrelation(dDir):
         outlet_id = bf.appendXObj(f, 0, 4, 'outlet~')
         #
         #connections
-        #from inlet~ to snake~ out
-        bf.appendXConnect(f, insig_id, 0, snakeout_id, 0)
-        #from inlet to route_id
         bf.appendXConnect(f, inctrl_id, 0, route_id, 0)
         #from snake~ out outlets to syndecorrelation modules signal inputs
         for j in range(2*ind+1):
-            bf.appendXConnect(f, snakeout_id, j, syndecmult_id+j, 0)
+            bf.appendXConnect(f, insig_id, 0, syndecmult_id+j, 0)
         #from outlet 0 of route_id to all dmax inlets of syndecorrelation modules
         for j in range(2*ind+1):
              bf.appendXConnect(f, route_id, 0, syndecmult_id+j, 1)
