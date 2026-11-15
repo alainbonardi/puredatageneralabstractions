@@ -35,14 +35,14 @@
 #X obj 194 514 hoa.decoder3_8;
 #X obj 275 478 r ctl3;
 #X obj 20 554 mc.meter8;
-#X msg 626 602 \; n11 freq 10 \; n11 ratio 31 \; ctl3 a0 0 \; ctl3 a1 45 \; ctl3 a2 90 \; ctl3 a3 135 \; ctl3 a4 180 \; ctl3 a5 225 \; ctl3 a6 270 \; ctl3 a7 315 \; ctl3 stereo 0 \; ctl3 direct 1 \; ctl3 shift 0 \;;
 #X obj 515 726 s ctl3;
 #X obj 195 705 mc.gain8;
+#X msg 626 602 \; n11 freq 10 \; n11 ratio 31 \; ctl3 a0 0 \; ctl3 a1 45 \; ctl3 a2 90 \; ctl3 a3 135 \; ctl3 a4 180 \; ctl3 a5 225 \; ctl3 a6 270 \; ctl3 a7 315 \; ctl3 stereo 0 \; ctl3 direct 0 \; ctl3 shift 0 \;;
 #X connect 1 0 0 0;
-#X connect 6 0 38 1;
+#X connect 6 0 37 1;
 #X connect 8 0 30 0;
 #X connect 9 0 8 0;
-#X connect 10 0 36 0;
+#X connect 10 0 38 0;
 #X connect 10 0 25 0;
 #X connect 11 0 19 0;
 #X connect 11 0 31 1;
@@ -52,7 +52,7 @@
 #X connect 14 0 13 0;
 #X connect 15 0 18 0;
 #X connect 16 0 17 0;
-#X connect 17 0 37 0;
+#X connect 17 0 36 0;
 #X connect 18 0 16 0;
 #X connect 27 0 26 0;
 #X connect 28 0 27 0;
@@ -61,6 +61,6 @@
 #X connect 31 0 32 0;
 #X connect 32 0 33 0;
 #X connect 33 0 35 0;
-#X connect 33 0 38 0;
+#X connect 33 0 37 0;
 #X connect 34 0 33 1;
-#X connect 38 0 5 0;
+#X connect 37 0 5 0;
