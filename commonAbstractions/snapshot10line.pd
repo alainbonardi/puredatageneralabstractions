@@ -10,7 +10,7 @@
 #X obj 98 97 inlet~;
 #X obj 174 359 outlet;
 #X obj 10 550 pdga_helpcredit;
-#X text 25 25 Encoder control;
+#X text 25 25;
 #X connect 0 0 2 0;
 #X connect 1 0 6 0;
 #X connect 2 0 3 0;

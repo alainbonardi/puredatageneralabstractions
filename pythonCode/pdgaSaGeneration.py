@@ -128,28 +128,54 @@ def generate_saencoders(dDir):
         bf.incObjInd()
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
+        
+        #line 0.5 - loadbang
+        lbng_id = bf.appendXObj(f, 2, 0.5, 'loadbang')
         #line 0.5 - sig~ 1
-        sig1_id = bf.appendXObj(f, 0, 0.5, 'sig~ 1')
+        sig1_id = bf.appendXObj(f, 3, 0.5, 'sig~ 1')
         #inlet~ for the phase
-        in_id = bf.appendXObj(f, 1.5, 0.5, 'inlet~')
+        in_id = bf.appendXObj(f, 4.5, 0.5, 'inlet~')
+        #line 0.75 - constant messages = 0 and 1
+        msg0_id = bf.appendXMsg(f, 2, 0.75, '0')
         #line 1 - phasesmoother abstraction
-        phsmoo_id = bf.appendXObj(f, 1.5, 1, 'phasesmoother')
+        phsmoo_id = bf.appendXObj(f, 4.5, 1.5, 'phasesmoother')
         #line 2 - *~ multipliers
         for j in range(ind):
-            k = bf.appendXObj(f, 1.5+j*0.5, 2, '*~ '+str(j+1))
+            k = bf.appendXObj(f, 4.5+j*0.5, 2, '*~ '+str(j+1))
         #comes back to the first *~
         mult_id = phsmoo_id + 1
         #line 3 - snake~ in 
-        snakein_id = bf.appendXObj(f, 0, 3, 'snake~ in '+str(2*ind+1))
+        snakein_id = bf.appendXObj(f, 3, 3, 'snake~ in '+str(2*ind+1))
         #line 4 - outlet~
-        out_id = bf.appendXObj(f, 0, 4, 'outlet~')
+        out_id = bf.appendXObj(f, 3, 4, 'outlet~')
+        #adds the elements for the canvas (phase slider)
+        numbox1_id = bf.appendXObj(f, 1.26, 0.68, 'numbox~ 6 10 100 #c0c0c4 #440008 10 0 0 0;')
+        hsl1_id = bf.appendXObj(f, 0.21, 0.68, 'hsl 100 14 0 1 0 0 empty empty phase -2 -10 0 10 #fcfcfc #000000 #000000 0 1;')
+        #adds 1 dblecontrol abstractions
+        dblec1_id = bf.appendXObj(f, 0, 1.25, 'dblectrl')
+        #adds a bang to reset to default values
+        bng_id = bf.appendXObj(f, 1.7, 0.37, 'bng 16 250 50 0 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000;')
 
         #writes the connections
+        #hsl1 to dblec 1
+        bf.appendXConnect(f, hsl1_id, 0, dblec1_id, 0)
+        #inlet~ 1 to dblec 1, dblec1 to numbox1, numbox1 to encoder, encoder to snake~ out
+        bf.appendXConnect(f, in_id, 0, dblec1_id, 1)
+        bf.appendXConnect(f, dblec1_id, 0, numbox1_id, 0)
+        bf.appendXConnect(f, numbox1_id, 0, phsmoo_id, 0)
+        #bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
+        #hsl1 to numbox1
+        bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
+        #connects loadbang to bng
+        bf.appendXConnect(f, lbng_id, 0, bng_id, 0)
+        #connects the message to the hslider
+        bf.appendXConnect(f, msg0_id, 0, hsl1_id, 0)
+        #
         #connects the sig~ 1 to the first (ind+1) inlets of snake~ in
         for j in range(ind+1):
             bf.appendXConnect(f, sig1_id, 0, snakein_id, j)
         #connects the inlet~ to phasesmoother
-        bf.appendXConnect(f, in_id, 0, phsmoo_id, 0)
+        #bf.appendXConnect(f, in_id, 0, phsmoo_id, 0)
         #connects the outlet of phasesmoother to all the inlets of the *~~
         for j in range(ind):
             bf.appendXConnect(f, phsmoo_id, 0, mult_id+j, 0)
@@ -158,6 +184,15 @@ def generate_saencoders(dDir):
             bf.appendXConnect(f, mult_id+j, 0, snakein_id, ind+1+j)
         #connects the outlet of the snake~ in to the inlet of the outlet~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
+        
+        #connects bang to message 0
+        bf.appendXConnect(f, bng_id, 0, msg0_id, 0)
+        #connects the right outlet of dblecntrl to the slider
+        bf.appendXConnect(f, dblec1_id, 1, hsl1_id, 0)
+        
+        #canvas definition
+        f.write('#X coords 0 -1 1 1 174 50 1 40 60;')
+        
         f.close()
         
         
@@ -196,6 +231,7 @@ def generate_saAddSource(dDir):
         snakein_id = bf.appendXObj(f, 0, 3, 'snake~ in '+str(2*ind+1))
         #line 4 - outlet~
         out_id = bf.appendXObj(f, 0, 4, 'outlet~')
+        
 
         #writes the connections
         #inlet~ 1 to snake~ out
@@ -323,7 +359,10 @@ def generate_samap(dDir):
         bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
         #hsl2 to numbox2
         bf.appendXConnect(f, hsl2_id, 0, numbox2_id, 0)
-        
+        #connects the right outlet of dblecntrls to the sliders
+        bf.appendXConnect(f, dblec1_id, 1, hsl1_id, 0)
+        bf.appendXConnect(f, dblec2_id, 1, hsl2_id, 0)
+
         #canvas definition
         f.write('#X coords 0 -1 1 1 174 80 1 40 60;')
 
