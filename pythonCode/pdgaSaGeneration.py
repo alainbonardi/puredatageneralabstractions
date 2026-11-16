@@ -236,41 +236,75 @@ def generate_samap(dDir):
         f.write(bf.patchAbstractionCnv1_2+ ' sa\ map\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
 
-
-        #line 0.5 - inlet 1 for phase
-        in1_id = bf.appendXObj(f, 1, 0.5, 'inlet~')
+        #line 0.5 - loadbang
+        lbng_id = bf.appendXObj(f, 2, 0.5, 'loadbang')
+        #line 0.5 - inlet~ 1 for phase
+        in1_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
         #line 0.5 - inlet~ 2 for distance
-        in2_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
+        in2_id = bf.appendXObj(f, 4, 0.5, 'inlet~')
+        #line 0.75 - constant messages = 0 and 1
+        msg0_id = bf.appendXMsg(f, 2, 0.75, '0')
+        msg1_id = bf.appendXMsg(f, 2.5, 0.75, '1')
         #line 1 - sa.encoder(2*ind+1) 
-        encoder_id = bf.appendXObj(f, 1, 1, 'sa.encoder'+str(ind))
+        encoder_id = bf.appendXObj(f, 3, 1, 'sa.encoder'+str(ind))
         #line 1 - snapshot10line
-        snap_id = bf.appendXObj(f, 3, 1, 'snapshot10line')
+        snap_id = bf.appendXObj(f, 4, 1, 'snapshot10line')
         #line 1.5 - snake~ out
-        snakeout_id = bf.appendXObj(f, 1, 1.5, 'snake~ out '+str(2*ind+1))
+        snakeout_id = bf.appendXObj(f, 3, 1.5, 'snake~ out '+str(2*ind+1))
         #line 1.5 - list of mapweight
         for j in range(ind+1):
-            k = bf.appendXObj(f, 3+j, 1.5, 'mapweight '+str(ind)+' '+str(j))
+            k = bf.appendXObj(f, 4+j, 1.5, 'mapweight '+str(ind)+' '+str(j))
         #comes back to the beginning
         mapweight_id = snakeout_id + 1
         #line 2 - sig~ objects under the mapweight abstractions
         for j in range(ind+1):
-            k = bf.appendXObj(f, 3+j, 2, 'sig~')
+            k = bf.appendXObj(f, 4+j, 2, 'sig~')
         #comes back to the first one
         sig_id = mapweight_id + ind + 1
         #line 3 - snake~ in
-        snakein_id = bf.appendXObj(f, 3, 3, 'snake~ in '+str(2*ind+1)+' -------')
+        snakein_id = bf.appendXObj(f, 4, 3, 'snake~ in '+str(2*ind+1)+' -------')
         #line 5 - outlet~
-        out_id = bf.appendXObj(f, 1, 5, 'outlet~')
-        
+        out_id = bf.appendXObj(f, 4, 5, 'outlet~')
+        #
+        #adds an interface (inside a canvas defined below => X coords)
+        numbox1_id = bf.appendXObj(f, 1.26, 0.68, 'numbox~ 6 10 100 #c0c0c4 #440008 10 0 0 0;')
+        numbox2_id = bf.appendXObj(f, 1.26, 0.98, 'numbox~ 6 10 100 #c0c0c4 #440008 10 0 0 0;')
+        hsl1_id = bf.appendXObj(f, 0.21, 0.68, 'hsl 100 14 0 1 0 0 empty empty phase -2 -10 0 10 #fcfcfc #000000 #000000 0 1;')
+        hsl2_id = bf.appendXObj(f, 0.21, 0.98, 'hsl 100 14 0 5 0 0 empty empty distance -2 -10 0 10 #fcfcfc #000000 #000000 0 1;')  
+        #adds 2 dblecontrol abstractions
+        dblec1_id = bf.appendXObj(f, 0, 1.25, 'dblectrl')
+        dblec2_id = bf.appendXObj(f, 1, 1.25, 'dblectrl')
+        #adds a bang to reset to default values
+        bng_id = bf.appendXObj(f, 1.7, 0.37, 'bng 16 250 50 0 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000;')
+
+        #
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         
         #connections
-        #inlet~ 1 to encoder and encoder to snake~ out if it is a map
-        bf.appendXConnect(f, in1_id, 0, encoder_id, 0)
-        bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)         
-        #inlet~ 2 to snapshot10line
-        bf.appendXConnect(f, in2_id, 0, snap_id, 0)
+        #hsl1 to dblec 1
+        bf.appendXConnect(f, hsl1_id, 0, dblec1_id, 0)
+        #hsl2 to dblec 2
+        bf.appendXConnect(f, hsl2_id, 0, dblec2_id, 0)
+        #inlet~ 1 to dblec 1, dblec1 to numbox1, numbox1 to encoder, encoder to snake~ out
+        bf.appendXConnect(f, in1_id, 0, dblec1_id, 1)
+        bf.appendXConnect(f, dblec1_id, 0, numbox1_id, 0)
+        bf.appendXConnect(f, numbox1_id, 0, encoder_id, 0)
+        bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)   
+        #inlet~ 2 to dblec 2, dblec2 to numbox2, numbox2 to snapshot10line
+        bf.appendXConnect(f, in2_id, 0, dblec2_id, 1)
+        bf.appendXConnect(f, dblec2_id, 0, numbox2_id, 0)
+        bf.appendXConnect(f, numbox2_id, 0, snap_id, 0)
+        #bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)  
+        #connects loadbang to bng
+        bf.appendXConnect(f, lbng_id, 0, bng_id, 0)
+        #connects the messages to the hsliders
+        bf.appendXConnect(f, msg0_id, 0, hsl1_id, 0)
+        bf.appendXConnect(f, msg1_id, 0, hsl2_id, 0)
+        #connects bang to messages 0 and 1
+        bf.appendXConnect(f, bng_id, 0, msg0_id, 0)
+        bf.appendXConnect(f, bng_id, 0, msg1_id, 0)
+        #
         #snapshot10line to all mapweight abstractions
         for j in range(ind+1):
             bf.appendXConnect(f, snap_id, 0, mapweight_id+j, 0)
@@ -285,6 +319,14 @@ def generate_samap(dDir):
             bf.appendXConnect(f, snakeout_id, j+ind+1, snakein_id, j+ind+1)
         #snake~ in to outlet~~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
+        #hsl1 to numbox1
+        bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
+        #hsl2 to numbox2
+        bf.appendXConnect(f, hsl2_id, 0, numbox2_id, 0)
+        
+        #canvas definition
+        f.write('#X coords 0 -1 1 1 174 80 1 40 60;')
+
         
         f.close()
         

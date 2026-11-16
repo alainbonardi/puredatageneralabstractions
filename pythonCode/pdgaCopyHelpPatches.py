@@ -59,10 +59,10 @@ def copyHelpPatches(dir1, dir2):
     #sa widens
     for n in range(bf.maxAmbiOrder):
         shutil.copy(dir1+f, dir2+'/sa.widen'+str(n+1)+'-help.pd')
-    #
+    #vbap without vbap1
     f = '/hoa.vbap-help.pd'
-    for n in range(2*bf.maxAmbiOrder+2):
-        shutil.copy(dir1+f, dir2+'/hoa.vbap'+str(n+1)+'-help.pd')
+    for n in range(2*bf.maxAmbiOrder+1):
+        shutil.copy(dir1+f, dir2+'/hoa.vbap'+str(n+2)+'-help.pd')
     #hoa.scopes
     f = '/hoa.scope-help.pd'
     for n in range(bf.maxAmbiOrder):
@@ -143,6 +143,9 @@ def copyHelpPatches(dir1, dir2):
     shutil.copy(dir1+f, dir2+f)
     #
     f = '/scope-help.pd'
+    shutil.copy(dir1+f, dir2+f)
+    #
+    f = '/lfo-help.pd'
     shutil.copy(dir1+f, dir2+f)
     #
     f = '/selector2-help.pd'
