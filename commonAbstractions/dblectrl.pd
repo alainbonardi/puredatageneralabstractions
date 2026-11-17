@@ -12,8 +12,8 @@
 #X obj 178 85 snapshot10line;
 #X obj 178 110 sel 0 1;
 #X msg 178 146 color #dfdfdf #000000 #000000;
-#X msg 367 146 color #000000 #000000 #000000;
 #X obj 178 177 outlet;
+#X msg 367 146 color #ffffff #ffffff #ffffff;
 #X connect 1 0 5 0;
 #X connect 3 0 6 0;
 #X connect 3 0 8 1;
@@ -23,7 +23,7 @@
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 10 0 11 0;
-#X connect 11 0 13 0;
+#X connect 11 0 14 0;
 #X connect 11 1 12 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
+#X connect 12 0 13 0;
+#X connect 14 0 13 0;

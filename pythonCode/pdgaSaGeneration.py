@@ -135,7 +135,7 @@ def generate_saencoders(dDir):
         sig1_id = bf.appendXObj(f, 3, 0.5, 'sig~ 1')
         #inlet~ for the phase
         in_id = bf.appendXObj(f, 4.5, 0.5, 'inlet~')
-        #line 0.75 - constant messages = 0 and 1
+        #line 0.75 - constant message at 0
         msg0_id = bf.appendXMsg(f, 2, 0.75, '0')
         #line 1 - phasesmoother abstraction
         phsmoo_id = bf.appendXObj(f, 4.5, 1.5, 'phasesmoother')
@@ -165,7 +165,7 @@ def generate_saencoders(dDir):
         bf.appendXConnect(f, numbox1_id, 0, phsmoo_id, 0)
         #bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
         #hsl1 to numbox1
-        bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
+        #bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
         #connects loadbang to bng
         bf.appendXConnect(f, lbng_id, 0, bng_id, 0)
         #connects the message to the hslider
@@ -356,9 +356,9 @@ def generate_samap(dDir):
         #snake~ in to outlet~~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
         #hsl1 to numbox1
-        bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
+        #bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
         #hsl2 to numbox2
-        bf.appendXConnect(f, hsl2_id, 0, numbox2_id, 0)
+        #bf.appendXConnect(f, hsl2_id, 0, numbox2_id, 0)
         #connects the right outlet of dblecntrls to the sliders
         bf.appendXConnect(f, dblec1_id, 1, hsl1_id, 0)
         bf.appendXConnect(f, dblec2_id, 1, hsl2_id, 0)
@@ -389,34 +389,62 @@ def generate_sawiden(dDir):
         f.write(bf.patchAbstractionCnv1_2+ ' sa\ widen\ at\ order\ '+str(ind)+' '+bf.patchAbstractionCnv2_2+'\n')
         bf.incObjInd()
 
-
-        #line 0.5 - inlet 1 for phase
-        in1_id = bf.appendXObj(f, 1, 0.5, 'inlet~')
-        #line 0.5 - inlet~ 2 for distance
-        in2_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
+        #line 0.5 - loadbang
+        lbng_id = bf.appendXObj(f, 2, 0.5, 'loadbang')
+        #line 0.5 - inlet 1 for ambisonic signal
+        in1_id = bf.appendXObj(f, 3, 0.5, 'inlet~')
+        #line 0.5 - inlet~ 2 for w
+        in2_id = bf.appendXObj(f, 5, 0.5, 'inlet~')
+        #line 0.75 - constant message at 0
+        msg0_id = bf.appendXMsg(f, 2, 0.75, '0')
         #line 1 - snapshot10line
-        snap_id = bf.appendXObj(f, 3, 1, 'snapshot10line')
+        snap_id = bf.appendXObj(f, 5, 1, 'snapshot10line')
         #line 1.5 - snake~ out
-        snakeout_id = bf.appendXObj(f, 1, 1.5, 'snake~ out '+str(2*ind+1))
+        snakeout_id = bf.appendXObj(f, 3, 1.5, 'snake~ out '+str(2*ind+1))
         #line 1.5 - list of mapweight
         for j in range(ind+1):
-            k = bf.appendXObj(f, 3+j, 1.5, 'widenweight '+str(ind)+' '+str(j))
+            k = bf.appendXObj(f, 5+j, 1.5, 'widenweight '+str(ind)+' '+str(j))
         #comes back to the beginning
         widenweight_id = snakeout_id + 1
         #line 2 - *~ objects under the mapweight abstractions
         for j in range(ind+1):
-            k = bf.appendXObj(f, 1+j, 2.5, '*~')
+            k = bf.appendXObj(f, 3+j, 2.5, '*~')
         #comes back to the first one
         mult_id = widenweight_id + ind + 1
         #line 3 - snake~ in
-        snakein_id = bf.appendXObj(f, 1, 3, 'snake~ in '+str(2*ind+1)+' -------')
+        snakein_id = bf.appendXObj(f, 3, 3, 'snake~ in '+str(2*ind+1)+' -------')
         #line 5 - outlet~
-        out_id = bf.appendXObj(f, 1, 5, 'outlet~')
+        out_id = bf.appendXObj(f, 3, 5, 'outlet~')
+        #adds the elements for the canvas (w slider)
+        numbox1_id = bf.appendXObj(f, 1.26, 0.68, 'numbox~ 6 10 100 #c0c0c4 #440008 10 0 0 0;')
+        hsl1_id = bf.appendXObj(f, 0.21, 0.68, 'hsl 100 14 0 1 0 0 empty empty w -2 -10 0 10 #fcfcfc #000000 #000000 0 1;')
+        #adds 1 dblecontrol abstractions
+        dblec1_id = bf.appendXObj(f, 0, 1.25, 'dblectrl')
+        #adds a bang to reset to default values
+        bng_id = bf.appendXObj(f, 1.7, 0.37, 'bng 16 250 50 0 empty empty empty 0 -8 0 10 #fcfcfc #000000 #000000;')
+        
         
         f.write(bf.patchMiddleCredits)
         bf.incObjInd()
         
         #connections
+        #hsl1 to dblec 1
+        bf.appendXConnect(f, hsl1_id, 0, dblec1_id, 0)
+        #inlet~ 1 to dblec 1, dblec1 to numbox1, numbox1 to encoder, encoder to snake~ out
+        bf.appendXConnect(f, in2_id, 0, dblec1_id, 1)
+        bf.appendXConnect(f, dblec1_id, 0, numbox1_id, 0)
+        bf.appendXConnect(f, numbox1_id, 0, snap_id, 0)
+        #bf.appendXConnect(f, encoder_id, 0, snakeout_id, 0)
+        #hsl1 to numbox1
+        #bf.appendXConnect(f, hsl1_id, 0, numbox1_id, 0)
+        #connects loadbang to bng
+        bf.appendXConnect(f, lbng_id, 0, bng_id, 0)
+        #connects the message to the hslider
+        bf.appendXConnect(f, msg0_id, 0, hsl1_id, 0)
+        #connects the bang to the message 0
+        bf.appendXConnect(f, bng_id, 0, msg0_id, 0)
+        #the right outlet of dblec1 to the inlet of the slider
+        bf.appendXConnect(f, dblec1_id, 1, hsl1_id, 0)
         #inlet~ 1 to snake~ out if it is a map
         bf.appendXConnect(f, in1_id, 0, snakeout_id, 0)       
         #inlet~ 2 to snapshot10line
@@ -438,5 +466,8 @@ def generate_sawiden(dDir):
             bf.appendXConnect(f, snakeout_id, j+ind+1, snakein_id, j+ind+1)
         #snake~ in to outlet~~
         bf.appendXConnect(f, snakein_id, 0, out_id, 0)
+        
+        #canvas definition
+        f.write('#X coords 0 -1 1 1 174 50 1 40 60;')
         
         f.close()
