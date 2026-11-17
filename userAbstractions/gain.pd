@@ -19,6 +19,7 @@
 #X obj 149 16 loadbang;
 #X obj 149 40 f \$1;
 #X obj 166 210 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
+#X text 100 97 gain;
 #X connect 0 0 1 0;
 #X connect 1 0 2 1;
 #X connect 3 0 13 0;
@@ -38,4 +39,4 @@
 #X connect 17 0 18 0;
 #X connect 18 0 4 0;
 #X connect 19 0 18 0;
-#X coords 0 -1 1 1 85 145 1 100 100;
+#X coords 0 -1 1 1 85 145 2 100 100;

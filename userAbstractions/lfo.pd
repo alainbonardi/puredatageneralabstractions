@@ -61,6 +61,7 @@
 #X obj 57 191 hsl 136 14 -5 5 0 0 empty empty scale -2 -8 0 8 #dfdfdf #000000 #000000 0 1;
 #X floatatom 202 192 5 0 0 0 - - - 8;
 #X obj 182 238 else/numbox~ 6 8 100 #dfdfdf #440008 10 0 0 0;
+#X text 50 50 lfo;
 #X connect 0 0 24 0;
 #X connect 2 0 3 0;
 #X connect 3 0 19 0;
@@ -99,4 +100,4 @@
 #X connect 24 6 25 0;
 #X connect 25 0 26 0;
 #X connect 26 0 19 6;
-#X coords 0 -1 1 1 185 222 1 50 50;
+#X coords 0 -1 1 1 185 222 2 50 50;

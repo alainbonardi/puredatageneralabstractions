@@ -4,7 +4,6 @@
 #X obj 14 6 cnv 15 500 25 empty empty lfo\ abstraction 20 12 0 18 #606060 #fcfcfc 0;
 #X obj 14 32 cnv 15 500 25 empty empty LFO\ generator 20 12 0 12 #606060 #fcfcfc 0;
 #X obj 12 662 pdga_helpcredit;
-#X obj 196 199 lfoUnit;
 #X floatatom 374 451 5 0 0 0 - - - 0;
 #X obj 196 512 else/scope~ 200 100 256 3 128 -2 2 0 0 0 0 30 30 30 190 190 190 160 160 160 0 empty;
 #X listbox 208 485 10 0 0 0 - - - 10;
@@ -16,10 +15,11 @@
 #X text 637 195 LFO controls;
 #X obj 600 163 loadbang;
 #X msg 598 306 \; lfo1 freq 3 \; lfo1 rarefaction 0.2 \; lfo1 sig 4 \; lfo1 scale 1.5 \;;
+#X obj 196 199 lfo;
 #X connect 1 0 0 0;
-#X connect 5 0 7 0;
-#X connect 5 1 6 0;
+#X connect 7 0 6 0;
 #X connect 8 0 7 0;
-#X connect 9 0 8 0;
-#X connect 10 0 5 0;
-#X connect 15 0 13 0;
+#X connect 9 0 16 0;
+#X connect 14 0 12 0;
+#X connect 16 0 6 0;
+#X connect 16 1 5 0;

@@ -2,16 +2,16 @@
 #X obj 334 468 *~;
 #X obj 497 433 line~;
 #X msg 496 410 \$1 20;
-#X obj 257 117 hsl 80 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 250 121 hsl 80 15 0 1 0 0 empty empty vol -2 -8 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 393 372 bang;
 #X obj 393 407 f 0;
-#X obj 206 116 tgl 15 0 empty empty loop 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 199 120 tgl 15 0 empty empty loop 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X text 422 369 loop;
 #X obj 333 168 openpanel;
-#X obj 110 116 bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000;
+#X obj 103 120 bng 15 250 50 0 empty empty open 17 7 0 10 #0c4044 #000000 #000000;
 #X obj 333 191 list prepend set open;
 #X obj 333 215 list trim;
-#X obj 157 116 tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 150 120 tgl 15 0 empty empty play 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 236 202 t f b;
 #X obj 334 546 outlet~;
 #X obj 254 35 inlet;
@@ -24,6 +24,7 @@
 #X obj 434 547 outlet~;
 #X obj 484 547 outlet~;
 #X msg 333 239;
+#X text 102 100 quadriplayer;
 #X connect 0 0 14 0;
 #X connect 1 0 0 1;
 #X connect 1 0 16 1;
@@ -54,4 +55,4 @@
 #X connect 19 0 22 0;
 #X connect 20 0 23 0;
 #X connect 24 0 18 0;
-#X coords 0 -1 1 1 250 40 1 100 100;
+#X coords 0 -1 1 1 240 40 1 100 100;

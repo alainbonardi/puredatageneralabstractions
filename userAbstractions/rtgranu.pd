@@ -23,10 +23,10 @@
 #X obj 827 285 noise~;
 #X obj 828 337 samphold~;
 #X obj 882 445 samphold~ 0.001;
-#X floatatom 110 124 5 1 10000 1 grainduration_(ms) - - 0;
-#X floatatom 261 123 5 0 1 1 rarefaction - - 0;
-#X floatatom 110 146 5 0 5000 1 delay_max_(ms) - - 0;
-#X floatatom 261 145 5 0 0.99999 1 fdbk - - 0;
+#X floatatom 103 126 5 1 10000 1 grainduration_(ms) - - 0;
+#X floatatom 254 125 5 0 1 1 rarefaction - - 0;
+#X floatatom 103 148 5 0 5000 1 delay_max_(ms) - - 0;
+#X floatatom 254 147 5 0 0.99999 1 fdbk - - 0;
 #X obj 597 769 outlet~;
 #X obj 109 17 inlet;
 #X obj 109 58 route grainduration rarefaction delay fdbk vol;
@@ -39,6 +39,7 @@
 #X obj 673 539 delread4~ \$0-granusig;
 #X obj 206 304 expr 2*$f1-1;
 #X obj 131 361 gt~;
+#X text 100 101 rtgranu;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 2 0 6 1;
@@ -84,4 +85,4 @@
 #X connect 37 0 10 1;
 #X connect 38 0 5 0;
 #X connect 39 0 16 0;
-#X coords 0 -1 1 1 270 65 1 100 100;
+#X coords 0 -1 1 1 260 65 2 100 100;

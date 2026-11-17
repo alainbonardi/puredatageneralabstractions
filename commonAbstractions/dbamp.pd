@@ -12,6 +12,7 @@
 #X msg 120 166 -100;
 #X msg 34 250 amp \$1;
 #X obj 12 310 pdga_helpcredit;
+#X text 30 55 dbamp;
 #X connect 0 0 2 0;
 #X connect 1 0 3 0;
 #X connect 2 0 11 0;

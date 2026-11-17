@@ -1,8 +1,8 @@
 #N canvas 641 37 591 855 10;
 #X obj 54 45 inlet~;
 #X obj 42 1045 outlet~;
-#X floatatom 158 220 5 1 4096 1 window - - 0;
-#X floatatom 59 220 5 -2400 2400 1 transpo - - 0;
+#X floatatom 153 222 5 1 4096 1 window - - 0;
+#X floatatom 54 222 5 -2400 2400 1 transpo - - 0;
 #X obj 133 349 + 6000;
 #X obj 133 373 * 0.01;
 #X obj 133 398 mtof;
@@ -25,8 +25,8 @@
 #X obj 150 756 *~;
 #X obj 342 798 *~;
 #X obj 56 316 t b b b f;
-#X text 191 229 1-4096;
-#X text 93 228 midicents;
+#X text 186 231 1-4096;
+#X text 88 230 midicents;
 #X obj 150 797 +~ 2;
 #X obj 171 905 *~;
 #X obj 341 744 +~ 0.5;
@@ -48,6 +48,7 @@
 #X obj 150 831 delread4~ \$0-harmosig;
 #X obj 341 857 delread4~ \$0-harmosig;
 #X obj 227 102 route transpo window;
+#X text 50 201 simpleharmo;
 #X connect 0 0 45 0;
 #X connect 2 0 22 0;
 #X connect 3 0 25 0;
@@ -108,4 +109,4 @@
 #X connect 47 0 39 0;
 #X connect 48 0 3 0;
 #X connect 48 1 2 0;
-#X coords 0 -1 1 1 190 45 1 50 200;
+#X coords 0 -1 1 1 185 45 2 50 200;

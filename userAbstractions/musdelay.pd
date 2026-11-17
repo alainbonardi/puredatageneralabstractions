@@ -4,7 +4,7 @@
 #X obj 315 346 clip 0 1;
 #X obj 300 501 *~;
 #X obj 54 17 inlet~;
-#X floatatom 105 118 5 0 32 1 duration_(musical_u.) - - 0;
+#X floatatom 105 120 5 0 32 1 duration_(musical_u.) - - 0;
 #X floatatom 105 170 5 1 1000 1 - - - 0;
 #X floatatom 244 150 5 0 0.99999 1 fdbk - - 0;
 #X obj 107 684 outlet~;
@@ -20,6 +20,7 @@
 #X obj 187 202 t b f;
 #X obj 54 566 delwrite~ \$0-musdel 30000;
 #X obj 107 383 delread~ \$0-musdel;
+#X text 101 99 musdelay;
 #X connect 1 0 3 1;
 #X connect 2 0 10 0;
 #X connect 3 0 19 0;
@@ -43,4 +44,4 @@
 #X connect 18 1 16 1;
 #X connect 20 0 3 0;
 #X connect 20 0 8 0;
-#X coords 0 -1 1 1 210 90 1 100 100;
+#X coords 0 -1 1 1 210 90 2 100 100;
